@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Restaurant_management_system.WebUI.Data;
+namespace Restaurant_management_system.Infrastructure.Data;
 
 public class ApplicationDbContext : IdentityDbContext
 {
