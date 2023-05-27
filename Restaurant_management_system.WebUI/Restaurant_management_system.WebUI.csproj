@@ -31,4 +31,10 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Tables\" />
+  </ItemGroup>
 </Project>
