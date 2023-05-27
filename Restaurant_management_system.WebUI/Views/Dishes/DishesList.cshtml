@@ -1,0 +1,32 @@
+﻿@*@@model List<Restaurant_management_system.Core.DishesAggregate.DishEntity>*@
+@model List<Restaurant_management_system.WebUI.ViewModels.DishDTO>
+@{
+    ViewData["Title"] = "Dishes List";
+}
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Dish name</th>
+                <th>Time of ordering</th>
+                <th>Done</th>
+                <th>Taken away</th>
+                <th>Prioritized</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DishName</td>
+                    <td>@item.TimeOfOrdering</td>
+                    <td>@item.IsDone</td>
+                    <td>@item.IsTakenAway</td>
+                    <td>@item.IsPrioritized</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
