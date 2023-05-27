@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
-public class DishesController : Controller
+public class KitchenController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly RestaurantContext _context;
 
-    public DishesController(ILogger<HomeController> logger, RestaurantContext context)
+    public KitchenController(ILogger<HomeController> logger, RestaurantContext context)
     {
         _logger = logger;
         _context = context;
@@ -35,6 +35,18 @@ public class DishesController : Controller
             .ToList();
 
         return View(listOfDishes);
+    }
+
+    [HttpGet]
+    public IActionResult SupplyOfProducts()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet]
+    public IActionResult Cooks()
+    {
+        throw new NotImplementedException();
     }
 }
 

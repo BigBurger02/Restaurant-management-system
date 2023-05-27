@@ -31,10 +31,4 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Views\Dishes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Dishes\" />
-  </ItemGroup>
 </Project>
