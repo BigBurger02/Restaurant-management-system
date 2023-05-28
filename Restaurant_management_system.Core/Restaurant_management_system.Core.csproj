@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <None Remove="DishesAggregate\" />
+    <None Remove="TablesAggregate\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DishesAggregate\" />
+    <Folder Include="TablesAggregate\" />
   </ItemGroup>
 </Project>
