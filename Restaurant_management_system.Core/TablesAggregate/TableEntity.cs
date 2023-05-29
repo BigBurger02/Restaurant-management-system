@@ -3,7 +3,6 @@
 public class TableEntity
 {
     public int ID { get; set; }
-    public int TableNumber { get; set; }
     public bool IsOccupied { get; set; } = false;
     public int AmountOfGuests { get; set; }
     public int OrderCost { get; set; } = 0;

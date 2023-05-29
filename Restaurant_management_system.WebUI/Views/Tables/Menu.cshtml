@@ -1,3 +1,26 @@
-﻿@{
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.MenuDTO>
+@{
     ViewData["Title"] = "Menu";
 }
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Ingredients</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.Name</th>
+                    <th>@item.Price</th>
+                    <th>@item.IngredientsNames</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

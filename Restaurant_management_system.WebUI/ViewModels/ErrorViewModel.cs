@@ -1,4 +1,4 @@
-﻿namespace Restaurant_management_system.WebUI.Models;
+﻿namespace Restaurant_management_system.WebUI.ViewModels;
 
 public class ErrorViewModel
 {

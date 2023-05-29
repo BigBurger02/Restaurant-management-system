@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant_management_system.WebUI.Models;
+using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 

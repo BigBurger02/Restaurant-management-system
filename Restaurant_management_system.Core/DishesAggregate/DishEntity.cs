@@ -3,6 +3,7 @@
 public class DishEntity
 {
     public int ID { get; set; }
+    public int OrderID { get; set; }
     public string DishName { get; set; } = string.Empty;
     public string DateOfOrdering { get; set; } = string.Empty;
     public bool IsDone { get; set; } = false;

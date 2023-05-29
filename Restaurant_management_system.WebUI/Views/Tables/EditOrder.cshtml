@@ -1,0 +1,37 @@
+﻿@model Restaurant_management_system.WebUI.ViewModels.OrderDTO
+@{
+    ViewData["Title"] = "Table " + Model.TableID;
+}
+
+<div>
+    <h1>Table @Model.TableID</h1>
+    <h2>Order @Model.ID</h2>
+    <p>Info(optional): @Model.Message</p>
+</div>
+
+<div>
+    <table>
+        @*There will be form, not table*@
+        <thead>
+            <tr>
+                <th>Dish</th>
+                <th>Time of oredring</th>
+                <th>Cooked</th>
+                <th>Taked from kitchen</th>
+                <th>Prioritized</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Dishes)
+            {
+                <tr>
+                    <td>@item.DishName</td>
+                    <td>@item.TimeOfOrdering</td>
+                    <td>@item.IsDone</td>
+                    <td>@item.IsTakenAway</td>
+                    <td>@item.IsPrioritized</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

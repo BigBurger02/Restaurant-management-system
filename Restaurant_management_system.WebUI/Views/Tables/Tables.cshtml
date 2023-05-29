@@ -1,3 +1,34 @@
-﻿@{
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.TableDTO>
+@{
     ViewData["Title"] = "Tables";
 }
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Table №</th>
+                <th>Occupied</th>
+                <th>Guests</th>
+                <th>Order Cost</th>
+                <th>Paid</th>
+                <th>Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.IsOccupied</td>
+                    <td>@item.AmountOfGuests</td>
+                    <td>@item.OrderCost</td>
+                    <td>@item.IsPaid</td>
+                    <td>
+                        <a asp-action="EditOrder" asp-route-id="@item.ID">Edit order</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
