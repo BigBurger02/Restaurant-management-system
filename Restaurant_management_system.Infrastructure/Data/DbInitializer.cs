@@ -52,21 +52,21 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var dishes = new DishEntity[]
             {
-                new DishEntity{ID=1,  OrderID=2, DishName="Chicken Strips", DateOfOrdering=new DateTime(2023, 5, 15, 16, 59, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,  IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=2,  OrderID=4, DishName="French Dip",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 03, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=3,  OrderID=8, DishName="Cobb Salad",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 16, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=4,  OrderID=1, DishName="Meat Loaf",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 16, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,  IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=5,  OrderID=6, DishName="Cannoli",        DateOfOrdering=new DateTime(2023, 5, 15, 20, 26, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=6,  OrderID=1, DishName="ClubHouse",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 20, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,  IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=7,  OrderID=3, DishName="Roast Pork",     DateOfOrdering=new DateTime(2023, 5, 15, 19, 40, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=true },
-                new DishEntity{ID=8,  OrderID=3, DishName="Roast Beef",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 23, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,  IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=9,  OrderID=7, DishName="White Pizza",    DateOfOrdering=new DateTime(2023, 5, 15, 20, 25, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=10, OrderID=5, DishName="Hamburger",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 03, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false, IsTakenAway=false, IsPrioritized=false},
-                new DishEntity{ID=11, OrderID=2, DishName="Meat Loaf",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 40, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,   IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=12, OrderID=5, DishName="Chicken Strips",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 33, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false,  IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=13, OrderID=4, DishName="Hamburger",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 30, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false,  IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=14, OrderID=6, DishName="Roast Pork",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 10, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=true,   IsTakenAway=true,  IsPrioritized=false},
-                new DishEntity{ID=15, OrderID=8, DishName="ClubHouse",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 19, 00).ToString("dd.MM.yyyy HH:mm"), IsDone=false,  IsTakenAway=true,  IsPrioritized=false}
+                new DishEntity{ID=1,  OrderID=2, DishName="Chicken Strips", DateOfOrdering=new DateTime(2023, 5, 15, 16, 59, 00), IsDone=true,  IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=2,  OrderID=4, DishName="French Dip",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 03, 00), IsDone=false, IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=3,  OrderID=8, DishName="Cobb Salad",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 16, 00), IsDone=false, IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=4,  OrderID=1, DishName="Meat Loaf",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 16, 00), IsDone=true,  IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=5,  OrderID=6, DishName="Cannoli",        DateOfOrdering=new DateTime(2023, 5, 15, 20, 26, 00), IsDone=false, IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=6,  OrderID=1, DishName="ClubHouse",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 20, 00), IsDone=true,  IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=7,  OrderID=3, DishName="Roast Pork",     DateOfOrdering=new DateTime(2023, 5, 15, 19, 40, 00), IsDone=false, IsTakenAway=false, IsPrioritized=true },
+                new DishEntity{ID=8,  OrderID=3, DishName="Roast Beef",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 23, 00), IsDone=true,  IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=9,  OrderID=7, DishName="White Pizza",    DateOfOrdering=new DateTime(2023, 5, 15, 20, 25, 00), IsDone=false, IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=10, OrderID=5, DishName="Hamburger",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 03, 00), IsDone=false, IsTakenAway=false, IsPrioritized=false},
+                new DishEntity{ID=11, OrderID=2, DishName="Meat Loaf",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 40, 00), IsDone=true,   IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=12, OrderID=5, DishName="Chicken Strips", DateOfOrdering=new DateTime(2023, 5, 15, 20, 33, 00), IsDone=false,  IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=13, OrderID=4, DishName="Hamburger",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 30, 00), IsDone=false,  IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=14, OrderID=6, DishName="Roast Pork",     DateOfOrdering=new DateTime(2023, 5, 15, 20, 10, 00), IsDone=true,   IsTakenAway=true,  IsPrioritized=false},
+                new DishEntity{ID=15, OrderID=8, DishName="ClubHouse",      DateOfOrdering=new DateTime(2023, 5, 15, 20, 19, 00), IsDone=false,  IsTakenAway=true,  IsPrioritized=false}
             };
             foreach (var item in dishes)
                 context.Dish.Add(item);
@@ -74,14 +74,15 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var order = new OrderEntity[]
             {
-                new OrderEntity{ ID=1,  TableID=3, Message="" },
-                new OrderEntity{ ID=2,  TableID=2, Message="" },
-                new OrderEntity{ ID=3,  TableID=1, Message="" },
-                new OrderEntity{ ID=4,  TableID=5, Message="" },
-                new OrderEntity{ ID=5,  TableID=8, Message="" },
-                new OrderEntity{ ID=6,  TableID=7, Message="" },
-                new OrderEntity{ ID=7,  TableID=4, Message="" },
-                new OrderEntity{ ID=8,  TableID=6, Message="" }
+                new OrderEntity{ ID=1,  TableID=3,  Open=true,  Message="" },
+                new OrderEntity{ ID=2,  TableID=2,  Open=true,  Message="" },
+                new OrderEntity{ ID=3,  TableID=1,  Open=true,  Message="" },
+                new OrderEntity{ ID=4,  TableID=5,  Open=true,  Message="" },
+                new OrderEntity{ ID=5,  TableID=8,  Open=true,  Message="" },
+                new OrderEntity{ ID=6,  TableID=7,  Open=true,  Message="" },
+                new OrderEntity{ ID=7,  TableID=4,  Open=true,  Message="" },
+                new OrderEntity{ ID=8,  TableID=6,  Open=true,  Message="" },
+                new OrderEntity{ ID=9,  TableID=1,  Open=true,  Message="abc" }
             };
             foreach (var item in order)
                 context.Order.Add(item);

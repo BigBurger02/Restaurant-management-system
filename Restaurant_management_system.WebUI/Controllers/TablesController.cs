@@ -41,8 +41,8 @@ public class TablesController : Controller
     {
         var findOrder = _context.Order
             .AsNoTracking()
-            .OrderBy(table => table.TableID)
-            .LastOrDefault(table => table.TableID == id);
+            .OrderByDescending(o => o.ID)
+            .First(table => table.TableID == id);
 
         var findDishes = _context.Dish
             .AsNoTracking()
@@ -51,7 +51,7 @@ public class TablesController : Controller
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
-                TimeOfOrdering = dish.DateOfOrdering.Split(" ", StringSplitOptions.None)[1],
+                TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
                 IsDone = dish.IsDone ? "Yes" : "No",
                 IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
                 IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
@@ -71,6 +71,35 @@ public class TablesController : Controller
         }
 
         return View(order);
+    }
+
+    public IActionResult ResetTable(int? id)
+    {
+        var table = _context.Table
+            .Where(t => t.ID == id)
+            .FirstOrDefault();
+
+        if (table != null)
+        {
+            table.IsOccupied = false;
+            table.AmountOfGuests = 0;
+            table.OrderCost = 0;
+            table.IsPaid = false;
+
+            var findOrder = _context.Order
+                .OrderBy(table => table.TableID)
+                .LastOrDefault(table => table.TableID == id);
+            findOrder.Open = false;
+            table.Order = new Core.TablesAggregate.OrderEntity(table.ID);
+            _context.Order.Add(table.Order);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Tables", "Tables");
+        }
+        else
+            return RedirectToAction("Error", "Home");
+
     }
 
     [HttpGet]

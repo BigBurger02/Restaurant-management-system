@@ -12,7 +12,8 @@
                 <th>Guests</th>
                 <th>Order Cost</th>
                 <th>Paid</th>
-                <th>Order</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,9 @@
                     <td>@item.IsPaid</td>
                     <td>
                         <a asp-action="EditOrder" asp-route-id="@item.ID">Edit order</a>
+                    </td>
+                    <td>
+                        <a asp-action="ResetTable" asp-route-id="@item.ID">Reset table</a>
                     </td>
                 </tr>
             }
