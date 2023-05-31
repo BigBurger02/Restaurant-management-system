@@ -3,10 +3,19 @@
 public class TableEntity
 {
     public int ID { get; set; }
-    public int TableNumber { get; set; }
-    public bool IsOccupied { get; set; } = false;
+    public bool IsOccupied { get; set; }
     public int AmountOfGuests { get; set; }
-    public int OrderCost { get; set; } = 0;
-    public bool IsPaid { get; set; } = false;
+    public int OrderCost { get; set; }
+    public bool IsPaid { get; set; }
     public OrderEntity? Order { get; set; }
+
+    public TableEntity()
+    {
+        IsOccupied = false;
+        AmountOfGuests = 0;
+        OrderCost = 0;
+        IsPaid = false;
+
+        Order = new OrderEntity();
+    }
 }

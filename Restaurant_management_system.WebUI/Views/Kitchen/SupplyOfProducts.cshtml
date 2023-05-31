@@ -1,3 +1,24 @@
-﻿@{
-    ViewData["Title"] = "Supply";
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+@{
+    ViewData["Title"] = "Products";
 }
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

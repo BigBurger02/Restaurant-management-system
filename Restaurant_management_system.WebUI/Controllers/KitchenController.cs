@@ -27,7 +27,7 @@ public class KitchenController : Controller
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
-                TimeOfOrdering = dish.DateOfOrdering.Split(" ", StringSplitOptions.None)[1],
+                TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
                 IsDone = dish.IsDone ? "Yes" : "No",
                 IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
                 IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
@@ -40,7 +40,17 @@ public class KitchenController : Controller
     [HttpGet]
     public IActionResult SupplyOfProducts()
     {
-        throw new NotImplementedException();
+        var ingredients = _context.Ingredient
+            .AsNoTracking()
+            .Select(ingredient => new IngredientDTO
+            {
+                ID = ingredient.ID,
+                Name = ingredient.Name,
+                Price = ingredient.Price
+            })
+            .ToList();
+
+        return View(ingredients);
     }
 
     [HttpGet]
