@@ -1,4 +1,5 @@
-﻿using Restaurant_management_system.Infrastructure.Data;
+﻿using Restaurant_management_system.Core.DishesAggregate;
+using Restaurant_management_system.Infrastructure.Data;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant_management_system.WebUI.ViewModels;
@@ -51,6 +52,63 @@ public class KitchenController : Controller
             .ToList();
 
         return View(ingredients);
+    }
+
+    [HttpGet]
+    public IActionResult EditIngredient(int? ingredientID)
+    {
+        if (ingredientID == null)
+            return View();
+
+        var findIngredient = _context.Ingredient
+            .AsNoTracking()
+            .FirstOrDefault(i => i.ID == ingredientID);
+
+        var ingredient = new IngredientDTO
+        {
+            ID = findIngredient.ID,
+            Name = findIngredient.Name,
+            Price = findIngredient.Price
+        };
+
+        return View(ingredient);
+    }
+
+    [HttpPost]
+    public IActionResult EditIngredient([Bind("ID,Name,Price")] IngredientDTO inputIngredient)
+    {
+        if (inputIngredient.ID == 0)
+        {
+            var newingredient = new IngredientEntity
+            {
+                Name = inputIngredient.Name,
+                Price = inputIngredient.Price
+            };
+            _context.Ingredient.Add(newingredient);
+            _context.SaveChanges();
+
+            return RedirectToAction("SupplyOfProducts", "Kitchen");
+        }
+
+        var ingredient = _context.Ingredient
+            .Find(inputIngredient.ID);
+
+        ingredient.Name = inputIngredient.Name;
+        ingredient.Price = inputIngredient.Price;
+        _context.SaveChanges();
+
+        return RedirectToAction("SupplyOfProducts", "Kitchen");
+    }
+
+    public IActionResult RemoveIngredient(int ingredientID)
+    {
+        var ingredient = _context.Ingredient
+            .Find(ingredientID);
+
+        _context.Ingredient.Remove(ingredient);
+        _context.SaveChanges();
+
+        return RedirectToAction("SupplyOfProducts", "Kitchen");
     }
 
     [HttpGet]

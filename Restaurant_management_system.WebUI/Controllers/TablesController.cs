@@ -221,6 +221,9 @@ public class TablesController : Controller
 
         foreach (var item in menu)
         {
+            if (item.IngredientsNames == "")
+                continue;
+
             string[] IngredientsIdTmp = item.IngredientsNames.Split(",");
             string IngredientsNamesTmp = string.Empty;
 
@@ -235,6 +238,8 @@ public class TablesController : Controller
 
             item.IngredientsNames = IngredientsNamesTmp.Remove(IngredientsNamesTmp.Length - 2);
         }
+
+        menu.RemoveAt(0);
 
         return View(menu);
     }
