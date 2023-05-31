@@ -1,0 +1,37 @@
+﻿@model Restaurant_management_system.WebUI.ViewModels.DishWithTypesDTO
+@{
+    ViewData["Title"] = "Dish";
+}
+
+<div class="col-md-1">
+    <form asp-action="EditDish" asp-route-table="@Model.TableID">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <select name="DishName" asp-for="DishName">
+            <option value="1">Chicken Strips</option>
+            <option value="2">French Dip</option>
+            <option value="3">Cobb Salad</option>
+            <option value="4">Meat Loaf</option>
+            <option value="5">Cannoli</option>
+            <option value="6">ClubHouse</option>
+            <option value="7">Roast Pork</option>
+            <option value="8">Roast Beef</option>
+            <option value="9">White Pizza</option>
+            <option value="10">Hamburger</option>
+        </select>
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsTakenAway" />
+            <label asp-for="IsTakenAway" class="control-label">Taken Away</label>
+            <span asp-validation-for="IsTakenAway" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsPrioritized" />
+            <label asp-for="IsPrioritized" class="control-label">Prioritized</label>
+            <span asp-validation-for="IsPrioritized" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

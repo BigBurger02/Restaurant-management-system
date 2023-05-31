@@ -37,6 +37,47 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    public IActionResult EditTable(int? id)
+    {
+        var tableQuery = _context.Table
+            .AsNoTracking()
+            .First(t => t.ID == id);
+
+        TableWithTypesDTO table = new TableWithTypesDTO
+        {
+            ID = tableQuery.ID,
+            IsOccupied = tableQuery.IsOccupied,
+            IsPaid = tableQuery.IsPaid,
+            AmountOfGuests = tableQuery.AmountOfGuests
+        };
+
+        return View(table);
+    }
+
+    [HttpPost]
+    public IActionResult EditTable([Bind("ID,IsOccupied,IsPaid,AmountOfGuests")] TableWithTypesDTO inputTable)
+    {
+        var tableQuery = _context.Table
+            .First(t => t.ID == inputTable.ID);
+
+        tableQuery.IsOccupied = inputTable.IsOccupied;
+        tableQuery.IsPaid = inputTable.IsPaid;
+        tableQuery.AmountOfGuests = inputTable.AmountOfGuests;
+
+        TableWithTypesDTO table = new TableWithTypesDTO
+        {
+            ID = tableQuery.ID,
+            IsOccupied = inputTable.IsOccupied,
+            IsPaid = inputTable.IsPaid,
+            AmountOfGuests = inputTable.AmountOfGuests
+        };
+
+        _context.SaveChanges();
+
+        return RedirectToAction("Tables", "Tables");
+    }
+
+    [HttpGet]
     public IActionResult EditOrder(int? id)
     {
         var findOrder = _context.Order
@@ -55,22 +96,56 @@ public class TablesController : Controller
                 IsDone = dish.IsDone ? "Yes" : "No",
                 IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
                 IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
-            });
+            })
+            .ToList();
 
-        OrderDTO order = new OrderDTO
+        ViewData["OrderID"] = findOrder.ID;
+        ViewData["TableID"] = findOrder.TableID;
+        ViewData["Message"] = findOrder.Message;
+
+        return View(findDishes);
+    }
+
+    [HttpGet]
+    public IActionResult EditDish(int? id, int table)
+    {
+        var dish = _context.Dish
+            .AsNoTracking()
+            .FirstOrDefault(d => d.ID == id);
+
+        var dishWithTypes = new DishWithTypesDTO
         {
-            ID = findOrder.ID,
-            TableID = findOrder.TableID,
-            Message = findOrder.Message
+            ID = dish.ID,
+            OrderID = dish.OrderID,
+            TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+            IsDone = dish.IsDone,
+            IsTakenAway = dish.IsTakenAway,
+            IsPrioritized = dish.IsPrioritized,
+            TableID = table
         };
+        dishWithTypes.DishName = _context.Menu
+            .AsNoTracking()
+            .First(d => d.Name == dish.DishName)
+            .ID;
 
-        foreach (var item in findDishes)
-        {
-            if (item != null)
-                order.Dishes.Add(item);
-        }
+        return View(dishWithTypes);
+    }
 
-        return View(order);
+    [HttpPost]
+    public IActionResult EditDish([Bind("ID,OrderID,DishName,TimeOfOrdering,IsDone,IsTakenAway,IsPrioritized")] DishWithTypesDTO inputDish, int table)
+    {
+        var dish = _context.Dish
+            .FirstOrDefault(d => d.ID == inputDish.ID);
+
+        dish.DishName = _context.Menu.
+            First(n => n.ID == inputDish.DishName)
+            .Name;
+        dish.IsTakenAway = inputDish.IsTakenAway;
+        dish.IsPrioritized = inputDish.IsPrioritized;
+
+        _context.SaveChanges();
+
+        return RedirectToAction("EditOrder", new { id = table });
     }
 
     public IActionResult ResetTable(int? id)

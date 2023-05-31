@@ -82,7 +82,7 @@ namespace Restaurant_management_system.Infrastructure.Data
                 new OrderEntity{ ID=6,  TableID=7,  Open=true,  Message="" },
                 new OrderEntity{ ID=7,  TableID=4,  Open=true,  Message="" },
                 new OrderEntity{ ID=8,  TableID=6,  Open=true,  Message="" },
-                new OrderEntity{ ID=9,  TableID=1,  Open=true,  Message="abc" }
+                new OrderEntity{ ID=9,  TableID=1,  Open=true,  Message="" }
             };
             foreach (var item in order)
                 context.Order.Add(item);

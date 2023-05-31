@@ -1,17 +1,15 @@
-﻿@model Restaurant_management_system.WebUI.ViewModels.OrderDTO
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishDTO>
 @{
-    ViewData["Title"] = "Table " + Model.TableID;
+    ViewData["Title"] = "Table " + ViewData["TableID"];
 }
 
 <div>
-    <h1>Table @Model.TableID</h1>
-    <h2>Order @Model.ID</h2>
-    <p>Info(optional): @Model.Message</p>
+    <h3>Table @ViewData["TableID"] - Order @ViewData["OrderID"]</h3>
+    <p>Info(optional): @ViewData["Message"]</p>
 </div>
 
 <div>
     <table>
-        @*There will be form, not table*@
         <thead>
             <tr>
                 <th>Dish</th>
@@ -19,10 +17,11 @@
                 <th>Cooked</th>
                 <th>Taked from kitchen</th>
                 <th>Prioritized</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Dishes)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.DishName</td>
@@ -30,6 +29,9 @@
                     <td>@item.IsDone</td>
                     <td>@item.IsTakenAway</td>
                     <td>@item.IsPrioritized</td>
+                    <td>
+                        <a asp-action="EditDish" asp-route-id="@item.DishID" asp-route-table="@ViewData["TableID"]">Edit dish</a>
+                    </td>
                 </tr>
             }
         </tbody>
