@@ -5,9 +5,22 @@
 
 <div>
     <h3>Table @ViewData["TableID"] - Order @ViewData["OrderID"]</h3>
-    <p>Info(optional): @ViewData["Message"]</p>
+    <div>
+        <form method="POST" asp-route-tableID="@ViewData["TableID"]" asp-route-orderID="@ViewData["OrderID"]">
+            <div class="form-group">
+                <label for="message">Comment:</label>
+            </div>
+            <input type="hidden" name="@ViewData["OrderID"]" />
+            <div class="form-group">
+                <textarea placeholder="You can make comments about this order" name="message" cols="70" rows="3">@ViewData["Message"]</textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>
-
+<br />
 <div>
     <table>
         <thead>
@@ -30,10 +43,11 @@
                     <td>@item.IsTakenAway</td>
                     <td>@item.IsPrioritized</td>
                     <td>
-                        <a asp-action="EditDish" asp-route-id="@item.DishID" asp-route-table="@ViewData["TableID"]">Edit dish</a>
+                        <a asp-action="EditDish" asp-route-dishID="@item.DishID" asp-route-tableID="@ViewData["TableID"]">Edit dish</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <a asp-action="AddDish" asp-route-orderID="@ViewData["OrderID"]" asp-route-tableID="@ViewData["TableID"]" class="btn btn-primary">Add dish</a>
 </div>

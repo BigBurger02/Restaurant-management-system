@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.WebUI.ViewModels;
+using Restaurant_management_system.Core.DishesAggregate;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -37,11 +39,11 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    public IActionResult EditTable(int? id)
+    public IActionResult EditTable(int? tableID)
     {
         var tableQuery = _context.Table
             .AsNoTracking()
-            .First(t => t.ID == id);
+            .First(t => t.ID == tableID);
 
         TableWithTypesDTO table = new TableWithTypesDTO
         {
@@ -78,12 +80,12 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    public IActionResult EditOrder(int? id)
+    public IActionResult EditOrder(int? tableID)
     {
         var findOrder = _context.Order
             .AsNoTracking()
             .OrderByDescending(o => o.ID)
-            .First(table => table.TableID == id);
+            .First(table => table.TableID == tableID);
 
         var findDishes = _context.Dish
             .AsNoTracking()
@@ -106,12 +108,23 @@ public class TablesController : Controller
         return View(findDishes);
     }
 
+    [HttpPost]
+    public IActionResult EditOrder(int tableID, int orderID, string message)
+    {
+        var order = _context.Order
+            .First(i => i.ID == orderID);
+        order.Message = message;
+        _context.SaveChanges();
+
+        return RedirectToAction("EditOrder", new { tableID = tableID });
+    }
+
     [HttpGet]
-    public IActionResult EditDish(int? id, int table)
+    public IActionResult EditDish(int? dishID, int tableID)
     {
         var dish = _context.Dish
             .AsNoTracking()
-            .FirstOrDefault(d => d.ID == id);
+            .FirstOrDefault(d => d.ID == dishID);
 
         var dishWithTypes = new DishWithTypesDTO
         {
@@ -121,7 +134,7 @@ public class TablesController : Controller
             IsDone = dish.IsDone,
             IsTakenAway = dish.IsTakenAway,
             IsPrioritized = dish.IsPrioritized,
-            TableID = table
+            TableID = tableID
         };
         dishWithTypes.DishName = _context.Menu
             .AsNoTracking()
@@ -132,7 +145,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditDish([Bind("ID,OrderID,DishName,TimeOfOrdering,IsDone,IsTakenAway,IsPrioritized")] DishWithTypesDTO inputDish, int table)
+    public IActionResult EditDish([Bind("ID,OrderID,DishName,TimeOfOrdering,IsDone,IsTakenAway,IsPrioritized")] DishWithTypesDTO inputDish, int tableID)
     {
         var dish = _context.Dish
             .FirstOrDefault(d => d.ID == inputDish.ID);
@@ -145,13 +158,28 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditOrder", new { id = table });
+        return RedirectToAction("EditOrder", new { tableID = tableID });
     }
 
-    public IActionResult ResetTable(int? id)
+    public IActionResult AddDish(int orderID, int tableID)
+    {
+        var newdish = new DishEntity() { OrderID = orderID };
+        _context.Dish.Add(newdish);
+        _context.SaveChanges();
+
+        int dishID = _context.Dish
+            .AsNoTracking()
+            .OrderByDescending(d => d.ID)
+            .First(order => order.OrderID == orderID)
+            .ID;
+
+        return RedirectToAction("EditDish", new { dishID = dishID, tableID = tableID });
+    }
+
+    public IActionResult ResetTable(int? tableID)
     {
         var table = _context.Table
-            .Where(t => t.ID == id)
+            .Where(t => t.ID == tableID)
             .FirstOrDefault();
 
         if (table != null)
@@ -163,7 +191,7 @@ public class TablesController : Controller
 
             var findOrder = _context.Order
                 .OrderBy(table => table.TableID)
-                .LastOrDefault(table => table.TableID == id);
+                .LastOrDefault(table => table.TableID == tableID);
             findOrder.Open = false;
             table.Order = new Core.TablesAggregate.OrderEntity(table.ID);
             _context.Order.Add(table.Order);

@@ -4,20 +4,21 @@
 }
 
 <div class="col-md-1">
-    <form asp-action="EditDish" asp-route-table="@Model.TableID">
+    <form asp-action="EditDish" asp-route-tableID="@Model.TableID">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="ID" />
         <select name="DishName" asp-for="DishName">
-            <option value="1">Chicken Strips</option>
-            <option value="2">French Dip</option>
-            <option value="3">Cobb Salad</option>
-            <option value="4">Meat Loaf</option>
-            <option value="5">Cannoli</option>
-            <option value="6">ClubHouse</option>
-            <option value="7">Roast Pork</option>
-            <option value="8">Roast Beef</option>
-            <option value="9">White Pizza</option>
-            <option value="10">Hamburger</option>
+            <option value="1">None</option>
+            <option value="2">Chicken Strips</option>
+            <option value="3">French Dip</option>
+            <option value="4">Cobb Salad</option>
+            <option value="5">Meat Loaf</option>
+            <option value="6">Cannoli</option>
+            <option value="7">ClubHouse</option>
+            <option value="8">Roast Pork</option>
+            <option value="9">Roast Beef</option>
+            <option value="10">White Pizza</option>
+            <option value="11">Hamburger</option>
         </select>
         <div class="form-group">
             <input type="checkbox" asp-for="IsTakenAway" />

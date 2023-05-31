@@ -35,16 +35,17 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var menu = new MenuEntity[]
             {
-                new MenuEntity{ ID=1,  Name="Chicken Strips", Price=150, IngredientsID="4,5,1,6" },
-                new MenuEntity{ ID=2,  Name="French Dip", Price=80, IngredientsID="3,2,6,9" },
-                new MenuEntity{ ID=3,  Name="Cobb Salad", Price=50, IngredientsID="13,1,7,10,12,2" },
-                new MenuEntity{ ID=4,  Name="Meat Loaf", Price=280, IngredientsID="1,2,3" },
-                new MenuEntity{ ID=5,  Name="Cannoli", Price=330, IngredientsID="9,12" },
-                new MenuEntity{ ID=6,  Name="ClubHouse", Price=500, IngredientsID="11,12,5,7,9,13" },
-                new MenuEntity{ ID=7,  Name="Roast Pork", Price=490, IngredientsID="5,4,6,9,1" },
-                new MenuEntity{ ID=8,  Name="Roast Beef", Price=550, IngredientsID="11,3,8,6,4,9" },
-                new MenuEntity{ ID=9,  Name="White Pizza", Price=240, IngredientsID="12,13,8,9,5,7,4" },
-                new MenuEntity{ ID=10, Name="Hamburger", Price=100, IngredientsID="11,4" }
+                new MenuEntity{ ID=1,  Name="", Price=0, IngredientsID="" },
+                new MenuEntity{ ID=2,  Name="Chicken Strips", Price=150, IngredientsID="4,5,1,6" },
+                new MenuEntity{ ID=3,  Name="French Dip", Price=80, IngredientsID="3,2,6,9" },
+                new MenuEntity{ ID=4,  Name="Cobb Salad", Price=50, IngredientsID="13,1,7,10,12,2" },
+                new MenuEntity{ ID=5,  Name="Meat Loaf", Price=280, IngredientsID="1,2,3" },
+                new MenuEntity{ ID=6,  Name="Cannoli", Price=330, IngredientsID="9,12" },
+                new MenuEntity{ ID=7,  Name="ClubHouse", Price=500, IngredientsID="11,12,5,7,9,13" },
+                new MenuEntity{ ID=8,  Name="Roast Pork", Price=490, IngredientsID="5,4,6,9,1" },
+                new MenuEntity{ ID=9,  Name="Roast Beef", Price=550, IngredientsID="11,3,8,6,4,9" },
+                new MenuEntity{ ID=10, Name="White Pizza", Price=240, IngredientsID="12,13,8,9,5,7,4" },
+                new MenuEntity{ ID=11, Name="Hamburger", Price=100, IngredientsID="11,4" }
             };
             foreach (var item in menu)
                 context.Menu.Add(item);
