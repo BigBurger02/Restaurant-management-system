@@ -1,34 +1,28 @@
-﻿@model Restaurant_management_system.WebUI.ViewModels.DishWithTypesDTO
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.MenuDTO>
 @{
     ViewData["Title"] = "Dish";
 }
 
 <div class="col-md-1">
-    <form asp-action="EditDish" asp-route-tableID="@Model.TableID">
+    <form asp-action="EditDish" asp-route-tableID="@ViewData["TableID"]">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="ID" />
-        <select name="DishName" asp-for="DishName">
-            <option value="1">None</option>
-            <option value="2">Chicken Strips</option>
-            <option value="3">French Dip</option>
-            <option value="4">Cobb Salad</option>
-            <option value="5">Meat Loaf</option>
-            <option value="6">Cannoli</option>
-            <option value="7">ClubHouse</option>
-            <option value="8">Roast Pork</option>
-            <option value="9">Roast Beef</option>
-            <option value="10">White Pizza</option>
-            <option value="11">Hamburger</option>
+        <input type="hidden" asp-for="@ViewData["DishID"]" />
+        <select name="ingredientID" asp-for="@ViewData["DishID"]">
+            <option value="0">None</option>
+            @foreach (var item in Model)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
         </select>
         <div class="form-group">
-            <input type="checkbox" asp-for="IsTakenAway" />
-            <label asp-for="IsTakenAway" class="control-label">Taken Away</label>
-            <span asp-validation-for="IsTakenAway" class="text-danger"></span>
+            <input type="checkbox" asp-for="@ViewData["IsTakenAway"]" />
+            <label asp-for="@ViewData["IsTakenAway"]" class="control-label">Taken Away</label>
+            <span asp-validation-for="@ViewData["IsTakenAway"]" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="checkbox" asp-for="IsPrioritized" />
-            <label asp-for="IsPrioritized" class="control-label">Prioritized</label>
-            <span asp-validation-for="IsPrioritized" class="text-danger"></span>
+            <input type="checkbox" asp-for="@ViewData["IsPrioritized"]" />
+            <label asp-for="@ViewData["IsPrioritized"]" class="control-label">Prioritized</label>
+            <span asp-validation-for="@ViewData["IsPrioritized"]" class="text-danger"></span>
         </div>
 
         <div class="form-group">

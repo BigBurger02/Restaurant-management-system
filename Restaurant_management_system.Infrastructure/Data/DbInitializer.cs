@@ -15,19 +15,33 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var ingredients = new IngredientEntity[]
             {
-                new IngredientEntity{ ID=1,  Name="Water", Price=15 },
-                new IngredientEntity{ ID=2,  Name="Oil", Price=50 },
-                new IngredientEntity{ ID=3,  Name="Salt", Price=65 },
-                new IngredientEntity{ ID=4,  Name="Pepper", Price=20 },
-                new IngredientEntity{ ID=5,  Name="Potato", Price=15 },
-                new IngredientEntity{ ID=6,  Name="Pasta", Price=45 },
-                new IngredientEntity{ ID=7,  Name="Rice", Price=30 },
-                new IngredientEntity{ ID=8,  Name="Pork steak", Price=190 },
-                new IngredientEntity{ ID=9,  Name="Chicken wing", Price=160 },
-                new IngredientEntity{ ID=10, Name="Salmon", Price=340 },
-                new IngredientEntity{ ID=11, Name="Mackerel", Price=260 },
-                new IngredientEntity{ ID=12, Name="Parmesan", Price=90 },
-                new IngredientEntity{ ID=13, Name="Milk", Price=70 }
+                new IngredientEntity{ ID=1,  Name="Water", Price=1 },
+                new IngredientEntity{ ID=2,  Name="Oil", Price=3 },
+                new IngredientEntity{ ID=3,  Name="Salt", Price=2 },
+                new IngredientEntity{ ID=4,  Name="Pepper", Price=1 },
+                new IngredientEntity{ ID=5,  Name="Potato", Price=5 },
+                new IngredientEntity{ ID=6,  Name="Pasta", Price=16 },
+                new IngredientEntity{ ID=7,  Name="Rice", Price=8 },
+                new IngredientEntity{ ID=8,  Name="Pork steak", Price=40 },
+                new IngredientEntity{ ID=9,  Name="Chicken wing", Price=36 },
+                new IngredientEntity{ ID=10, Name="Salmon", Price=54 },
+                new IngredientEntity{ ID=11, Name="Mackerel", Price=23 },
+                new IngredientEntity{ ID=12, Name="Parmesan", Price=13 },
+                new IngredientEntity{ ID=13, Name="Milk", Price=21 },
+                new IngredientEntity{ ID=14, Name="Tomato", Price=4 },
+                new IngredientEntity{ ID=15, Name="Cucumber", Price=3 },
+                new IngredientEntity{ ID=16, Name="Salad", Price=10 },
+                new IngredientEntity{ ID=17, Name="Bacon", Price=68 },
+                new IngredientEntity{ ID=18, Name="Egg", Price=10 },
+                new IngredientEntity{ ID=19, Name="Avocado", Price=9 },
+                new IngredientEntity{ ID=20, Name="Beef", Price=38 },
+                new IngredientEntity{ ID=21, Name="Pork", Price=41 },
+                new IngredientEntity{ ID=22, Name="Flour", Price=14 },
+                new IngredientEntity{ ID=23, Name="Sugar", Price=3 },
+                new IngredientEntity{ ID=24, Name="Creamy filling", Price=24 },
+                new IngredientEntity{ ID=25, Name="Bread", Price=10 },
+                new IngredientEntity{ ID=26, Name="Cheese", Price=10 },
+                new IngredientEntity{ ID=27, Name="Pork cutlet", Price=80 }
             };
             foreach (var item in ingredients)
                 context.Ingredient.Add(item);
@@ -35,20 +49,79 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var menu = new MenuEntity[]
             {
-                new MenuEntity{ ID=1,  Name="", Price=0, IngredientsID="" },
-                new MenuEntity{ ID=2,  Name="Chicken Strips", Price=150, IngredientsID="4,5,1,6" },
-                new MenuEntity{ ID=3,  Name="French Dip", Price=80, IngredientsID="3,2,6,9" },
-                new MenuEntity{ ID=4,  Name="Cobb Salad", Price=50, IngredientsID="13,1,7,10,12,2" },
-                new MenuEntity{ ID=5,  Name="Meat Loaf", Price=280, IngredientsID="1,2,3" },
-                new MenuEntity{ ID=6,  Name="Cannoli", Price=330, IngredientsID="9,12" },
-                new MenuEntity{ ID=7,  Name="ClubHouse", Price=500, IngredientsID="11,12,5,7,9,13" },
-                new MenuEntity{ ID=8,  Name="Roast Pork", Price=490, IngredientsID="5,4,6,9,1" },
-                new MenuEntity{ ID=9,  Name="Roast Beef", Price=550, IngredientsID="11,3,8,6,4,9" },
-                new MenuEntity{ ID=10, Name="White Pizza", Price=240, IngredientsID="12,13,8,9,5,7,4" },
-                new MenuEntity{ ID=11, Name="Hamburger", Price=100, IngredientsID="11,4" }
+                new MenuEntity{ ID=1,  Name="Chicken Strips" },
+                new MenuEntity{ ID=2,  Name="French Dip" },
+                new MenuEntity{ ID=3,  Name="Cobb Salad" },
+                new MenuEntity{ ID=4,  Name="Meat Loaf" },
+                new MenuEntity{ ID=5,  Name="Cannoli" },
+                new MenuEntity{ ID=6,  Name="ClubHouse" },
+                new MenuEntity{ ID=7,  Name="Roast Pork" },
+                new MenuEntity{ ID=8,  Name="Roast Beef" },
+                new MenuEntity{ ID=9,  Name="White Pizza" },
+                new MenuEntity{ ID=10, Name="Hamburger" }
             };
             foreach (var item in menu)
                 context.Menu.Add(item);
+            context.SaveChanges();
+
+            var menuIngredients = new MenuIngredientsEntity[]
+            {
+                new MenuIngredientsEntity{ ID=1, MenuID=1, IngredientID=2 },
+                new MenuIngredientsEntity{ ID=2, MenuID=1, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=3, MenuID=1, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=4, MenuID=1, IngredientID=9 },
+                new MenuIngredientsEntity{ ID=5, MenuID=2, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=6, MenuID=2, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=7, MenuID=2, IngredientID=5 },
+                new MenuIngredientsEntity{ ID=8, MenuID=2, IngredientID=12 },
+                new MenuIngredientsEntity{ ID=9, MenuID=3, IngredientID=14 },
+                new MenuIngredientsEntity{ ID=10, MenuID=3, IngredientID=15 },
+                new MenuIngredientsEntity{ ID=11, MenuID=3, IngredientID=16 },
+                new MenuIngredientsEntity{ ID=12, MenuID=3, IngredientID=17 },
+                new MenuIngredientsEntity{ ID=13, MenuID=3, IngredientID=18 },
+                new MenuIngredientsEntity{ ID=14, MenuID=3, IngredientID=19 },
+                new MenuIngredientsEntity{ ID=15, MenuID=4, IngredientID=2 },
+                new MenuIngredientsEntity{ ID=16, MenuID=4, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=17, MenuID=4, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=18, MenuID=4, IngredientID=20 },
+                new MenuIngredientsEntity{ ID=19, MenuID=4, IngredientID=21 },
+                new MenuIngredientsEntity{ ID=20, MenuID=4, IngredientID=18 },
+                new MenuIngredientsEntity{ ID=21, MenuID=5, IngredientID=22 },
+                new MenuIngredientsEntity{ ID=22, MenuID=5, IngredientID=23 },
+                new MenuIngredientsEntity{ ID=23, MenuID=5, IngredientID=24 },
+                new MenuIngredientsEntity{ ID=24, MenuID=5, IngredientID=18 },
+                new MenuIngredientsEntity{ ID=25, MenuID=6, IngredientID=25 },
+                new MenuIngredientsEntity{ ID=26, MenuID=6, IngredientID=14 },
+                new MenuIngredientsEntity{ ID=27, MenuID=6, IngredientID=17 },
+                new MenuIngredientsEntity{ ID=28, MenuID=6, IngredientID=26 },
+                new MenuIngredientsEntity{ ID=29, MenuID=6, IngredientID=16 },
+                new MenuIngredientsEntity{ ID=30, MenuID=7, IngredientID=8 },
+                new MenuIngredientsEntity{ ID=31, MenuID=7, IngredientID=5 },
+                new MenuIngredientsEntity{ ID=32, MenuID=7, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=33, MenuID=7, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=34, MenuID=7, IngredientID=2 },
+                new MenuIngredientsEntity{ ID=35, MenuID=8, IngredientID=20 },
+                new MenuIngredientsEntity{ ID=36, MenuID=8, IngredientID=5 },
+                new MenuIngredientsEntity{ ID=37, MenuID=8, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=38, MenuID=8, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=39, MenuID=8, IngredientID=2 },
+                new MenuIngredientsEntity{ ID=40, MenuID=9, IngredientID=22 },
+                new MenuIngredientsEntity{ ID=41, MenuID=9, IngredientID=23 },
+                new MenuIngredientsEntity{ ID=42, MenuID=9, IngredientID=2 },
+                new MenuIngredientsEntity{ ID=43, MenuID=9, IngredientID=3 },
+                new MenuIngredientsEntity{ ID=44, MenuID=9, IngredientID=4 },
+                new MenuIngredientsEntity{ ID=45, MenuID=9, IngredientID=5 },
+                new MenuIngredientsEntity{ ID=46, MenuID=9, IngredientID=14 },
+                new MenuIngredientsEntity{ ID=47, MenuID=9, IngredientID=12 },
+                new MenuIngredientsEntity{ ID=48, MenuID=9, IngredientID=17 },
+                new MenuIngredientsEntity{ ID=49, MenuID=10, IngredientID=25 },
+                new MenuIngredientsEntity{ ID=50, MenuID=10, IngredientID=27 },
+                new MenuIngredientsEntity{ ID=51, MenuID=10, IngredientID=26 },
+                new MenuIngredientsEntity{ ID=52, MenuID=10, IngredientID=14 },
+                new MenuIngredientsEntity{ ID=53, MenuID=10, IngredientID=16 }
+            };
+            foreach (var item in menuIngredients)
+                context.MenuIngredient.Add(item);
             context.SaveChanges();
 
             var dishes = new DishEntity[]

@@ -15,6 +15,7 @@ namespace Restaurant_management_system.Infrastructure.Data
         public DbSet<IngredientEntity> Ingredient { get; set; }
         public DbSet<MenuEntity> Menu { get; set; }
         public DbSet<OrderEntity> Order { get; set; }
+        public DbSet<MenuIngredientsEntity> MenuIngredient { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,7 @@ namespace Restaurant_management_system.Infrastructure.Data
             modelBuilder.Entity<IngredientEntity>().ToTable("Ingredients");
             modelBuilder.Entity<MenuEntity>().ToTable("Menu");
             modelBuilder.Entity<OrderEntity>().ToTable("Orders");
+            modelBuilder.Entity<MenuIngredientsEntity>().ToTable("MenuIngredients");
         }
     }
 }

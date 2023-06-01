@@ -1,0 +1,25 @@
+﻿@model Restaurant_management_system.WebUI.ViewModels.IngredientDTO
+@{
+    ViewData["Title"] = "Edit ingredient";
+}
+
+<div class="col-md-2">
+    <form asp-action="EditIngredient">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Ingredient name</label>
+            <input type="text" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="control-label">Price</label>
+            <input type="number" asp-for="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

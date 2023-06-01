@@ -9,9 +9,11 @@
   <ItemGroup>
     <None Remove="DishesAggregate\" />
     <None Remove="TablesAggregate\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DishesAggregate\" />
     <Folder Include="TablesAggregate\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>
