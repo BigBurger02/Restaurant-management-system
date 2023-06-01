@@ -126,30 +126,44 @@ public class TablesController : Controller
             .AsNoTracking()
             .FirstOrDefault(d => d.ID == dishID);
 
-        var dishWithTypes = new DishWithTypesDTO
-        {
-            ID = dish.ID,
-            OrderID = dish.OrderID,
-            DishName = dish.DishName,
-            TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-            IsDone = dish.IsDone,
-            IsTakenAway = dish.IsTakenAway,
-            IsPrioritized = dish.IsPrioritized,
-            TableID = tableID
-        };
+        //var dishWithTypes = new DishWithTypesDTO
+        //{
+        //    ID = dish.ID,
+        //    OrderID = dish.OrderID,
+        //    DishName = dish.DishName,
+        //    TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+        //    IsDone = dish.IsDone,
+        //    IsTakenAway = dish.IsTakenAway,
+        //    IsPrioritized = dish.IsPrioritized,
+        //    TableID = tableID
+        //};
 
-        return View(dishWithTypes);
+        var menuDTOs = _context.Menu
+            .AsNoTracking()
+            .Select(i => new MenuDTO
+            {
+                ID = i.ID,
+                Name = i.Name
+            })
+            .ToList();
+
+        ViewData["TableID"] = tableID;
+        ViewData["DishID"] = dishID;
+        ViewData["IsTakenAway"] = dish.IsTakenAway;
+        ViewData["IsPrioritized"] = dish.IsPrioritized;
+
+        return View(menuDTOs);
     }
 
     [HttpPost]
-    public IActionResult EditDish([Bind("ID,OrderID,DishName,TimeOfOrdering,IsDone,IsTakenAway,IsPrioritized")] DishWithTypesDTO inputDish, int tableID)
+    public IActionResult EditDish(int tableID, int ingredientID)
     {
-        var dish = _context.Dish
-            .FirstOrDefault(d => d.ID == inputDish.ID);
+        //var dish = _context.Dish
+        //    .FirstOrDefault(d => d.ID == inputDish.ID);
 
-        dish.DishName = inputDish.DishName;
-        dish.IsTakenAway = inputDish.IsTakenAway;
-        dish.IsPrioritized = inputDish.IsPrioritized;
+        //dish.DishName = inputDish.DishName;
+        //dish.IsTakenAway = inputDish.IsTakenAway;
+        //dish.IsPrioritized = inputDish.IsPrioritized;
 
         _context.SaveChanges();
 
@@ -227,40 +241,15 @@ public class TablesController : Controller
                 oneMenuEntity.Price += ingredientEntity.Price;
                 oneMenuEntity.IngredientsNames += ingredientEntity.Name + ", ";
             }
-            oneMenuEntity.IngredientsNames = oneMenuEntity.IngredientsNames.Remove(oneMenuEntity.IngredientsNames.Length - 2);// Remove 2 last symbols: ", "
+            if (ingredientsID.Count() != 0)
+            {
+                oneMenuEntity.IngredientsNames = oneMenuEntity.IngredientsNames.Remove(oneMenuEntity.IngredientsNames.Length - 2);// Remove 2 last symbols: ", "
+                oneMenuEntity.Price += ((oneMenuEntity.Price * 50) / 100);// Add 50% to price
+            }
         }
 
         return View(menu);
     }
-
-    //[HttpGet]
-    //public IActionResult EditMenu(int menuID)
-    //{
-    //    var menuEntity = _context.Menu
-    //        .AsNoTracking()
-    //        .FirstOrDefault(i => i.ID == menuID);
-
-    //    var menu = new MenuDTO
-    //    {
-    //        ID = menuEntity.ID,
-    //        Name = menuEntity.Name
-    //    };
-
-    //    return View(menu);
-    //}
-
-    //[HttpPost]
-    //public IActionResult EditMenu([Bind("ID,Name,IngredientsNames")] MenuDTO inputMenu)
-    //{
-    //    var menuEntity = _context.Menu
-    //        .Find(inputMenu.ID);
-
-    //    menuEntity.Name = inputMenu.Name;
-
-    //    _context.SaveChanges();
-
-    //    return RedirectToAction("Menu", "Tables");
-    //}
 
     [HttpGet]
     public IActionResult EditMenu(int menuID)
@@ -289,18 +278,61 @@ public class TablesController : Controller
         }
 
         ViewData["MenuID"] = menuID;
+        ViewData["MenuName"] = menuEntity.Name;
 
         return View(ingredientsDTO);
     }
 
-    //[HttpPost]
-    //public IActionResult EditMenu(int ingredientID, int menuID)
-    //{
+    [HttpPost]
+    public IActionResult EditMenu(int menuID, string menuName)
+    {
+        var menuEntity = _context.Menu
+            .Find(menuID);
 
+        menuEntity.Name = menuName;
 
-    //    //return RedirectToAction("Menu", "Tables");
-    //    return View();
-    //}
+        _context.SaveChanges();
+
+        return RedirectToAction("EditMenu", new { menuID = menuID });
+    }
+
+    public IActionResult AddMenu()
+    {
+        var newMenuEntity = new MenuEntity()
+        {
+            Name = "No name"
+        };
+
+        _context.Menu.Add(newMenuEntity);
+        _context.SaveChanges();
+
+        int menuID = _context.Menu
+            .AsNoTracking()
+            .FirstOrDefault(n => n.Name == "No name")
+            .ID;
+
+        return RedirectToAction("EditMenu", new { menuID = menuID });
+    }
+
+    public IActionResult RemoveMenu(int menuID)
+    {
+        var menuEntity = _context.Menu
+            .Find(menuID);
+
+        var menuIngredientsEntity = _context.MenuIngredient
+            .Where(i => i.MenuID == menuID)
+            .AsEnumerable();
+
+        _context.MenuIngredient
+            .RemoveRange(menuIngredientsEntity);
+
+        _context.Menu
+            .Remove(menuEntity);
+
+        _context.SaveChanges();
+
+        return RedirectToAction("Menu", "Tables");
+    }
 
     public IActionResult RemoveMenuIngredient(int ingredientID, int menuID)
     {
