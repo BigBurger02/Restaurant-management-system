@@ -1,0 +1,27 @@
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+@{
+    ViewData["Title"] = "Edit menu";
+}
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="RemoveMenuIngredient" asp-route-ingredientID="@item.ID" asp-route-menuID="@ViewData["MenuID"]">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="AddMenuIngredient" asp-route-menuID="@ViewData["MenuID"]" class="btn btn-primary">Add</a>
+</div>

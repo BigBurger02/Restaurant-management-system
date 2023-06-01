@@ -10,6 +10,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Ingredients</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,9 @@
                     <td>@item.Name</td>
                     <td>@item.Price</td>
                     <td>@item.IngredientsNames</td>
+                    <td>
+                        <a asp-action="EditMenu" asp-route-menuID="@item.ID">Edit</a>
+                    </td>
                 </tr>
             }
         </tbody>
