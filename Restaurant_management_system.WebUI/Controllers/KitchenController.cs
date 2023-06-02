@@ -30,10 +30,10 @@ public class KitchenController : Controller
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
-                TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDone = dish.IsDone ? "Yes" : "No",
-                IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
+                TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+                IsDoneString = dish.IsDone ? "Yes" : "No",
+                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
+                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
             })
             .ToList();
 

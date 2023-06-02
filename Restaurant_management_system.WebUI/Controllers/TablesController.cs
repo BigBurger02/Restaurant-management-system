@@ -96,10 +96,10 @@ public class TablesController : Controller
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
-                TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDone = dish.IsDone ? "Yes" : "No",
-                IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
+                TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+                IsDoneString = dish.IsDone ? "Yes" : "No",
+                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
+                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
             })
             .ToList();
 
@@ -128,28 +128,28 @@ public class TablesController : Controller
             .AsNoTracking()
             .FirstOrDefault(d => d.ID == dishID);
 
-        var dishWithTypes = new DishWithTypesDTO
+        var dishWithTypes = new DishInOrderDTO
         {
-            ID = dish.ID,
+            DishID = dish.ID,
             OrderID = dish.OrderID,
             DishName = dish.DishName,
-            TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-            IsDone = dish.IsDone,
-            IsTakenAway = dish.IsTakenAway,
-            IsPrioritized = dish.IsPrioritized,
+            TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+            IsDoneBool = dish.IsDone,
+            IsTakenAwayBool = dish.IsTakenAway,
+            IsPrioritizedBool = dish.IsPrioritized,
             TableID = tableID
         };
 
         if (dish.DishName != "")
-            dishWithTypes.MenuID = _context.DishInMenu
+            dishWithTypes.DishInMenuID = _context.DishInMenu
                 .FirstOrDefault(i => i.Name == dish.DishName)
                 .ID;
         else
-            dishWithTypes.MenuID = 0;
+            dishWithTypes.DishInMenuID = 0;
 
         var menuDTOs = _context.DishInMenu
             .AsNoTracking()
-            .Select(i => new DishInMenuMenuDTO
+            .Select(i => new DishInMenuDTO
             {
                 ID = i.ID,
                 Name = i.Name
@@ -163,17 +163,17 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditDish([Bind("ID,IsTakenAway,IsPrioritized,DishName")] DishWithTypesDTO inputDish, int tableID, int MenuID)
+    public IActionResult EditDish([Bind("DishID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
     {
         var dishEntity = _context.DishInOrder
-            .Find(inputDish.ID);
+            .Find(inputDish.DishID);
 
         dishEntity.DishName = _context.DishInMenu
             .AsNoTracking()
-            .FirstOrDefault(i => i.ID == MenuID)
+            .FirstOrDefault(i => i.ID == DishInMenuID)
             .Name;
-        dishEntity.IsTakenAway = inputDish.IsTakenAway;
-        dishEntity.IsPrioritized = inputDish.IsPrioritized;
+        dishEntity.IsTakenAway = inputDish.IsTakenAwayBool;
+        dishEntity.IsPrioritized = inputDish.IsPrioritizedBool;
 
         _context.SaveChanges();
 
@@ -229,7 +229,7 @@ public class TablesController : Controller
     {
         var menu = _context.DishInMenu
             .AsNoTracking()
-            .Select(item => new DishInMenuMenuDTO
+            .Select(item => new DishInMenuDTO
             {
                 ID = item.ID,
                 Name = item.Name

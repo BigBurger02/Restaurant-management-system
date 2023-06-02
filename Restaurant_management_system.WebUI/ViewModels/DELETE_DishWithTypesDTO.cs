@@ -2,7 +2,7 @@
 
 namespace Restaurant_management_system.WebUI.ViewModels;
 
-public class DishWithTypesDTO
+public class DELETE_DishWithTypesDTO
 {
     public int ID { get; set; }
     public int TableID { get; set; }
@@ -14,5 +14,5 @@ public class DishWithTypesDTO
     public bool IsTakenAway { get; set; }
     public bool IsPrioritized { get; set; }
 
-    public List<DishInMenuMenuDTO> DishDTOs { get; set; } = new List<DishInMenuMenuDTO>();
+    public List<DishInMenuDTO> DishDTOs { get; set; } = new List<DishInMenuDTO>();
 }

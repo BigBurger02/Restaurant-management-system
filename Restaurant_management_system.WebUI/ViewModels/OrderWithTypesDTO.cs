@@ -8,6 +8,6 @@ public class OrderWithTypesDTO
     public int TableID { get; set; }
     public string? Message { get; set; } = string.Empty;
 
-    public List<DishWithTypesDTO>? Dishes { get; set; } = new List<DishWithTypesDTO>();
+    public List<DELETE_DishWithTypesDTO>? Dishes { get; set; } = new List<DELETE_DishWithTypesDTO>();
 }
 
