@@ -1,4 +1,4 @@
-﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishDTO>
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishInOrderDTO>
 @{
     ViewData["Title"] = "Table " + ViewData["TableID"];
 }
@@ -20,7 +20,9 @@
         </form>
     </div>
 </div>
+
 <br />
+
 <div>
     <table>
         <thead>
@@ -38,16 +40,16 @@
             {
                 <tr>
                     <td>@item.DishName</td>
-                    <td>@item.TimeOfOrdering</td>
-                    <td>@item.IsDone</td>
-                    <td>@item.IsTakenAway</td>
-                    <td>@item.IsPrioritized</td>
+                    <td>@item.TimeOfOrderingString</td>
+                    <td>@item.IsDoneString</td>
+                    <td>@item.IsTakenAwayString</td>
+                    <td>@item.IsPrioritizedString</td>
                     <td>
-                        <a asp-action="EditDish" asp-route-dishID="@item.DishID" asp-route-tableID="@ViewData["TableID"]">Edit dish</a>
+                        <a asp-action="EditDishInOrder" asp-route-dishID="@item.DishID" asp-route-tableID="@ViewData["TableID"]">Edit dish</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <a asp-action="AddDish" asp-route-orderID="@ViewData["OrderID"]" asp-route-tableID="@ViewData["TableID"]" class="btn btn-primary">Add dish</a>
+    <a asp-action="AddDishInOrder" asp-route-orderID="@ViewData["OrderID"]" asp-route-tableID="@ViewData["TableID"]">Add dish</a>
 </div>

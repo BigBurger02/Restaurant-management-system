@@ -7,9 +7,8 @@
     <div class="form-group">
         <label for="ingredientID">Add ingredient:</label>
     </div>
-    @*<input type="hidden" name=ingredientID />*@
     <div class="form-group">
-        @*<textarea placeholder="You can make comments about this order" name="message" cols="70" rows="3">@ViewData["Message"]</textarea>*@
+
         <select name="ingredientID">
             @foreach (var item in Model)
             {
@@ -18,6 +17,6 @@
         </select>
     </div>
     <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="submit" value="Save" />
     </div>
 </form>

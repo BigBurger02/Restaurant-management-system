@@ -1,10 +1,12 @@
-﻿using Restaurant_management_system.Core.DishesAggregate;
-using Restaurant_management_system.Infrastructure.Data;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Restaurant_management_system.WebUI.ViewModels;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Linq;
+
+using Restaurant_management_system.Core.DishesAggregate;
+using Restaurant_management_system.Core.TablesAggregate;
+using Restaurant_management_system.Infrastructure.Data;
+using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -20,18 +22,18 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    public IActionResult DishesList()
+    public IActionResult ActualDishes()
     {
-        var listOfDishes = _context.Dish
+        var listOfDishes = _context.DishInOrder
             .AsNoTracking()
-            .Select(dish => new DishDTO
+            .Select(dish => new DishInOrderDTO
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
-                TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDone = dish.IsDone ? "Yes" : "No",
-                IsTakenAway = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritized = dish.IsPrioritized ? "Yes" : "No"
+                TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+                IsDoneString = dish.IsDone ? "Yes" : "No",
+                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
+                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
             })
             .ToList();
 
@@ -39,7 +41,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    public IActionResult SupplyOfProducts()
+    public IActionResult Ingredients()
     {
         var ingredients = _context.Ingredient
             .AsNoTracking()
@@ -87,7 +89,7 @@ public class KitchenController : Controller
             _context.Ingredient.Add(newingredient);
             _context.SaveChanges();
 
-            return RedirectToAction("SupplyOfProducts", "Kitchen");
+            return RedirectToAction("Ingredients", "Kitchen");
         }
 
         var ingredient = _context.Ingredient
@@ -97,7 +99,7 @@ public class KitchenController : Controller
         ingredient.Price = inputIngredient.Price;
         _context.SaveChanges();
 
-        return RedirectToAction("SupplyOfProducts", "Kitchen");
+        return RedirectToAction("Ingredients", "Kitchen");
     }
 
     public IActionResult RemoveIngredient(int ingredientID)
@@ -108,7 +110,7 @@ public class KitchenController : Controller
         _context.Ingredient.Remove(ingredient);
         _context.SaveChanges();
 
-        return RedirectToAction("SupplyOfProducts", "Kitchen");
+        return RedirectToAction("Ingredients", "Kitchen");
     }
 
     [HttpGet]

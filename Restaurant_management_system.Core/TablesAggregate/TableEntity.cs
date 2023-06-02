@@ -7,7 +7,7 @@ public class TableEntity
     public int AmountOfGuests { get; set; }
     public int OrderCost { get; set; }
     public bool IsPaid { get; set; }
-    public OrderEntity? Order { get; set; }
+    public OrderInTableEntity? Order { get; set; }
 
     public TableEntity()
     {
@@ -16,6 +16,6 @@ public class TableEntity
         OrderCost = 0;
         IsPaid = false;
 
-        Order = new OrderEntity();
+        Order = new OrderInTableEntity();
     }
 }

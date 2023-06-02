@@ -4,13 +4,13 @@
 }
 
 <div>
-    <table>
+    <table class="tableview">
         <thead>
             <tr>
-                <th>Table №</th>
+                <th>Table</th>
                 <th>Occupied</th>
                 <th>Guests</th>
-                <th>Order Cost</th>
+                <th>Cost</th>
                 <th>Paid</th>
                 <th></th>
                 <th></th>
@@ -22,10 +22,10 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.IsOccupied</td>
+                    <td>@item.IsOccupiedString</td>
                     <td>@item.AmountOfGuests</td>
                     <td>@item.OrderCost</td>
-                    <td>@item.IsPaid</td>
+                    <td>@item.IsPaidString</td>
                     <td>
                         <a asp-action="EditTable" asp-route-tableID="@item.ID">Edit table</a>
                     </td>

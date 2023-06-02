@@ -1,6 +1,6 @@
 ﻿namespace Restaurant_management_system.Core.DishesAggregate;
 
-public class DishEntity
+public class DishInOrderEntity
 {
     public int ID { get; set; }
     public int OrderID { get; set; }
@@ -10,7 +10,7 @@ public class DishEntity
     public bool IsTakenAway { get; set; }
     public bool IsPrioritized { get; set; }
 
-    public DishEntity()
+    public DishInOrderEntity()
     {
         DishName = string.Empty;
         DateOfOrdering = DateTime.Now;
