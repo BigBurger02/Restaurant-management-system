@@ -1,6 +1,39 @@
 # Restaurant-management-system
 This pet project will be a centralized management system of all processes in the restaurant. Users could have access levels (admin, chef, head chef, waiter, analyst, etc.). According to the access level user will have permission to see some information and edit this information. The idea of this system is that all users will interact with the same data but with different representations: the waiter adds order to a specific table, chef sees the only list of dishes he may cook.
 
+## DataBase struct:
+
+- Ingredient table: a list of ingredients. User can pick ingredients for a dish from this table.
+    - ID
+    - Name
+    - Price
+- DishInMenu table: the restaurant's menu. User can pick that dishes making the order.
+    - ID
+    - Name
+- IngredientForDishInMenu table: an ingredient for a dish from the menu.
+    - ID
+    - MenuID
+    - IngredientID
+- DishInOrder table: dish for the order. Order can have many dishes.
+    - ID
+    - OrderID
+    - DishName
+    - DateOfOrdering (DateTime)
+    - IsDone (bool)
+    - IsTakenAway (bool)
+    - IsPrioritized (bool)
+- OrderInTable table: order for the table. If Open==false, order will be invisible.
+    - ID
+    - TableID
+    - Open (bool)
+    - Message
+- Table table: table in the restaurant.
+    - ID
+    - IsOccupied (bool)
+    - AmountOfGuests
+    - OrderCost
+    - IsPaid (bool)
+
 ## Pages list and filling:
 
 - Home
