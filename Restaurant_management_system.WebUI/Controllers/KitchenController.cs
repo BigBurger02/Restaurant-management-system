@@ -22,7 +22,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    public IActionResult DishesList()
+    public IActionResult ActualDishes()
     {
         var listOfDishes = _context.DishInOrder
             .AsNoTracking()
@@ -41,7 +41,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    public IActionResult SupplyOfProducts()
+    public IActionResult Ingredients()
     {
         var ingredients = _context.Ingredient
             .AsNoTracking()
@@ -89,7 +89,7 @@ public class KitchenController : Controller
             _context.Ingredient.Add(newingredient);
             _context.SaveChanges();
 
-            return RedirectToAction("SupplyOfProducts", "Kitchen");
+            return RedirectToAction("Ingredients", "Kitchen");
         }
 
         var ingredient = _context.Ingredient
@@ -99,7 +99,7 @@ public class KitchenController : Controller
         ingredient.Price = inputIngredient.Price;
         _context.SaveChanges();
 
-        return RedirectToAction("SupplyOfProducts", "Kitchen");
+        return RedirectToAction("Ingredients", "Kitchen");
     }
 
     public IActionResult RemoveIngredient(int ingredientID)
@@ -110,7 +110,7 @@ public class KitchenController : Controller
         _context.Ingredient.Remove(ingredient);
         _context.SaveChanges();
 
-        return RedirectToAction("SupplyOfProducts", "Kitchen");
+        return RedirectToAction("Ingredients", "Kitchen");
     }
 
     [HttpGet]

@@ -4,7 +4,7 @@
 }
 
 <div class="col-md-1">
-    <form asp-action="EditDish" asp-route-tableID="TableID">
+    <form asp-action="EditDishInOrder" asp-route-tableID="TableID">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="DishID" />
         <input type="hidden" asp-for="TableID" />
@@ -23,7 +23,6 @@
                 }
             }
         </select>
-
         <div class="form-group">
             <input type="checkbox" asp-for="IsTakenAwayBool" />
             <label asp-for="IsTakenAwayBool" class="control-label">Taken Away</label>

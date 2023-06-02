@@ -1,6 +1,6 @@
-﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishInMenuDTO>
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
 @{
-    ViewData["Title"] = "Menu";
+    ViewData["Title"] = "Ingredients";
 }
 
 <div>
@@ -9,8 +9,6 @@
             <tr>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Ingredients</th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -20,16 +18,15 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Price</td>
-                    <td>@item.IngredientsNames</td>
                     <td>
-                        <a asp-action="EditMenu" asp-route-menuID="@item.ID">Edit</a>
+                        <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID">Edit</a>
                     </td>
                     <td>
-                        <a asp-action="RemoveMenu" asp-route-menuID="@item.ID">Remove</a>
+                        <a asp-action="RemoveIngredient" asp-route-ingredientID="@item.ID">Remove</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <a asp-action="AddMenu">Add</a>
+    <a asp-action="EditIngredient">Add ingredient</a>
 </div>

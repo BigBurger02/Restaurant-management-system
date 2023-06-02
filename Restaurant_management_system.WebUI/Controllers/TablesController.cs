@@ -73,6 +73,35 @@ public class TablesController : Controller
         return RedirectToAction("Tables", "Tables");
     }
 
+    public IActionResult ResetTable(int? tableID)
+    {
+        var table = _context.Table
+            .Where(t => t.ID == tableID)
+            .FirstOrDefault();
+
+        if (table != null)
+        {
+            table.IsOccupied = false;
+            table.AmountOfGuests = 0;
+            table.OrderCost = 0;
+            table.IsPaid = false;
+
+            var findOrder = _context.OrderInTable
+                .OrderBy(table => table.TableID)
+                .LastOrDefault(table => table.TableID == tableID);
+            findOrder.Open = false;
+            table.Order = new Core.TablesAggregate.OrderInTableEntity(table.ID);
+            _context.OrderInTable.Add(table.Order);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Tables", "Tables");
+        }
+        else
+            return RedirectToAction("Error", "Home");
+
+    }
+
     [HttpGet]
     public IActionResult EditOrder(int? tableID)
     {
@@ -114,7 +143,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    public IActionResult EditDish(int? dishID, int tableID)
+    public IActionResult EditDishInOrder(int? dishID, int tableID)
     {
         var dish = _context.DishInOrder
             .AsNoTracking()
@@ -155,7 +184,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditDish([Bind("DishID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
+    public IActionResult EditDishInOrder([Bind("DishID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
     {
         var dishEntity = _context.DishInOrder
             .Find(inputDish.DishID);
@@ -172,7 +201,7 @@ public class TablesController : Controller
         return RedirectToAction("EditOrder", new { tableID = tableID });
     }
 
-    public IActionResult AddDish(int orderID, int tableID)
+    public IActionResult AddDishInOrder(int orderID, int tableID)
     {
         var newdish = new DishInOrderEntity() { OrderID = orderID, };
         _context.DishInOrder.Add(newdish);
@@ -184,40 +213,11 @@ public class TablesController : Controller
             .First(order => order.OrderID == orderID)
             .ID;
 
-        return RedirectToAction("EditDish", new { dishID = dishID, tableID = tableID });
-    }
-
-    public IActionResult ResetTable(int? tableID)
-    {
-        var table = _context.Table
-            .Where(t => t.ID == tableID)
-            .FirstOrDefault();
-
-        if (table != null)
-        {
-            table.IsOccupied = false;
-            table.AmountOfGuests = 0;
-            table.OrderCost = 0;
-            table.IsPaid = false;
-
-            var findOrder = _context.OrderInTable
-                .OrderBy(table => table.TableID)
-                .LastOrDefault(table => table.TableID == tableID);
-            findOrder.Open = false;
-            table.Order = new Core.TablesAggregate.OrderInTableEntity(table.ID);
-            _context.OrderInTable.Add(table.Order);
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Tables", "Tables");
-        }
-        else
-            return RedirectToAction("Error", "Home");
-
+        return RedirectToAction("EditDishInOrder", new { dishID = dishID, tableID = tableID });
     }
 
     [HttpGet]
-    public IActionResult Menu()
+    public IActionResult DishesInMenu()
     {
         var menu = _context.DishInMenu
             .AsNoTracking()
@@ -254,7 +254,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    public IActionResult EditMenu(int menuID)
+    public IActionResult EditDishInMenu(int menuID)
     {
         var menuEntity = _context.DishInMenu
             .AsNoTracking()
@@ -286,7 +286,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditMenu(int menuID, string menuName)
+    public IActionResult EditDishInMenu(int menuID, string menuName)
     {
         var menuEntity = _context.DishInMenu
             .Find(menuID);
@@ -295,10 +295,10 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
-    public IActionResult AddMenu()
+    public IActionResult AddDishInMenu()
     {
         var newMenuEntity = new DishInMenuEntity()
         {
@@ -313,10 +313,10 @@ public class TablesController : Controller
             .FirstOrDefault(n => n.Name == "No name")
             .ID;
 
-        return RedirectToAction("EditMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
-    public IActionResult RemoveMenu(int menuID)
+    public IActionResult RemoveDishInMenu(int menuID)
     {
         var menuEntity = _context.DishInMenu
             .Find(menuID);
@@ -333,10 +333,10 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("Menu", "Tables");
+        return RedirectToAction("DishesInMenu", "Tables");
     }
 
-    public IActionResult RemoveMenuIngredient(int ingredientID, int menuID)
+    public IActionResult RemoveIngredientInDish(int ingredientID, int menuID)
     {
         var menuIngredientEntity = _context.IngredientForDishInMenu
             .FirstOrDefault(m => m.MenuID == menuID && m.IngredientID == ingredientID);
@@ -345,11 +345,11 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
     [HttpGet]
-    public IActionResult AddMenuIngredient(int menuID)
+    public IActionResult AddIngredientInDish(int menuID)
     {
         var ingredients = _context.Ingredient
             .Select(i => new IngredientDTO
@@ -365,7 +365,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddMenuIngredient(int ingredientID, int menuID)
+    public IActionResult AddIngredientInDish(int ingredientID, int menuID)
     {
         var newMenuIngredient = new IngredientForDishInMenuEntity()
         {
@@ -377,7 +377,7 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 }
 
