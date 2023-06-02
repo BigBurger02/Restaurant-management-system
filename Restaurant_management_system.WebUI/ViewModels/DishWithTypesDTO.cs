@@ -8,8 +8,11 @@ public class DishWithTypesDTO
     public int TableID { get; set; }
     public int OrderID { get; set; }
     public string DishName { get; set; }
+    public int MenuID { get; set; }
     public string TimeOfOrdering { get; set; } = string.Empty;
     public bool IsDone { get; set; }
     public bool IsTakenAway { get; set; }
     public bool IsPrioritized { get; set; }
+
+    public List<MenuDTO> DishDTOs { get; set; } = new List<MenuDTO>();
 }
