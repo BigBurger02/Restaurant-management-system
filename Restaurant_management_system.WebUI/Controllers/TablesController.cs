@@ -30,8 +30,8 @@ public class TablesController : Controller
             .Select(table => new TableDTO
             {
                 ID = table.ID,
-                IsOccupied = table.IsOccupied ? "Yes" : "No",
-                IsPaid = table.IsPaid ? "Yes" : "No",
+                IsOccupiedString = table.IsOccupied ? "Yes" : "No",
+                IsPaidString = table.IsPaid ? "Yes" : "No",
                 AmountOfGuests = table.AmountOfGuests,
                 OrderCost = 0
             })
@@ -47,11 +47,11 @@ public class TablesController : Controller
             .AsNoTracking()
             .First(t => t.ID == tableID);
 
-        TableWithTypesDTO table = new TableWithTypesDTO
+        TableDTO table = new TableDTO
         {
             ID = tableQuery.ID,
-            IsOccupied = tableQuery.IsOccupied,
-            IsPaid = tableQuery.IsPaid,
+            IsOccupiedBool = tableQuery.IsOccupied,
+            IsPaidBool = tableQuery.IsPaid,
             AmountOfGuests = tableQuery.AmountOfGuests
         };
 
@@ -59,22 +59,14 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditTable([Bind("ID,IsOccupied,IsPaid,AmountOfGuests")] TableWithTypesDTO inputTable)
+    public IActionResult EditTable([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests")] TableDTO inputTable)
     {
         var tableQuery = _context.Table
             .First(t => t.ID == inputTable.ID);
 
-        tableQuery.IsOccupied = inputTable.IsOccupied;
-        tableQuery.IsPaid = inputTable.IsPaid;
+        tableQuery.IsOccupied = inputTable.IsOccupiedBool;
+        tableQuery.IsPaid = inputTable.IsPaidBool;
         tableQuery.AmountOfGuests = inputTable.AmountOfGuests;
-
-        TableWithTypesDTO table = new TableWithTypesDTO
-        {
-            ID = tableQuery.ID,
-            IsOccupied = inputTable.IsOccupied,
-            IsPaid = inputTable.IsPaid,
-            AmountOfGuests = inputTable.AmountOfGuests
-        };
 
         _context.SaveChanges();
 
