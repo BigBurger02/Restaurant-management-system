@@ -126,17 +126,24 @@ public class TablesController : Controller
             .AsNoTracking()
             .FirstOrDefault(d => d.ID == dishID);
 
-        //var dishWithTypes = new DishWithTypesDTO
-        //{
-        //    ID = dish.ID,
-        //    OrderID = dish.OrderID,
-        //    DishName = dish.DishName,
-        //    TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-        //    IsDone = dish.IsDone,
-        //    IsTakenAway = dish.IsTakenAway,
-        //    IsPrioritized = dish.IsPrioritized,
-        //    TableID = tableID
-        //};
+        var dishWithTypes = new DishWithTypesDTO
+        {
+            ID = dish.ID,
+            OrderID = dish.OrderID,
+            DishName = dish.DishName,
+            TimeOfOrdering = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+            IsDone = dish.IsDone,
+            IsTakenAway = dish.IsTakenAway,
+            IsPrioritized = dish.IsPrioritized,
+            TableID = tableID
+        };
+
+        if (dish.DishName != "")
+            dishWithTypes.MenuID = _context.Menu
+                .FirstOrDefault(i => i.Name == dish.DishName)
+                .ID;
+        else
+            dishWithTypes.MenuID = 0;
 
         var menuDTOs = _context.Menu
             .AsNoTracking()
@@ -147,23 +154,24 @@ public class TablesController : Controller
             })
             .ToList();
 
-        ViewData["TableID"] = tableID;
-        ViewData["DishID"] = dishID;
-        ViewData["IsTakenAway"] = dish.IsTakenAway;
-        ViewData["IsPrioritized"] = dish.IsPrioritized;
+        foreach (var item in menuDTOs)
+            dishWithTypes.DishDTOs.Add(item);
 
-        return View(menuDTOs);
+        return View(dishWithTypes);
     }
 
     [HttpPost]
-    public IActionResult EditDish(int tableID, int ingredientID)
+    public IActionResult EditDish([Bind("ID,IsTakenAway,IsPrioritized,DishName")] DishWithTypesDTO inputDish, int tableID, int MenuID)
     {
-        //var dish = _context.Dish
-        //    .FirstOrDefault(d => d.ID == inputDish.ID);
+        var dishEntity = _context.Dish
+            .Find(inputDish.ID);
 
-        //dish.DishName = inputDish.DishName;
-        //dish.IsTakenAway = inputDish.IsTakenAway;
-        //dish.IsPrioritized = inputDish.IsPrioritized;
+        dishEntity.DishName = _context.Menu
+            .AsNoTracking()
+            .FirstOrDefault(i => i.ID == MenuID)
+            .Name;
+        dishEntity.IsTakenAway = inputDish.IsTakenAway;
+        dishEntity.IsPrioritized = inputDish.IsPrioritized;
 
         _context.SaveChanges();
 
