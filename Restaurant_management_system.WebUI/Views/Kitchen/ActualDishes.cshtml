@@ -3,6 +3,8 @@
     ViewData["Title"] = "Dishes";
 }
 
+<h3>Today's unfinished meals</h3>
+
 <div>
     <table>
         <thead>
@@ -20,7 +22,9 @@
                 <tr>
                     <td>@item.DishName</td>
                     <td>@item.TimeOfOrderingString</td>
-                    <td>@item.IsDoneString</td>
+                    <td>
+                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID">@item.IsDoneString</a>
+                    </td>
                     <td>@item.IsTakenAwayString</td>
                     <td>@item.IsPrioritizedString</td>
                 </tr>
