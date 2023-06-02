@@ -1,10 +1,12 @@
-﻿using Restaurant_management_system.Core.DishesAggregate;
-using Restaurant_management_system.Infrastructure.Data;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Restaurant_management_system.WebUI.ViewModels;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Linq;
+
+using Restaurant_management_system.Core.DishesAggregate;
+using Restaurant_management_system.Core.TablesAggregate;
+using Restaurant_management_system.Infrastructure.Data;
+using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -22,9 +24,9 @@ public class KitchenController : Controller
     [HttpGet]
     public IActionResult DishesList()
     {
-        var listOfDishes = _context.Dish
+        var listOfDishes = _context.DishInOrder
             .AsNoTracking()
-            .Select(dish => new DishDTO
+            .Select(dish => new DishInOrderDTO
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,

@@ -2,28 +2,28 @@
 
 namespace Restaurant_management_system.Core.TablesAggregate;
 
-public class OrderEntity
+public class OrderInTableEntity
 {
     public int ID { get; set; }
     public int TableID { get; set; }
     public bool Open { get; set; }
     public string? Message { get; set; }
 
-    public List<DishEntity>? Dishes { get; set; }
+    public List<DishInOrderEntity>? Dishes { get; set; }
 
-    public OrderEntity()
+    public OrderInTableEntity()
     {
         Open = true;
         Message = string.Empty;
 
-        Dishes = new List<DishEntity>();
+        Dishes = new List<DishInOrderEntity>();
     }
-    public OrderEntity(int id)
+    public OrderInTableEntity(int id)
     {
         TableID = id;
         Open = true;
         Message = string.Empty;
 
-        Dishes = new List<DishEntity>();
+        Dishes = new List<DishInOrderEntity>();
     }
 }

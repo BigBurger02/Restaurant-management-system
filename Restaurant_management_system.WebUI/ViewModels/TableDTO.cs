@@ -10,6 +10,6 @@ public class TableDTO
     public string IsPaid { get; set; } = string.Empty;
     public int AmountOfGuests { get; set; } = 0;
     public int OrderCost { get; set; } = 0;
-    public OrderEntity? Order { get; set; }
+    public OrderInTableDTO? Order { get; set; }
 }
 

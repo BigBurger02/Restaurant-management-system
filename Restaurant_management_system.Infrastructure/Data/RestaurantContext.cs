@@ -10,21 +10,21 @@ namespace Restaurant_management_system.Infrastructure.Data
         {
         }
 
-        public DbSet<DishEntity> Dish { get; set; }
+        public DbSet<DishInOrderEntity> DishInOrder { get; set; }
         public DbSet<TableEntity> Table { get; set; }
         public DbSet<IngredientEntity> Ingredient { get; set; }
-        public DbSet<MenuEntity> Menu { get; set; }
-        public DbSet<OrderEntity> Order { get; set; }
-        public DbSet<MenuIngredientsEntity> MenuIngredient { get; set; }
+        public DbSet<DishInMenuEntity> DishInMenu { get; set; }
+        public DbSet<OrderInTableEntity> OrderInTable { get; set; }
+        public DbSet<IngredientForDishInMenuEntity> IngredientForDishInMenu { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DishEntity>().ToTable("Dishes");
+            modelBuilder.Entity<DishInOrderEntity>().ToTable("DishesInOrder");
             modelBuilder.Entity<TableEntity>().ToTable("Tables");
             modelBuilder.Entity<IngredientEntity>().ToTable("Ingredients");
-            modelBuilder.Entity<MenuEntity>().ToTable("Menu");
-            modelBuilder.Entity<OrderEntity>().ToTable("Orders");
-            modelBuilder.Entity<MenuIngredientsEntity>().ToTable("MenuIngredients");
+            modelBuilder.Entity<DishInMenuEntity>().ToTable("DishesInMenu");
+            modelBuilder.Entity<OrderInTableEntity>().ToTable("OrdersInTable");
+            modelBuilder.Entity<IngredientForDishInMenuEntity>().ToTable("IngredientsForDishInMenu");
         }
     }
 }

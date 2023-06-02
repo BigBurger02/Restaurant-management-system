@@ -2,7 +2,7 @@
 
 namespace Restaurant_management_system.WebUI.ViewModels
 {
-    public class DishDTO
+    public class DishInOrderDTO
     {
         public int DishID { get; set; }
         public string DishName { get; set; } = string.Empty;

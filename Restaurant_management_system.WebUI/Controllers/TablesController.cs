@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
+
+using Restaurant_management_system.Core.DishesAggregate;
+using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.WebUI.ViewModels;
-using Restaurant_management_system.Core.DishesAggregate;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -31,7 +33,7 @@ public class TablesController : Controller
                 IsOccupied = table.IsOccupied ? "Yes" : "No",
                 IsPaid = table.IsPaid ? "Yes" : "No",
                 AmountOfGuests = table.AmountOfGuests,
-                OrderCost = table.OrderCost
+                OrderCost = 0
             })
             .ToList();
 
@@ -82,15 +84,15 @@ public class TablesController : Controller
     [HttpGet]
     public IActionResult EditOrder(int? tableID)
     {
-        var findOrder = _context.Order
+        var findOrder = _context.OrderInTable
             .AsNoTracking()
             .OrderByDescending(o => o.ID)
             .First(table => table.TableID == tableID);
 
-        var findDishes = _context.Dish
+        var findDishes = _context.DishInOrder
             .AsNoTracking()
             .Where(order => order.OrderID == findOrder.ID)
-            .Select(dish => new DishDTO
+            .Select(dish => new DishInOrderDTO
             {
                 DishID = dish.ID,
                 DishName = dish.DishName,
@@ -111,7 +113,7 @@ public class TablesController : Controller
     [HttpPost]
     public IActionResult EditOrder(int tableID, int orderID, string message)
     {
-        var order = _context.Order
+        var order = _context.OrderInTable
             .First(i => i.ID == orderID);
         order.Message = message;
         _context.SaveChanges();
@@ -122,7 +124,7 @@ public class TablesController : Controller
     [HttpGet]
     public IActionResult EditDish(int? dishID, int tableID)
     {
-        var dish = _context.Dish
+        var dish = _context.DishInOrder
             .AsNoTracking()
             .FirstOrDefault(d => d.ID == dishID);
 
@@ -139,15 +141,15 @@ public class TablesController : Controller
         };
 
         if (dish.DishName != "")
-            dishWithTypes.MenuID = _context.Menu
+            dishWithTypes.MenuID = _context.DishInMenu
                 .FirstOrDefault(i => i.Name == dish.DishName)
                 .ID;
         else
             dishWithTypes.MenuID = 0;
 
-        var menuDTOs = _context.Menu
+        var menuDTOs = _context.DishInMenu
             .AsNoTracking()
-            .Select(i => new MenuDTO
+            .Select(i => new DishInMenuMenuDTO
             {
                 ID = i.ID,
                 Name = i.Name
@@ -163,10 +165,10 @@ public class TablesController : Controller
     [HttpPost]
     public IActionResult EditDish([Bind("ID,IsTakenAway,IsPrioritized,DishName")] DishWithTypesDTO inputDish, int tableID, int MenuID)
     {
-        var dishEntity = _context.Dish
+        var dishEntity = _context.DishInOrder
             .Find(inputDish.ID);
 
-        dishEntity.DishName = _context.Menu
+        dishEntity.DishName = _context.DishInMenu
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == MenuID)
             .Name;
@@ -180,11 +182,11 @@ public class TablesController : Controller
 
     public IActionResult AddDish(int orderID, int tableID)
     {
-        var newdish = new DishEntity() { OrderID = orderID, };
-        _context.Dish.Add(newdish);
+        var newdish = new DishInOrderEntity() { OrderID = orderID, };
+        _context.DishInOrder.Add(newdish);
         _context.SaveChanges();
 
-        int dishID = _context.Dish
+        int dishID = _context.DishInOrder
             .AsNoTracking()
             .OrderByDescending(d => d.ID)
             .First(order => order.OrderID == orderID)
@@ -206,12 +208,12 @@ public class TablesController : Controller
             table.OrderCost = 0;
             table.IsPaid = false;
 
-            var findOrder = _context.Order
+            var findOrder = _context.OrderInTable
                 .OrderBy(table => table.TableID)
                 .LastOrDefault(table => table.TableID == tableID);
             findOrder.Open = false;
-            table.Order = new Core.TablesAggregate.OrderEntity(table.ID);
-            _context.Order.Add(table.Order);
+            table.Order = new Core.TablesAggregate.OrderInTableEntity(table.ID);
+            _context.OrderInTable.Add(table.Order);
 
             _context.SaveChanges();
 
@@ -225,9 +227,9 @@ public class TablesController : Controller
     [HttpGet]
     public IActionResult Menu()
     {
-        var menu = _context.Menu
+        var menu = _context.DishInMenu
             .AsNoTracking()
-            .Select(item => new MenuDTO
+            .Select(item => new DishInMenuMenuDTO
             {
                 ID = item.ID,
                 Name = item.Name
@@ -236,7 +238,7 @@ public class TablesController : Controller
 
         foreach (var oneMenuEntity in menu)
         {
-            var ingredientsID = _context.MenuIngredient
+            var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
                 .Where(i => i.MenuID == oneMenuEntity.ID);
 
@@ -262,11 +264,11 @@ public class TablesController : Controller
     [HttpGet]
     public IActionResult EditMenu(int menuID)
     {
-        var menuEntity = _context.Menu
+        var menuEntity = _context.DishInMenu
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == menuID);
 
-        var ingredientsID = _context.MenuIngredient
+        var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
                 .Where(i => i.MenuID == menuEntity.ID);
 
@@ -294,7 +296,7 @@ public class TablesController : Controller
     [HttpPost]
     public IActionResult EditMenu(int menuID, string menuName)
     {
-        var menuEntity = _context.Menu
+        var menuEntity = _context.DishInMenu
             .Find(menuID);
 
         menuEntity.Name = menuName;
@@ -306,15 +308,15 @@ public class TablesController : Controller
 
     public IActionResult AddMenu()
     {
-        var newMenuEntity = new MenuEntity()
+        var newMenuEntity = new DishInMenuEntity()
         {
             Name = "No name"
         };
 
-        _context.Menu.Add(newMenuEntity);
+        _context.DishInMenu.Add(newMenuEntity);
         _context.SaveChanges();
 
-        int menuID = _context.Menu
+        int menuID = _context.DishInMenu
             .AsNoTracking()
             .FirstOrDefault(n => n.Name == "No name")
             .ID;
@@ -324,17 +326,17 @@ public class TablesController : Controller
 
     public IActionResult RemoveMenu(int menuID)
     {
-        var menuEntity = _context.Menu
+        var menuEntity = _context.DishInMenu
             .Find(menuID);
 
-        var menuIngredientsEntity = _context.MenuIngredient
+        var menuIngredientsEntity = _context.IngredientForDishInMenu
             .Where(i => i.MenuID == menuID)
             .AsEnumerable();
 
-        _context.MenuIngredient
+        _context.IngredientForDishInMenu
             .RemoveRange(menuIngredientsEntity);
 
-        _context.Menu
+        _context.DishInMenu
             .Remove(menuEntity);
 
         _context.SaveChanges();
@@ -344,10 +346,10 @@ public class TablesController : Controller
 
     public IActionResult RemoveMenuIngredient(int ingredientID, int menuID)
     {
-        var menuIngredientEntity = _context.MenuIngredient
+        var menuIngredientEntity = _context.IngredientForDishInMenu
             .FirstOrDefault(m => m.MenuID == menuID && m.IngredientID == ingredientID);
 
-        _context.MenuIngredient.Remove(menuIngredientEntity);
+        _context.IngredientForDishInMenu.Remove(menuIngredientEntity);
 
         _context.SaveChanges();
 
@@ -373,13 +375,13 @@ public class TablesController : Controller
     [HttpPost]
     public IActionResult AddMenuIngredient(int ingredientID, int menuID)
     {
-        var newMenuIngredient = new MenuIngredientsEntity()
+        var newMenuIngredient = new IngredientForDishInMenuEntity()
         {
             MenuID = menuID,
             IngredientID = ingredientID
         };
 
-        _context.MenuIngredient.Add(newMenuIngredient);
+        _context.IngredientForDishInMenu.Add(newMenuIngredient);
 
         _context.SaveChanges();
 

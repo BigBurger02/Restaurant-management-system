@@ -2,11 +2,12 @@
 
 namespace Restaurant_management_system.WebUI.ViewModels;
 
-public class OrderDTO
+public class OrderInTableDTO
 {
     public int ID { get; set; }
     public int TableID { get; set; }
+    public bool Open { get; set; }
     public string? Message { get; set; } = string.Empty;
 
-    public List<DishDTO>? Dishes { get; set; } = new List<DishDTO>();
+    public List<DishInOrderDTO>? Dishes { get; set; } = new List<DishInOrderDTO>();
 }

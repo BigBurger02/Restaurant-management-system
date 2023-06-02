@@ -14,5 +14,5 @@ public class DishWithTypesDTO
     public bool IsTakenAway { get; set; }
     public bool IsPrioritized { get; set; }
 
-    public List<MenuDTO> DishDTOs { get; set; } = new List<MenuDTO>();
+    public List<DishInMenuMenuDTO> DishDTOs { get; set; } = new List<DishInMenuMenuDTO>();
 }
