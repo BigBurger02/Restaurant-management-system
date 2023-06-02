@@ -26,6 +26,7 @@ public class KitchenController : Controller
     {
         var listOfDishes = _context.DishInOrder
             .AsNoTracking()
+            .Where(d => d.DateOfOrdering.Date == DateTime.Today.Date && d.IsDone == false)
             .Select(dish => new DishInOrderDTO
             {
                 DishID = dish.ID,
@@ -38,6 +39,21 @@ public class KitchenController : Controller
             .ToList();
 
         return View(listOfDishes);
+    }
+
+    public IActionResult Change_DONE_InDish(int dishID)
+    {
+        var dish = _context.DishInOrder
+            .Find(dishID);
+
+        if (dish.IsDone == true)
+            dish.IsDone = false;
+        else
+            dish.IsDone = true;
+
+        _context.SaveChanges();
+
+        return RedirectToAction("ActualDishes", "Kitchen");
     }
 
     [HttpGet]
