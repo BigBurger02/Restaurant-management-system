@@ -4,12 +4,12 @@
 }
 
 <div>
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Ingredients</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Ingredients</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -18,18 +18,36 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Name</td>
+                    <th scope="row">@item.Name</th>
                     <td>@item.Price</td>
                     <td>@item.IngredientsNames</td>
                     <td>
-                        <a asp-action="EditDishInMenu" asp-route-menuID="@item.ID">Edit</a>
+                        <a asp-action="EditDishInMenu" asp-route-menuID="@item.ID" class="btn btn-primary btn-circle btn-sm">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
                     </td>
                     <td>
-                        <a asp-action="RemoveDishInMenu" asp-route-menuID="@item.ID">Remove</a>
+                        <a asp-action="RemoveDishInMenu" asp-route-menuID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </a>
                     </td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <a asp-action="AddDishInMenu" class="btn btn-secondary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus-circle"></i>
+                        </span>
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
-    <a asp-action="AddDishInMenu">Add</a>
 </div>

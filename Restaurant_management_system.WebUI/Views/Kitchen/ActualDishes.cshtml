@@ -6,27 +6,30 @@
 <h3>Today's unfinished meals</h3>
 
 <div>
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Dish name</th>
-                <th>Time of ordering</th>
-                <th>Done</th>
-                <th>Taken away</th>
-                <th>Prioritized</th>
+                <th scope="col">Dish name</th>
+                <th scope="col">Time of ordering</th>
+                <th scope="col">Prioritized</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.DishName</td>
+                    <td scope="row">@item.DishName</td>
                     <td>@item.TimeOfOrderingString</td>
-                    <td>
-                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID">@item.IsDoneString</a>
-                    </td>
-                    <td>@item.IsTakenAwayString</td>
                     <td>@item.IsPrioritizedString</td>
+                    <td>
+                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID" class="btn btn-success btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Done</span>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -41,36 +41,72 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    public IActionResult EditTable(int? tableID)
+    public IActionResult EditTableAndOrder(int tableID)
     {
-        var tableQuery = _context.Table
+        var findTable = _context.Table
             .AsNoTracking()
-            .First(t => t.ID == tableID);
+            .FirstOrDefault(i => i.ID == tableID);
 
-        TableDTO table = new TableDTO
+        var findOrder = _context.OrderInTable
+            .AsNoTracking()
+            .OrderByDescending(o => o.ID)
+            .First(table => table.TableID == tableID);
+
+        var findDishes = _context.DishInOrder
+            .AsNoTracking()
+            .Where(order => order.OrderID == findOrder.ID)
+            .Select(dish => new DishInOrderDTO
+            {
+                DishID = dish.ID,
+                DishName = dish.DishName,
+                TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
+                IsDoneString = dish.IsDone ? "Yes" : "No",
+                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
+                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
+            })
+            .ToList();
+
+
+        var table = new TableDTO()
         {
-            ID = tableQuery.ID,
-            IsOccupiedBool = tableQuery.IsOccupied,
-            IsPaidBool = tableQuery.IsPaid,
-            AmountOfGuests = tableQuery.AmountOfGuests
+            ID = findTable.ID,
+            IsOccupiedBool = findTable.IsOccupied,
+            IsPaidBool = findTable.IsPaid,
+            IsOccupiedString = findTable.IsOccupied ? "Yes" : "No",
+            IsPaidString = findTable.IsPaid ? "Yes" : "No",
+            AmountOfGuests = findTable.AmountOfGuests,
+            OrderCost = findTable.OrderCost,
+            Order = new OrderInTableDTO()
         };
+
+        table.Order.ID = findOrder.ID;
+        table.Order.TableID = findOrder.TableID;
+        table.Order.Open = findOrder.Open;
+        table.Order.Message = findOrder.Message;
+        foreach (var item in findDishes)
+            table.Order.Dishes.Add(item);
 
         return View(table);
     }
 
     [HttpPost]
-    public IActionResult EditTable([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests")] TableDTO inputTable)
+    public IActionResult EditTableAndOrder([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests,Order")] TableDTO inputTable)
     {
-        var tableQuery = _context.Table
-            .First(t => t.ID == inputTable.ID);
+        var findTable = _context.Table
+            .Find(inputTable.ID);
 
-        tableQuery.IsOccupied = inputTable.IsOccupiedBool;
-        tableQuery.IsPaid = inputTable.IsPaidBool;
-        tableQuery.AmountOfGuests = inputTable.AmountOfGuests;
+        findTable.Order = _context.OrderInTable
+            .OrderByDescending(o => o.ID)
+            .First(table => table.TableID == inputTable.ID);
+
+        findTable.IsOccupied = inputTable.IsOccupiedBool;
+        findTable.IsPaid = inputTable.IsPaidBool;
+        findTable.AmountOfGuests = inputTable.AmountOfGuests;
+        findTable.Order.Message = inputTable.Order.Message;
 
         _context.SaveChanges();
 
-        return RedirectToAction("Tables", "Tables");
+        return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
     }
 
     public IActionResult ResetTable(int? tableID)
@@ -100,46 +136,6 @@ public class TablesController : Controller
         else
             return RedirectToAction("Error", "Home");
 
-    }
-
-    [HttpGet]
-    public IActionResult EditOrder(int? tableID)
-    {
-        var findOrder = _context.OrderInTable
-            .AsNoTracking()
-            .OrderByDescending(o => o.ID)
-            .First(table => table.TableID == tableID);
-
-        var findDishes = _context.DishInOrder
-            .AsNoTracking()
-            .Where(order => order.OrderID == findOrder.ID)
-            .Select(dish => new DishInOrderDTO
-            {
-                DishID = dish.ID,
-                DishName = dish.DishName,
-                TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDoneString = dish.IsDone ? "Yes" : "No",
-                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
-            })
-            .ToList();
-
-        ViewData["OrderID"] = findOrder.ID;
-        ViewData["TableID"] = findOrder.TableID;
-        ViewData["Message"] = findOrder.Message;
-
-        return View(findDishes);
-    }
-
-    [HttpPost]
-    public IActionResult EditOrder(int tableID, int orderID, string message)
-    {
-        var order = _context.OrderInTable
-            .First(i => i.ID == orderID);
-        order.Message = message;
-        _context.SaveChanges();
-
-        return RedirectToAction("EditOrder", new { tableID = tableID });
     }
 
     [HttpGet]
@@ -198,7 +194,7 @@ public class TablesController : Controller
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditOrder", new { tableID = tableID });
+        return RedirectToAction("EditTableAndOrder", new { tableID = tableID });
     }
 
     public IActionResult AddDishInOrder(int orderID, int tableID)

@@ -4,11 +4,12 @@
 }
 
 <div>
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -16,17 +17,34 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Name</td>
+                    <th scope="row">@item.Name</th>
                     <td>@item.Price</td>
                     <td>
-                        <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID">Edit</a>
+                        <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID" class="btn btn-primary btn-circle btn-sm">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
                     </td>
                     <td>
-                        <a asp-action="RemoveIngredient" asp-route-ingredientID="@item.ID">Remove</a>
+                        <a asp-action="RemoveIngredient" asp-route-ingredientID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </a>
                     </td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <a asp-action="EditIngredient" class="btn btn-secondary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-plus-circle"></i>
+                        </span>
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
-    <a asp-action="EditIngredient">Add ingredient</a>
 </div>

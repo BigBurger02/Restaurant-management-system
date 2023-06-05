@@ -36,5 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
+    <Folder Include="wwwroot\lib\jquery-easing\" />
+    <Folder Include="wwwroot\lib\chart.js\" />
+    <Folder Include="wwwroot\js\demo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
+    <Content Remove="wwwroot\lib\Fonts\fontawesome-free\css\" />
+    <Content Remove="wwwroot\lib\jquery-easing\" />
+    <Content Remove="wwwroot\lib\chart.js\" />
+    <Content Remove="wwwroot\js\demo\" />
   </ItemGroup>
 </Project>
