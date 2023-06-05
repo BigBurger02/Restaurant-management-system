@@ -6,37 +6,44 @@
     <h3>Table @Model.ID - Order @Model.Order.ID</h3>
 </div>
 
-<div>
+<div style="padding-bottom: 40px">
     <form asp-action="EditTableAndOrder">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="ID" />
-        <div class="form-group">
-            <input type="checkbox" asp-for="IsOccupiedBool" />
-            <label asp-for="IsOccupiedBool" class="control-label">Occupied</label>
-            <span asp-validation-for="IsOccupiedBool" class="text-danger"></span>
+
+        <div class="form-row align-items-center">
+            <div class="form-check form-check-inline" style="padding-right: 20px">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" asp-for="IsOccupiedBool">
+                <label class="form-check-label" asp-for="IsOccupiedBool">Occupied</label>
+                <span asp-validation-for="IsOccupiedBool" class="text-danger"></span>
+            </div>
+            <div class="form-check form-check-inline" style="padding-right: 20px">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" asp-for="IsPaidBool">
+                <label class="form-check-label" asp-for="IsPaidBool">Paid</label>
+            </div>
+            <div class="col-auto" style="padding-top: 10px">
+                <label asp-for="AmountOfGuests" class="control-label">Guests:</label>
+            </div>
+            <div class="col-auto">
+                <input asp-for="AmountOfGuests" class="form-control" />
+            </div>
         </div>
-        <div class="form-group">
-            <input type="checkbox" asp-for="IsPaidBool" />
-            <label asp-for="IsPaidBool" class="control-label">Paid</label>
-            <span asp-validation-for="IsPaidBool" class="text-danger"></span>
+
+        <div class="form-row align-items-center">
+            <div class="col-auto" style="padding-top: 10px">
+                <label asp-for="Order.Message" class="control-label">Message:</label>
+            </div>
+            <div class="col-auto">
+                <input asp-for="Order.Message" class="form-control" size="120" />
+                <span asp-validation-for="Order.Message" class="text-danger"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label asp-for="AmountOfGuests" class="control-label">Guests</label>
-            <input asp-for="AmountOfGuests" class="form-control" />
-            <span asp-validation-for="AmountOfGuests" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Order.Message" class="control-label">Message</label>
-            <input asp-for="Order.Message" class="form-control" />
-            <span asp-validation-for="Order.Message" class="text-danger"></span>
-        </div>
+
         <div class="form-group">
             <input type="submit" value="Save" class="card bg-primary text-white shadow" />
         </div>
     </form>
 </div>
-
-<br />
 
 <div>
     <table class="table table-hover">
