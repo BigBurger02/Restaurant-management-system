@@ -4,11 +4,11 @@
 }
 
 <div>
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Price</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
                 <th></th>
             </tr>
         </thead>
@@ -16,7 +16,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Name</td>
+                    <th scope="row">@item.Name</th>
                     <td>@item.Price</td>
                     <td>
                         <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID">Edit</a>
@@ -26,7 +26,14 @@
                     </td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <a asp-action="EditIngredient">Add</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
-    <a asp-action="EditIngredient">Add ingredient</a>
 </div>

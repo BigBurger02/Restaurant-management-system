@@ -24,14 +24,14 @@
 <br />
 
 <div>
-    <table>
+    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Dish</th>
-                <th>Time of oredring</th>
-                <th>Cooked</th>
-                <th>Taked from kitchen</th>
-                <th>Prioritized</th>
+                <th scope="col">Dish</th>
+                <th scope="col">Time of oredring</th>
+                <th scope="col">Cooked</th>
+                <th scope="col">Taked from kitchen</th>
+                <th scope="col">Prioritized</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,17 +39,26 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.DishName</td>
+                    <th scope="row">@item.DishName</th>
                     <td>@item.TimeOfOrderingString</td>
                     <td>@item.IsDoneString</td>
                     <td>@item.IsTakenAwayString</td>
                     <td>@item.IsPrioritizedString</td>
                     <td>
-                        <a asp-action="EditDishInOrder" asp-route-dishID="@item.DishID" asp-route-tableID="@ViewData["TableID"]">Edit dish</a>
+                        <a asp-action="EditDishInOrder" asp-route-dishID="@item.DishID" asp-route-tableID="@ViewData["TableID"]">Edit</a>
                     </td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <a asp-action="AddDishInOrder" asp-route-orderID="@ViewData["OrderID"]" asp-route-tableID="@ViewData["TableID"]">Add</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
-    <a asp-action="AddDishInOrder" asp-route-orderID="@ViewData["OrderID"]" asp-route-tableID="@ViewData["TableID"]">Add dish</a>
 </div>
