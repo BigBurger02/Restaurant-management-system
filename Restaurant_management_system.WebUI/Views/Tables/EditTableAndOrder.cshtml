@@ -1,0 +1,79 @@
+﻿@model Restaurant_management_system.WebUI.ViewModels.TableDTO
+@{
+    ViewData["Title"] = "Order";
+}
+<div>
+    <h3>Table @Model.ID - Order @Model.Order.ID</h3>
+</div>
+
+<div>
+    <form asp-action="EditTableAndOrder">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsOccupiedBool" />
+            <label asp-for="IsOccupiedBool" class="control-label">Occupied</label>
+            <span asp-validation-for="IsOccupiedBool" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsPaidBool" />
+            <label asp-for="IsPaidBool" class="control-label">Paid</label>
+            <span asp-validation-for="IsPaidBool" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AmountOfGuests" class="control-label">Guests</label>
+            <input asp-for="AmountOfGuests" class="form-control" />
+            <span asp-validation-for="AmountOfGuests" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Order.Message" class="control-label">Message</label>
+            <input asp-for="Order.Message" class="form-control" />
+            <span asp-validation-for="Order.Message" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="card bg-primary text-white shadow" />
+        </div>
+    </form>
+</div>
+
+<br />
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Dish</th>
+                <th scope="col">Time of oredring</th>
+                <th scope="col">Cooked</th>
+                <th scope="col">Taked from kitchen</th>
+                <th scope="col">Prioritized</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Order.Dishes)
+            {
+                <tr>
+                    <th scope="row">@item.DishName</th>
+                    <td>@item.TimeOfOrderingString</td>
+                    <td>@item.IsDoneString</td>
+                    <td>@item.IsTakenAwayString</td>
+                    <td>@item.IsPrioritizedString</td>
+                    <td>
+                        <a asp-action="EditDishInOrder" asp-route-dishID="@item.DishID" asp-route-tableID="@Model.ID">Edit</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <a asp-action="AddDishInOrder" asp-route-orderID="@Model.Order.ID" asp-route-tableID="@Model.ID">Add</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
