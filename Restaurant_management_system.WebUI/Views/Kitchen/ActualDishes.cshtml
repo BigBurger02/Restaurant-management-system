@@ -23,7 +23,12 @@
                     <td>@item.TimeOfOrderingString</td>
                     <td>@item.IsPrioritizedString</td>
                     <td>
-                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID">Done</a>
+                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID" class="btn btn-success btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Done</span>
+                        </a>
                     </td>
                 </tr>
             }
