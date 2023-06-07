@@ -41,6 +41,7 @@ public class KitchenController : Controller
         return View(listOfDishes);
     }
 
+    [HttpPatch]
     public IActionResult Change_DONE_InDish(int dishID)
     {
         var dish = _context.DishInOrder
@@ -118,6 +119,7 @@ public class KitchenController : Controller
         return RedirectToAction("Ingredients", "Kitchen");
     }
 
+    [HttpDelete]
     public IActionResult RemoveIngredient(int ingredientID)
     {
         var ingredient = _context.Ingredient
