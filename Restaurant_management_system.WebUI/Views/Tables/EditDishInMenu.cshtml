@@ -1,0 +1,43 @@
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+@{
+    ViewData["Title"] = "Edit menu";
+}
+
+<div>
+    <form method="POST" asp-route-menuID="@ViewData["MenuID"]">
+        <div class="form-group">
+            <label for="menuName">Name:</label>
+        </div>
+        <div class="form-group">
+            <input type="text" name="menuName" value="@ViewData["MenuName"]" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<br />
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Ingredient</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="RemoveIngredientInDish" asp-route-ingredientID="@item.ID" asp-route-menuID="@ViewData["MenuID"]">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="AddIngredientInDish" asp-route-menuID="@ViewData["MenuID"]">Add</a>
+</div>

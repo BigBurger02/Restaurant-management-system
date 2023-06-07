@@ -1,0 +1,41 @@
+﻿@model Restaurant_management_system.WebUI.ViewModels.DishInOrderDTO
+@{
+    ViewData["Title"] = "Dish";
+}
+
+<div class="col-md-1">
+    <form asp-action="EditDishInOrder" asp-route-tableID="TableID">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="DishID" />
+        <input type="hidden" asp-for="TableID" />
+
+        <select asp-for="DishInMenuID" name="DishInMenuID">
+            <option value="0">None</option>
+            @foreach (var item in Model.DishDTOs)
+            {
+                @if (item.ID == Model.DishInMenuID)
+                {
+                    <option selected value="@item.ID">@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            }
+        </select>
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsTakenAwayBool" />
+            <label asp-for="IsTakenAwayBool" class="control-label">Taken Away</label>
+            <span asp-validation-for="IsTakenAwayBool" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" asp-for="IsPrioritizedBool" />
+            <label asp-for="IsPrioritizedBool" class="control-label">Prioritized</label>
+            <span asp-validation-for="IsPrioritizedBool" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

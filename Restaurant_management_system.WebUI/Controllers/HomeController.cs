@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant_management_system.WebUI.Models;
+using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -23,10 +23,21 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    public IActionResult Analytics()
+    {
+        throw new NotImplementedException();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public IActionResult Test()
+    {
+        return View();
     }
 }
 

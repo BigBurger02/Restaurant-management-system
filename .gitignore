@@ -5,7 +5,9 @@
 *.DS_Store
 
 #DataBase
-app.db
+*.db
+*.db-shm
+*.db-wal
 
 ### ASPNETCore ###
 ## Ignore Visual Studio temporary files, build results, and

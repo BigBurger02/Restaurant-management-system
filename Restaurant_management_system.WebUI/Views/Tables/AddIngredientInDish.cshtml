@@ -1,0 +1,22 @@
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+@{
+    ViewData["Title"] = "Add ingredient";
+}
+
+<form method="POST" asp-route-menuID="@ViewData["MenuID"]">
+    <div class="form-group">
+        <label for="ingredientID">Add ingredient:</label>
+    </div>
+    <div class="form-group">
+
+        <select name="ingredientID">
+            @foreach (var item in Model)
+            {
+                <option value="@item.ID">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" />
+    </div>
+</form>

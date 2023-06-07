@@ -1,0 +1,38 @@
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishInOrderDTO>
+@{
+    ViewData["Title"] = "Dishes";
+}
+
+<h3>Today's unfinished meals</h3>
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Dish name</th>
+                <th scope="col">Time of ordering</th>
+                <th scope="col">Prioritized</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.DishName</td>
+                    <td>@item.TimeOfOrderingString</td>
+                    <td>@item.IsPrioritizedString</td>
+                    <td>
+                        <a asp-action="Change_DONE_InDish" asp-route-dishID="@item.DishID" class="btn btn-success btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Done</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

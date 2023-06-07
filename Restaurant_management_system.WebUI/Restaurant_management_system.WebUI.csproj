@@ -10,15 +10,41 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Restaurant_management_system.Core\Restaurant_management_system.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Restaurant_management_system.Infrastructure\Restaurant_management_system.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Tables\" />
+    <Folder Include="wwwroot\lib\jquery-easing\" />
+    <Folder Include="wwwroot\lib\chart.js\" />
+    <Folder Include="wwwroot\js\demo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
+    <Content Remove="wwwroot\lib\Fonts\fontawesome-free\css\" />
+    <Content Remove="wwwroot\lib\jquery-easing\" />
+    <Content Remove="wwwroot\lib\chart.js\" />
+    <Content Remove="wwwroot\js\demo\" />
+  </ItemGroup>
 </Project>
