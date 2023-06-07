@@ -41,6 +41,7 @@ public class KitchenController : Controller
         return View(listOfDishes);
     }
 
+    [HttpPatch]
     public IActionResult Change_DONE_InDish(int dishID)
     {
         var dish = _context.DishInOrder
@@ -95,7 +96,10 @@ public class KitchenController : Controller
     [HttpPost]
     public IActionResult EditIngredient([Bind("ID,Name,Price")] IngredientDTO inputIngredient)
     {
-        if (inputIngredient.ID == 0)
+        if (!ModelState.IsValid)
+            return View();
+
+        if (inputIngredient.ID == null)
         {
             var newingredient = new IngredientEntity
             {
@@ -118,6 +122,7 @@ public class KitchenController : Controller
         return RedirectToAction("Ingredients", "Kitchen");
     }
 
+    [HttpDelete]
     public IActionResult RemoveIngredient(int ingredientID)
     {
         var ingredient = _context.Ingredient

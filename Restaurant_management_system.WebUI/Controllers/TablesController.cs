@@ -92,6 +92,9 @@ public class TablesController : Controller
     [HttpPost]
     public IActionResult EditTableAndOrder([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests,Order")] TableDTO inputTable)
     {
+        if (!ModelState.IsValid)
+            return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
+
         var findTable = _context.Table
             .Find(inputTable.ID);
 
