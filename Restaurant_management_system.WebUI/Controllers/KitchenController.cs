@@ -96,7 +96,10 @@ public class KitchenController : Controller
     [HttpPost]
     public IActionResult EditIngredient([Bind("ID,Name,Price")] IngredientDTO inputIngredient)
     {
-        if (inputIngredient.ID == 0)
+        if (!ModelState.IsValid)
+            return View();
+
+        if (inputIngredient.ID == null)
         {
             var newingredient = new IngredientEntity
             {
