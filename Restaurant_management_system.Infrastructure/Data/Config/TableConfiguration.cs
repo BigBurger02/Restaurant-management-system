@@ -8,21 +8,17 @@ public class TableConfiguration : IEntityTypeConfiguration<TableEntity>
 {
     public void Configure(EntityTypeBuilder<TableEntity> builder)
     {
+        builder.HasKey(k => k.ID);
         builder.Ignore(t => t.Order);
-
 
         builder.Property(t => t.IsOccupied)
             .HasColumnType("bit");
-
         builder.Property(t => t.IsPaid)
             .HasColumnType("bit");
-
         builder.Property(d => d.AmountOfGuests)
             .HasColumnType("int");
-
         builder.Property(d => d.OrderCost)
             .HasColumnType("int");
-
 
         builder.ToTable("Tables");
     }

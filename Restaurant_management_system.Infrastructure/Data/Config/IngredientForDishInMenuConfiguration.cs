@@ -8,12 +8,12 @@ public class IngredientForDishInMenuConfiguration : IEntityTypeConfiguration<Ing
 {
     public void Configure(EntityTypeBuilder<IngredientForDishInMenuEntity> builder)
     {
+        builder.HasKey(k => k.ID);
+
         builder.Property(d => d.MenuID)
             .HasColumnType("int");
-
         builder.Property(d => d.IngredientID)
             .HasColumnType("int");
-
 
         builder.ToTable("IngredientsForDishInMenu");
     }

@@ -8,26 +8,22 @@ public class DishInOrderConfiguration : IEntityTypeConfiguration<DishInOrderEnti
 {
     public void Configure(EntityTypeBuilder<DishInOrderEntity> builder)
     {
+        builder.HasKey(k => k.ID);
+
         builder.Property(d => d.OrderID)
             .HasColumnType("int");
-
         builder.Property(d => d.DishName)
             .HasColumnType("nvarchar(50)")
             .IsRequired(false);
-
         builder.Property(d => d.DateOfOrdering)
             .HasColumnType("datetime")
             .IsRequired(true);
-
         builder.Property(d => d.IsDone)
             .HasColumnType("bit");
-
         builder.Property(d => d.IsTakenAway)
             .HasColumnType("bit");
-
         builder.Property(d => d.IsPrioritized)
             .HasColumnType("bit");
-
 
         builder.ToTable("DishesInOrder");
     }

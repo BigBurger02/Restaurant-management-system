@@ -8,19 +8,16 @@ public class OrderInTableConfiguration : IEntityTypeConfiguration<OrderInTableEn
 {
     public void Configure(EntityTypeBuilder<OrderInTableEntity> builder)
     {
+        builder.HasKey(k => k.ID);
         builder.Ignore(o => o.Dishes);
-
 
         builder.Property(d => d.TableID)
             .HasColumnType("int");
-
         builder.Property(d => d.Open)
             .HasColumnType("bit");
-
         builder.Property(d => d.Message)
             .HasColumnType("nvarchar(500)")
             .IsRequired(false);
-
 
         builder.ToTable("OrdersInTable");
     }
