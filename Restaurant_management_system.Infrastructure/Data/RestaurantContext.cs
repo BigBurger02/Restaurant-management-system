@@ -1,6 +1,7 @@
 ﻿using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Restaurant_management_system.Infrastructure.Data
 {
@@ -19,12 +20,8 @@ namespace Restaurant_management_system.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DishInOrderEntity>().ToTable("DishesInOrder");
-            modelBuilder.Entity<TableEntity>().ToTable("Tables");
-            modelBuilder.Entity<IngredientEntity>().ToTable("Ingredients");
-            modelBuilder.Entity<DishInMenuEntity>().ToTable("DishesInMenu");
-            modelBuilder.Entity<OrderInTableEntity>().ToTable("OrdersInTable");
-            modelBuilder.Entity<IngredientForDishInMenuEntity>().ToTable("IngredientsForDishInMenu");
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

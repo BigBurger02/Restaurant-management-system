@@ -9,10 +9,12 @@
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="Data\Migrations\" />
+    <None Remove="Data\Config\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Data\Config\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
