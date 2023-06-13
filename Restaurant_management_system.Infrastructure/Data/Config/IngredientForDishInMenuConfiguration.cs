@@ -10,7 +10,7 @@ public class IngredientForDishInMenuConfiguration : IEntityTypeConfiguration<Ing
     {
         builder.HasKey(k => k.ID);
 
-        builder.Property(d => d.MenuID)
+        builder.Property(d => d.DishInMenuID)
             .HasColumnType("int");
         builder.Property(d => d.IngredientID)
             .HasColumnType("int");

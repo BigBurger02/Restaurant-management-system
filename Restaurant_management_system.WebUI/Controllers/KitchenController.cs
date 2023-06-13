@@ -29,8 +29,8 @@ public class KitchenController : Controller
             .Where(d => d.DateOfOrdering.Date == DateTime.Today.Date && d.IsDone == false)
             .Select(dish => new DishInOrderDTO
             {
-                DishID = dish.ID,
-                DishName = dish.DishName,
+                ID = dish.ID,
+                DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString(),
                 TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
                 IsDoneString = dish.IsDone ? "Yes" : "No",
                 IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",

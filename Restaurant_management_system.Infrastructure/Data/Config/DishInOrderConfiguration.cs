@@ -12,9 +12,8 @@ public class DishInOrderConfiguration : IEntityTypeConfiguration<DishInOrderEnti
 
         builder.Property(d => d.OrderID)
             .HasColumnType("int");
-        builder.Property(d => d.DishName)
-            .HasColumnType("nvarchar(50)")
-            .IsRequired(false);
+        builder.Property(d => d.DishID)
+            .HasColumnType("int");
         builder.Property(d => d.DateOfOrdering)
             .HasColumnType("datetime")
             .IsRequired(true);
