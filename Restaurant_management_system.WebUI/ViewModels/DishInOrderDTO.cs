@@ -4,7 +4,7 @@ namespace Restaurant_management_system.WebUI.ViewModels
 {
     public class DishInOrderDTO
     {
-        public int DishID { get; set; }
+        public int ID { get; set; }
         public int TableID { get; set; }
         public int OrderID { get; set; }
         public int DishInMenuID { get; set; }

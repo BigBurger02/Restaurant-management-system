@@ -57,8 +57,8 @@ public class TablesController : Controller
             .Where(order => order.OrderID == findOrder.ID)
             .Select(dish => new DishInOrderDTO
             {
-                DishID = dish.ID,
-                DishName = dish.DishName,
+                ID = dish.ID,
+                DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString(),
                 TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
                 IsDoneString = dish.IsDone ? "Yes" : "No",
                 IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
@@ -150,22 +150,21 @@ public class TablesController : Controller
 
         var dishWithTypes = new DishInOrderDTO
         {
-            DishID = dish.ID,
+            ID = dish.ID,
             OrderID = dish.OrderID,
-            DishName = dish.DishName,
             TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
             IsDoneBool = dish.IsDone,
             IsTakenAwayBool = dish.IsTakenAway,
             IsPrioritizedBool = dish.IsPrioritized,
             TableID = tableID
         };
-
-        if (dish.DishName != "")
-            dishWithTypes.DishInMenuID = _context.DishInMenu
-                .FirstOrDefault(i => i.Name == dish.DishName)
-                .ID;
+        if (dish.DishID == 0)
+            dishWithTypes.DishName = "No name";
         else
-            dishWithTypes.DishInMenuID = 0;
+        {
+            dishWithTypes.DishInMenuID = dish.DishID;
+            dishWithTypes.DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString();
+        }
 
         var menuDTOs = _context.DishInMenu
             .AsNoTracking()
@@ -183,15 +182,12 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditDishInOrder([Bind("DishID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
+    public IActionResult EditDishInOrder([Bind("ID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
     {
         var dishEntity = _context.DishInOrder
-            .Find(inputDish.DishID);
+            .Find(inputDish.ID);
 
-        dishEntity.DishName = _context.DishInMenu
-            .AsNoTracking()
-            .FirstOrDefault(i => i.ID == DishInMenuID)
-            .Name;
+        dishEntity.DishID = DishInMenuID;
         dishEntity.IsTakenAway = inputDish.IsTakenAwayBool;
         dishEntity.IsPrioritized = inputDish.IsPrioritizedBool;
 
@@ -231,7 +227,7 @@ public class TablesController : Controller
         {
             var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
-                .Where(i => i.MenuID == oneMenuEntity.ID);
+                .Where(i => i.DishInMenuID == oneMenuEntity.ID);
 
             foreach (var oneMenuInredientsEntity in ingredientsID)
             {
@@ -261,7 +257,7 @@ public class TablesController : Controller
 
         var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
-                .Where(i => i.MenuID == menuEntity.ID);
+                .Where(i => i.DishInMenuID == menuEntity.ID);
 
         var ingredientsDTO = new List<IngredientDTO>();
 
@@ -321,7 +317,7 @@ public class TablesController : Controller
             .Find(menuID);
 
         var menuIngredientsEntity = _context.IngredientForDishInMenu
-            .Where(i => i.MenuID == menuID)
+            .Where(i => i.DishInMenuID == menuID)
             .AsEnumerable();
 
         _context.IngredientForDishInMenu
@@ -338,7 +334,7 @@ public class TablesController : Controller
     public IActionResult RemoveIngredientInDish(int ingredientID, int menuID)
     {
         var menuIngredientEntity = _context.IngredientForDishInMenu
-            .FirstOrDefault(m => m.MenuID == menuID && m.IngredientID == ingredientID);
+            .FirstOrDefault(m => m.DishInMenuID == menuID && m.IngredientID == ingredientID);
 
         _context.IngredientForDishInMenu.Remove(menuIngredientEntity);
 
@@ -368,7 +364,7 @@ public class TablesController : Controller
     {
         var newMenuIngredient = new IngredientForDishInMenuEntity()
         {
-            MenuID = menuID,
+            DishInMenuID = menuID,
             IngredientID = ingredientID
         };
 
