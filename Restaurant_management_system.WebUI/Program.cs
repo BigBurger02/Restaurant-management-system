@@ -8,6 +8,8 @@ using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
 
+const string TestPassword = "Abc12345";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -59,6 +61,8 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
 
 string? connectionStringForRestaurantContext = builder.Configuration.GetConnectionString("RestaurantContext") ?? throw new InvalidOperationException("Connection string 'RestaurantContext' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
@@ -72,13 +76,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     context.Database.Migrate();
-    // requires using Microsoft.Extensions.Configuration;
-    // Set password with the Secret Manager tool.
-    // dotnet user-secrets set SeedUserPW <pw>
 
-    var testUserPw = "Abc12345";
-
-    await AuthDbInitializer.Initialize(services, testUserPw);
+    await AuthDbInitializer.Initialize(services, TestPassword);
 }
 
 // Configure the HTTP request pipeline.

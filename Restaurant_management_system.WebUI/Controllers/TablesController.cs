@@ -220,7 +220,7 @@ public class TablesController : Controller
         return RedirectToAction("EditDishInOrder", new { dishID = dishID, tableID = tableID });
     }
 
-    [Authorize(Roles = "Admin, Waiter, Cook")]
+    [Authorize(Roles = "Admin, Waiter, Chef")]
     [HttpGet]
     public IActionResult DishesInMenu()
     {
@@ -258,7 +258,7 @@ public class TablesController : Controller
         return View(menu);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Chef")]
     [HttpGet]
     public IActionResult EditDishInMenu(int menuID)
     {
@@ -292,7 +292,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult EditDishInMenu(int menuID, string menuName)
     {
         var menuEntity = _context.DishInMenu
@@ -305,7 +305,7 @@ public class TablesController : Controller
         return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult AddDishInMenu()
     {
         var newMenuEntity = new DishInMenuEntity()
@@ -345,7 +345,7 @@ public class TablesController : Controller
         return RedirectToAction("DishesInMenu", "Tables");
     }
 
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult RemoveIngredientInDish(int ingredientID, int menuID)
     {
         var menuIngredientEntity = _context.IngredientForDishInMenu
@@ -359,7 +359,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult AddIngredientInDish(int menuID)
     {
         var ingredients = _context.Ingredient
@@ -376,7 +376,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult AddIngredientInDish(int ingredientID, int menuID)
     {
         var newMenuIngredient = new IngredientForDishInMenuEntity()

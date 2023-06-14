@@ -6,7 +6,7 @@ using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 namespace Restaurant_management_system.Infrastructure.Data.Authorization;
 
-public class CooksAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, object>
+public class ChefAuthorizationHandler : AuthorizationHandler<OperationAuthorizationRequirement, object>
 {
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
                                                     OperationAuthorizationRequirement requirement,
@@ -17,7 +17,7 @@ public class CooksAuthorizationHandler : AuthorizationHandler<OperationAuthoriza
             return Task.CompletedTask;
         }
 
-        if (context.User.IsInRole(RolesEnumeration.Cook.ToString()))
+        if (context.User.IsInRole(RolesEnumeration.Chef.ToString()))
         {
             context.Succeed(requirement);
         }

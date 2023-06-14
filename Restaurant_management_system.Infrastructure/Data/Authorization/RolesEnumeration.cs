@@ -7,6 +7,7 @@ public enum RolesEnumeration
     Admin,
     Waiter,
     Cook,
+    Chef,
     Guest
 }
 

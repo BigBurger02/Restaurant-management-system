@@ -24,7 +24,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Cook, Chef")]
     public IActionResult ActualDishes()
     {
         var listOfDishes = _context.DishInOrder
@@ -44,7 +44,7 @@ public class KitchenController : Controller
         return View(listOfDishes);
     }
 
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Cook, Chef")]
     public IActionResult Change_DONE_InDish(int dishID)
     {
         var dish = _context.DishInOrder
@@ -61,7 +61,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef, Cook")]
     public IActionResult Ingredients()
     {
         var ingredients = _context.Ingredient
@@ -78,7 +78,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult EditIngredient(int? ingredientID)
     {
         if (ingredientID == null)
@@ -99,7 +99,7 @@ public class KitchenController : Controller
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult EditIngredient([Bind("ID,Name,Price")] IngredientDTO inputIngredient)
     {
         if (!ModelState.IsValid)
@@ -128,7 +128,7 @@ public class KitchenController : Controller
         return RedirectToAction("Ingredients", "Kitchen");
     }
 
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin")]
     public IActionResult RemoveIngredient(int ingredientID)
     {
         var ingredient = _context.Ingredient
@@ -141,7 +141,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Cook")]
+    [Authorize(Roles = "Admin, Chef")]
     public IActionResult Cooks()
     {
         throw new NotImplementedException();

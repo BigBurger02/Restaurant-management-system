@@ -17,7 +17,6 @@ public class WaitersAuthorizationHandler : AuthorizationHandler<OperationAuthori
             return Task.CompletedTask;
         }
 
-        // Administrators can do anything.
         if (context.User.IsInRole(RolesEnumeration.Waiter.ToString()))
         {
             context.Succeed(requirement);
