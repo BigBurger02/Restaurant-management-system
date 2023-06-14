@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
+using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +16,7 @@ builder.Services.AddDbContext(connectionString!);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -44,11 +49,37 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
+
 string? connectionStringForRestaurantContext = builder.Configuration.GetConnectionString("RestaurantContext") ?? throw new InvalidOperationException("Connection string 'RestaurantContext' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("RestaurantContext")));
 
 var app = builder.Build();
+
+// Authorization
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+    // requires using Microsoft.Extensions.Configuration;
+    // Set password with the Secret Manager tool.
+    // dotnet user-secrets set SeedUserPW <pw>
+
+    var testUserPw = "Abc12345";
+
+    await AuthDbInitializer.Initialize(services, testUserPw);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

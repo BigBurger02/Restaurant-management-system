@@ -10,14 +10,17 @@
     <None Remove="Data\" />
     <None Remove="Data\Migrations\" />
     <None Remove="Data\Config\" />
+    <None Remove="Data\Authorization\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Data\Config\" />
+    <Folder Include="Data\Authorization\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.5" />

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
@@ -10,6 +11,7 @@ using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
+[Authorize]
 public class KitchenController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -22,6 +24,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult ActualDishes()
     {
         var listOfDishes = _context.DishInOrder
@@ -41,7 +44,7 @@ public class KitchenController : Controller
         return View(listOfDishes);
     }
 
-    [HttpPatch]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult Change_DONE_InDish(int dishID)
     {
         var dish = _context.DishInOrder
@@ -58,6 +61,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult Ingredients()
     {
         var ingredients = _context.Ingredient
@@ -74,6 +78,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult EditIngredient(int? ingredientID)
     {
         if (ingredientID == null)
@@ -94,6 +99,7 @@ public class KitchenController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult EditIngredient([Bind("ID,Name,Price")] IngredientDTO inputIngredient)
     {
         if (!ModelState.IsValid)
@@ -122,7 +128,7 @@ public class KitchenController : Controller
         return RedirectToAction("Ingredients", "Kitchen");
     }
 
-    [HttpDelete]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult RemoveIngredient(int ingredientID)
     {
         var ingredient = _context.Ingredient
@@ -135,6 +141,7 @@ public class KitchenController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult Cooks()
     {
         throw new NotImplementedException();

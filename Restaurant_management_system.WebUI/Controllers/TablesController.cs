@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
@@ -11,6 +12,7 @@ using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
+[Authorize]
 public class TablesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -23,6 +25,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult Tables()
     {
         var tables = _context.Table
@@ -41,6 +44,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditTableAndOrder(int tableID)
     {
         var findTable = _context.Table
@@ -90,6 +94,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditTableAndOrder([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests,Order")] TableDTO inputTable)
     {
         if (!ModelState.IsValid)
@@ -112,6 +117,7 @@ public class TablesController : Controller
         return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
     }
 
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult ResetTable(int? tableID)
     {
         var table = _context.Table
@@ -142,6 +148,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditDishInOrder(int? dishID, int tableID)
     {
         var dish = _context.DishInOrder
@@ -182,6 +189,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditDishInOrder([Bind("ID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
     {
         var dishEntity = _context.DishInOrder
@@ -196,6 +204,7 @@ public class TablesController : Controller
         return RedirectToAction("EditTableAndOrder", new { tableID = tableID });
     }
 
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult AddDishInOrder(int orderID, int tableID)
     {
         var newdish = new DishInOrderEntity() { OrderID = orderID, };
@@ -211,6 +220,7 @@ public class TablesController : Controller
         return RedirectToAction("EditDishInOrder", new { dishID = dishID, tableID = tableID });
     }
 
+    [Authorize(Roles = "Admin, Waiter, Cook")]
     [HttpGet]
     public IActionResult DishesInMenu()
     {
@@ -248,6 +258,7 @@ public class TablesController : Controller
         return View(menu);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult EditDishInMenu(int menuID)
     {
@@ -281,6 +292,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public IActionResult EditDishInMenu(int menuID, string menuName)
     {
         var menuEntity = _context.DishInMenu
@@ -293,6 +305,7 @@ public class TablesController : Controller
         return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult AddDishInMenu()
     {
         var newMenuEntity = new DishInMenuEntity()
@@ -311,6 +324,7 @@ public class TablesController : Controller
         return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 
+    [Authorize(Roles = "Admin")]
     public IActionResult RemoveDishInMenu(int menuID)
     {
         var menuEntity = _context.DishInMenu
@@ -331,6 +345,7 @@ public class TablesController : Controller
         return RedirectToAction("DishesInMenu", "Tables");
     }
 
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult RemoveIngredientInDish(int ingredientID, int menuID)
     {
         var menuIngredientEntity = _context.IngredientForDishInMenu
@@ -344,6 +359,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult AddIngredientInDish(int menuID)
     {
         var ingredients = _context.Ingredient
@@ -360,6 +376,7 @@ public class TablesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Cook")]
     public IActionResult AddIngredientInDish(int ingredientID, int menuID)
     {
         var newMenuIngredient = new IngredientForDishInMenuEntity()
