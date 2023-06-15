@@ -8,8 +8,6 @@ using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
 
-const string TestPassword = "Abc12345";
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -51,6 +49,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
+    googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+});
+
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -70,16 +74,6 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 
 var app = builder.Build();
 
-// Authorization
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    context.Database.Migrate();
-
-    await AuthDbInitializer.Initialize(services, TestPassword);
-}
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -98,6 +92,17 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<RestaurantContext>();
 
     DbInitializer.Initialize(context);
+}
+// Authorization
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+
+    var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
+
+    await AuthDbInitializer.Initialize(services, testUserPw);
 }
 
 app.UseHttpsRedirection();
