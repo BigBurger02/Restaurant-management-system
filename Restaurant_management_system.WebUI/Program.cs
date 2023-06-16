@@ -55,8 +55,7 @@ builder.Services.AddAuthentication()
     {
         googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
         googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
-    })
-    .AddCookie();
+    });
 
 builder.Services.AddAuthorization(options =>
 {

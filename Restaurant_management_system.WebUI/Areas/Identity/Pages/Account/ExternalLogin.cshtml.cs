@@ -24,7 +24,7 @@ namespace Restaurant_management_system.WebUI.Areas.Identity.Pages.Account;
 [AllowAnonymous]
 public class ExternalLoginModel : PageModel
 {
-    private readonly MySignInManager<IdentityUser> _signInManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IUserStore<IdentityUser> _userStore;
     private readonly IUserEmailStore<IdentityUser> _emailStore;
@@ -32,7 +32,7 @@ public class ExternalLoginModel : PageModel
     private readonly ILogger<ExternalLoginModel> _logger;
 
     public ExternalLoginModel(
-        MySignInManager<IdentityUser> signInManager,
+        SignInManager<IdentityUser> signInManager,
         UserManager<IdentityUser> userManager,
         IUserStore<IdentityUser> userStore,
         ILogger<ExternalLoginModel> logger,
