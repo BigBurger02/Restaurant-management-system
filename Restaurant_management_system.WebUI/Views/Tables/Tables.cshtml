@@ -14,6 +14,7 @@
                 <th scope="col">Paid</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -33,10 +34,21 @@
                     <td>
                         <a asp-action="ResetTable" asp-route-tableID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
                             <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-undo"></i>
                             </span>
 
                         </a>
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="" asp-route-tableID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+
+                            </a>
+                        }
                     </td>
                 </tr>
             }

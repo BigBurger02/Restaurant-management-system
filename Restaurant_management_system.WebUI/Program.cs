@@ -1,8 +1,13 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
+using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +17,7 @@ builder.Services.AddDbContext(connectionString!);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -44,6 +50,41 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddAuthentication()
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
+        googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+    })
+    .AddGitHub(githubOptions =>
+    {
+        githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId");
+        githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret");
+    })
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId");
+        microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret");
+    })
+    .AddTwitter(twitterOptions =>
+    {
+        twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId");
+        twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret");
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
+
 string? connectionStringForRestaurantContext = builder.Configuration.GetConnectionString("RestaurantContext") ?? throw new InvalidOperationException("Connection string 'RestaurantContext' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("RestaurantContext")));
@@ -68,6 +109,17 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<RestaurantContext>();
 
     DbInitializer.Initialize(context);
+}
+// Authorization
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+
+    var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
+
+    await AuthDbInitializer.Initialize(services, testUserPw);
 }
 
 app.UseHttpsRedirection();
