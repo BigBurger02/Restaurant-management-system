@@ -60,6 +60,7 @@ public class ExternalLoginModel : PageModel
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        public string UserName { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
@@ -115,12 +116,19 @@ public class ExternalLoginModel : PageModel
                     Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                 };
             }
+            else if (info.Principal.Identity.Name != null && info.Principal.Identity.Name != "" && info.Principal.Identity.IsAuthenticated)
+            {
+                Input = new InputModel
+                {
+                    UserName = info.Principal.Identity.Name,
+                    Email = info.Principal.Identity.Name + "@example.com" // temporary email
+                };
+            }
 
             //// From OnPostConfirmationAsync
             var user = CreateUser();
-            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-            //await _emailStore.SetEmailConfirmedAsync(user, true, CancellationToken.None);
             var createResult = await _userManager.CreateAsync(user);
             if (createResult.Succeeded)
             {
@@ -200,7 +208,6 @@ public class ExternalLoginModel : PageModel
         //    var user = CreateUser();
         //    await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         //    await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-        //    //await _emailStore.SetEmailConfirmedAsync(user, true, CancellationToken.None);
         //    var result = await _userManager.CreateAsync(user);
         //    if (result.Succeeded)
         //    {
