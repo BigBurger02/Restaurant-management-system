@@ -128,7 +128,7 @@ public class ExternalLoginModel : PageModel
 
             //// From OnPostConfirmationAsync
             var user = CreateUser();
-            if (ProviderDisplayName == "GitHub" || ProviderDisplayName == "Google" || ProviderDisplayName == "Microsoft")
+            if (ProviderDisplayName == "GitHub" || ProviderDisplayName == "Google" || ProviderDisplayName == "Microsoft" || ProviderDisplayName == "Twitter")
                 await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
             else
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
