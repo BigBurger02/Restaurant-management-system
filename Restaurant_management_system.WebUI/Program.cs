@@ -60,6 +60,11 @@ builder.Services.AddAuthentication()
     {
         githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId");
         githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret");
+    })
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId");
+        microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret");
     });
 
 builder.Services.AddAuthorization(options =>

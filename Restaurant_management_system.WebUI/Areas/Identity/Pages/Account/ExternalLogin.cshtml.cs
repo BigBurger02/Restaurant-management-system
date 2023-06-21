@@ -113,6 +113,7 @@ public class ExternalLoginModel : PageModel
             {
                 Input = new InputModel
                 {
+                    UserName = info.Principal.Identity.Name.Contains(" ") ? info.Principal.Identity.Name.Split(" ")[0] : info.Principal.Identity.Name,
                     Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                 };
             }
@@ -120,16 +121,26 @@ public class ExternalLoginModel : PageModel
             {
                 Input = new InputModel
                 {
-                    UserName = info.Principal.Identity.Name,
+                    UserName = info.Principal.Identity.Name.Contains(" ") ? info.Principal.Identity.Name.Split(" ")[0] : info.Principal.Identity.Name,
                     Email = info.Principal.Identity.Name + "@example.com" // temporary email
                 };
             }
 
             //// From OnPostConfirmationAsync
             var user = CreateUser();
-            await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+            if (ProviderDisplayName == "GitHub" || ProviderDisplayName == "Google" || ProviderDisplayName == "Microsoft")
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
+            else
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var createResult = await _userManager.CreateAsync(user);
+
+            if (createResult.Errors.Count() != 0 && createResult.Errors.First().Code == "InvalidUserName")
+            {
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                createResult = await _userManager.CreateAsync(user);
+            }
+
             if (createResult.Succeeded)
             {
                 createResult = await _userManager.AddLoginAsync(user, info);
