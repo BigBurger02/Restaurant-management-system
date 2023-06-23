@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -93,6 +94,9 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 
 builder.Services.AddLocalization(options =>
     options.ResourcesPath = "Resources");
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
 var supportedCultures = new[]
 {
     new CultureInfo("en"),

@@ -12,7 +12,7 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="localinfo" xml:space="preserve">
-		<value>Hello from United States</value>
+	<data name="ViewGreeting" xml:space="preserve">
+		<value>Willkommen zurück</value>
 	</data>
 </root>

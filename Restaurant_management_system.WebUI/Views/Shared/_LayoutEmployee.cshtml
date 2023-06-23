@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -153,6 +158,53 @@
                                 </form>
                             </div>
                         </li>
+                        <!-- Nav Item - Languages -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            @{
+                                var returnUrl = string.IsNullOrEmpty(Context.Request.Path)
+                                    ? "~/"
+                                    : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
+                            }
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-globe fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Languages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Languages
+                                </h6>
+                                <!-- Ukrainian -->
+                                <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="uk"
+                                   class="dropdown-item d-flex align-items-center">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <img src="img/ukraine-flag.png" height="88" width="176" />
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- English -->
+                                <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="en"
+                                   class="dropdown-item d-flex align-items-center">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <img src="img/us-flag.png" height="88" width="176" />
+                                        </div>
+                                    </div>
+                                </a>
+                                <!-- Germany -->
+                                <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="de"
+                                   class="dropdown-item d-flex align-items-center">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <img src="img/german-flag.png" height="88" width="176" />
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Languages</a>
+                            </div>
+                        </li>
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -160,7 +212,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter"><!-- amount of alerts --></span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -211,7 +263,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
+                                <span class="badge badge-danger badge-counter"><!-- amount of messages --></span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -283,12 +335,12 @@
 
                         <!-- Nav Item - User Information -->
                         <!--<li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Vlad</span>
-                                <img class="img-profile rounded-circle"
-                                     src="~/img/undraw_profile.svg">
-                            </a>-->
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Vlad</span>
+                            <img class="img-profile rounded-circle"
+                                 src="~/img/undraw_profile.svg">
+                        </a>-->
                         <!-- Dropdown - User Information -->
                         <!--<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">

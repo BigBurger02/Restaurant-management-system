@@ -43,6 +43,8 @@
     <None Remove="Resources\" />
     <None Remove="Resources\Views\" />
     <None Remove="Resources\Controllers\" />
+    <None Remove="Resources\Views\Shared\" />
+    <None Remove="Resources\Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -52,6 +54,8 @@
     <Folder Include="Resources\" />
     <Folder Include="Resources\Views\" />
     <Folder Include="Resources\Controllers\" />
+    <Folder Include="Resources\Views\Shared\" />
+    <Folder Include="Resources\Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -73,6 +77,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeController.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -83,6 +99,15 @@
     </Compile>
     <Compile Update="Resources\Controllers\HomeController.uk.Designer.cs">
       <DependentUpon>HomeController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.en.Designer.cs">
+      <DependentUpon>Index.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.de.Designer.cs">
+      <DependentUpon>Index.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.uk.Designer.cs">
+      <DependentUpon>Index.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
