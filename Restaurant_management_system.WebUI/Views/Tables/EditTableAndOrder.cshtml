@@ -1,9 +1,14 @@
 ﻿@model Restaurant_management_system.WebUI.ViewModels.TableDTO
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = ViewLocalizer["Order"];
 }
 <div>
-    <h3>Table @Model.ID - Order @Model.Order.ID</h3>
+    <h3>@ViewLocalizer["Table"] @Model.ID - @ViewLocalizer["Order"] @Model.Order.ID</h3>
 </div>
 
 <div style="padding-bottom: 40px">
@@ -14,15 +19,15 @@
         <div class="form-row align-items-center">
             <div class="form-check form-check-inline" style="padding-right: 20px">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" asp-for="IsOccupiedBool">
-                <label class="form-check-label" asp-for="IsOccupiedBool">Occupied</label>
+                <label class="form-check-label" asp-for="IsOccupiedBool">@ViewLocalizer["Occupied"]</label>
                 <span asp-validation-for="IsOccupiedBool" class="text-danger"></span>
             </div>
             <div class="form-check form-check-inline" style="padding-right: 20px">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" asp-for="IsPaidBool">
-                <label class="form-check-label" asp-for="IsPaidBool">Paid</label>
+                <label class="form-check-label" asp-for="IsPaidBool">@ViewLocalizer["Paid"]</label>
             </div>
             <div class="col-auto" style="padding-top: 10px">
-                <label asp-for="AmountOfGuests" class="control-label">Guests:</label>
+                <label asp-for="AmountOfGuests" class="control-label">@ViewLocalizer["Guests"]:</label>
             </div>
             <div class="col-auto">
                 <input asp-for="AmountOfGuests" class="form-control" required />
@@ -31,7 +36,7 @@
 
         <div class="form-row align-items-center">
             <div class="col-auto" style="padding-top: 10px">
-                <label asp-for="Order.Message" class="control-label">Message:</label>
+                <label asp-for="Order.Message" class="control-label">@ViewLocalizer["Message"]:</label>
             </div>
             <div class="col-auto">
                 <input asp-for="Order.Message" class="form-control" size="120" />
@@ -40,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="card bg-primary text-white shadow" />
+            <input type="submit" value="@ViewLocalizer["Save"]" class="card bg-primary text-white shadow" />
         </div>
     </form>
 </div>
@@ -49,11 +54,11 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Dish</th>
-                <th scope="col">Time of oredring</th>
-                <th scope="col">Cooked</th>
-                <th scope="col">Taked from kitchen</th>
-                <th scope="col">Prioritized</th>
+                <th scope="col">@ViewLocalizer["Dish"]</th>
+                <th scope="col">@ViewLocalizer["TimeOfOredring"]</th>
+                <th scope="col">@ViewLocalizer["Cooked"]</th>
+                <th scope="col">@ViewLocalizer["TakedKromKitchen"]</th>
+                <th scope="col">@ViewLocalizer["Prioritized"]</th>
                 <th></th>
             </tr>
         </thead>

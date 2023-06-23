@@ -12,22 +12,10 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="TodaysUnfinished" xml:space="preserve">
-		<value>Страви для приготування:</value>
+	<data name="AddIngredient" xml:space="preserve">
+		<value>Add ingredient</value>
 	</data>
-	<data name="Dishes" xml:space="preserve">
-		<value>Страви</value>
-	</data>
-	<data name="DishName" xml:space="preserve">
-		<value>Страва</value>
-	</data>
-	<data name="TimeOfOrdering" xml:space="preserve">
-		<value>Час замовлення</value>
-	</data>
-	<data name="Prioritized" xml:space="preserve">
-		<value>Пріоритет</value>
-	</data>
-	<data name="Done" xml:space="preserve">
-		<value>Виконано</value>
+	<data name="Save" xml:space="preserve">
+		<value>Save</value>
 	</data>
 </root>

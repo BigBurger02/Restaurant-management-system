@@ -1,6 +1,11 @@
 ﻿@model List<Restaurant_management_system.WebUI.ViewModels.TableDTO>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Tables";
+    ViewData["Title"] = ViewLocalizer["Tables"];
 }
 
 <div>
@@ -8,10 +13,10 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Occupied</th>
-                <th scope="col">Guests</th>
-                <th scope="col">Cost</th>
-                <th scope="col">Paid</th>
+                <th scope="col">@ViewLocalizer["Occupied"]</th>
+                <th scope="col">@ViewLocalizer["Guests"]</th>
+                <th scope="col">@ViewLocalizer["Cost"]</th>
+                <th scope="col">@ViewLocalizer["Paid"]</th>
                 <th></th>
                 <th></th>
                 <th></th>

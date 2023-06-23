@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
+namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
     using System;
     
     
@@ -19,14 +19,14 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Build.Tasks.StronglyTypedResourceBuilder", "15.1.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActualDishes_uk {
+    internal class EditDishInOrder_de {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActualDishes_uk() {
+        internal EditDishInOrder_de() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Kitchen.ActualDishes.uk", typeof(ActualDishes_uk).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Tables.EditDishInOrder.de", typeof(EditDishInOrder_de).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,34 +58,16 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страви.
+        ///   Looks up a localized string similar to Gericht.
         /// </summary>
-        internal static string Dishes {
+        internal static string Dish {
             get {
-                return ResourceManager.GetString("Dishes", resourceCulture);
+                return ResourceManager.GetString("Dish", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страва.
-        /// </summary>
-        internal static string DishName {
-            get {
-                return ResourceManager.GetString("DishName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Виконано.
-        /// </summary>
-        internal static string Done {
-            get {
-                return ResourceManager.GetString("Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пріоритет.
+        ///   Looks up a localized string similar to Priorisiert.
         /// </summary>
         internal static string Prioritized {
             get {
@@ -94,20 +76,20 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Час замовлення.
+        ///   Looks up a localized string similar to Speichern.
         /// </summary>
-        internal static string TimeOfOrdering {
+        internal static string Save {
             get {
-                return ResourceManager.GetString("TimeOfOrdering", resourceCulture);
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страви для приготування:.
+        ///   Looks up a localized string similar to Weggenommen.
         /// </summary>
-        internal static string TodaysUnfinished {
+        internal static string TakenAway {
             get {
-                return ResourceManager.GetString("TodaysUnfinished", resourceCulture);
+                return ResourceManager.GetString("TakenAway", resourceCulture);
             }
         }
     }

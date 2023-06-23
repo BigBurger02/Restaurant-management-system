@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
+namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
     using System;
     
     
@@ -19,14 +19,14 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Build.Tasks.StronglyTypedResourceBuilder", "15.1.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActualDishes_uk {
+    internal class AddIngredientInDish_en {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActualDishes_uk() {
+        internal AddIngredientInDish_en() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Kitchen.ActualDishes.uk", typeof(ActualDishes_uk).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Tables.AddIngredientInDish.en", typeof(AddIngredientInDish_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,56 +58,20 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страви.
+        ///   Looks up a localized string similar to Add ingredient.
         /// </summary>
-        internal static string Dishes {
+        internal static string AddIngredient {
             get {
-                return ResourceManager.GetString("Dishes", resourceCulture);
+                return ResourceManager.GetString("AddIngredient", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страва.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string DishName {
+        internal static string Save {
             get {
-                return ResourceManager.GetString("DishName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Виконано.
-        /// </summary>
-        internal static string Done {
-            get {
-                return ResourceManager.GetString("Done", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пріоритет.
-        /// </summary>
-        internal static string Prioritized {
-            get {
-                return ResourceManager.GetString("Prioritized", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Час замовлення.
-        /// </summary>
-        internal static string TimeOfOrdering {
-            get {
-                return ResourceManager.GetString("TimeOfOrdering", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Страви для приготування:.
-        /// </summary>
-        internal static string TodaysUnfinished {
-            get {
-                return ResourceManager.GetString("TodaysUnfinished", resourceCulture);
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
     }

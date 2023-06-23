@@ -50,6 +50,7 @@
     <None Remove="Resources\Areas\Identity\Pages\" />
     <None Remove="Resources\Areas\Identity\Pages\Account\" />
     <None Remove="Resources\Views\Kitchen\" />
+    <None Remove="Resources\Views\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -66,6 +67,7 @@
     <Folder Include="Resources\Areas\Identity\Pages\" />
     <Folder Include="Resources\Areas\Identity\Pages\Account\" />
     <Folder Include="Resources\Views\Kitchen\" />
+    <Folder Include="Resources\Views\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -219,6 +221,78 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditIngredient.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -328,6 +402,60 @@
     </Compile>
     <Compile Update="Resources\Views\Kitchen\EditIngredient.uk.Designer.cs">
       <DependentUpon>EditIngredient.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.en.Designer.cs">
+      <DependentUpon>DishesInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.de.Designer.cs">
+      <DependentUpon>DishesInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.uk.Designer.cs">
+      <DependentUpon>DishesInMenu.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.en.Designer.cs">
+      <DependentUpon>AddIngredientInDish.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.de.Designer.cs">
+      <DependentUpon>AddIngredientInDish.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.uk.Designer.cs">
+      <DependentUpon>AddIngredientInDish.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.en.Designer.cs">
+      <DependentUpon>EditDishInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.de.Designer.cs">
+      <DependentUpon>EditDishInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.uk.Designer.cs">
+      <DependentUpon>EditDishInMenu.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.en.Designer.cs">
+      <DependentUpon>EditDishInOrder.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.de.Designer.cs">
+      <DependentUpon>EditDishInOrder.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.uk.Designer.cs">
+      <DependentUpon>EditDishInOrder.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.en.Designer.cs">
+      <DependentUpon>EditTableAndOrder.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.de.Designer.cs">
+      <DependentUpon>EditTableAndOrder.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.uk.Designer.cs">
+      <DependentUpon>EditTableAndOrder.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.en.Designer.cs">
+      <DependentUpon>Tables.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.de.Designer.cs">
+      <DependentUpon>Tables.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.uk.Designer.cs">
+      <DependentUpon>Tables.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

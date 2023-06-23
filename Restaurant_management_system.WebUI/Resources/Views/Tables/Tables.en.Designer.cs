@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
+namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
     using System;
     
     
@@ -19,14 +19,14 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Build.Tasks.StronglyTypedResourceBuilder", "15.1.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ActualDishes_uk {
+    internal class Tables_en {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActualDishes_uk() {
+        internal Tables_en() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Kitchen.ActualDishes.uk", typeof(ActualDishes_uk).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Tables.Tables.en", typeof(Tables_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,56 +58,47 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Kitchen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страви.
+        ///   Looks up a localized string similar to Cost.
         /// </summary>
-        internal static string Dishes {
+        internal static string Cost {
             get {
-                return ResourceManager.GetString("Dishes", resourceCulture);
+                return ResourceManager.GetString("Cost", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Страва.
+        ///   Looks up a localized string similar to Guests.
         /// </summary>
-        internal static string DishName {
+        internal static string Guests {
             get {
-                return ResourceManager.GetString("DishName", resourceCulture);
+                return ResourceManager.GetString("Guests", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Виконано.
+        ///   Looks up a localized string similar to Occupied.
         /// </summary>
-        internal static string Done {
+        internal static string Occupied {
             get {
-                return ResourceManager.GetString("Done", resourceCulture);
+                return ResourceManager.GetString("Occupied", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пріоритет.
+        ///   Looks up a localized string similar to Paid.
         /// </summary>
-        internal static string Prioritized {
+        internal static string Paid {
             get {
-                return ResourceManager.GetString("Prioritized", resourceCulture);
+                return ResourceManager.GetString("Paid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Час замовлення.
+        ///   Looks up a localized string similar to Tables.
         /// </summary>
-        internal static string TimeOfOrdering {
+        internal static string Tables {
             get {
-                return ResourceManager.GetString("TimeOfOrdering", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Страви для приготування:.
-        /// </summary>
-        internal static string TodaysUnfinished {
-            get {
-                return ResourceManager.GetString("TodaysUnfinished", resourceCulture);
+                return ResourceManager.GetString("Tables", resourceCulture);
             }
         }
     }
