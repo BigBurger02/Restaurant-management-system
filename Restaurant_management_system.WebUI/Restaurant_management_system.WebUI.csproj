@@ -49,6 +49,7 @@
     <None Remove="Resources\Areas\Identity\" />
     <None Remove="Resources\Areas\Identity\Pages\" />
     <None Remove="Resources\Areas\Identity\Pages\Account\" />
+    <None Remove="Resources\Views\Kitchen\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -64,6 +65,7 @@
     <Folder Include="Resources\Areas\Identity\" />
     <Folder Include="Resources\Areas\Identity\Pages\" />
     <Folder Include="Resources\Areas\Identity\Pages\Account\" />
+    <Folder Include="Resources\Views\Kitchen\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -181,6 +183,42 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Register.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -263,6 +301,33 @@
     </Compile>
     <Compile Update="Resources\Areas\Identity\Pages\Account\Register.en.Designer.cs">
       <DependentUpon>Register.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.en.Designer.cs">
+      <DependentUpon>ActualDishes.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.de.Designer.cs">
+      <DependentUpon>ActualDishes.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.uk.Designer.cs">
+      <DependentUpon>ActualDishes.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.en.Designer.cs">
+      <DependentUpon>Ingredients.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.de.Designer.cs">
+      <DependentUpon>Ingredients.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.uk.Designer.cs">
+      <DependentUpon>Ingredients.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.en.Designer.cs">
+      <DependentUpon>EditIngredient.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.de.Designer.cs">
+      <DependentUpon>EditIngredient.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.uk.Designer.cs">
+      <DependentUpon>EditIngredient.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

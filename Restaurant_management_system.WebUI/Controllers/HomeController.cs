@@ -22,7 +22,6 @@ public class HomeController : Controller
     [AllowAnonymous]
     public IActionResult Index()
     {
-        ViewData["LocalInfo"] = _localizer["localinfo"];
         return View();
     }
 
