@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
@@ -16,17 +17,22 @@ public class KitchenController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly RestaurantContext _context;
+    private readonly IStringLocalizer<KitchenController> _localizer;
 
-    public KitchenController(ILogger<HomeController> logger, RestaurantContext context)
+    public KitchenController(ILogger<HomeController> logger, RestaurantContext context, IStringLocalizer<KitchenController> localizer)
     {
         _logger = logger;
         _context = context;
+        _localizer = localizer;
     }
 
     [HttpGet]
     [Authorize(Roles = "Admin, Cook, Chef")]
     public IActionResult ActualDishes()
     {
+        string localizedTrue = _localizer["Yes"];
+        string localizedFalse = _localizer["No"];
+
         var listOfDishes = _context.DishInOrder
             .AsNoTracking()
             .Where(d => d.DateOfOrdering.Date == DateTime.Today.Date && d.IsDone == false)
@@ -35,9 +41,9 @@ public class KitchenController : Controller
                 ID = dish.ID,
                 DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString(),
                 TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDoneString = dish.IsDone ? "Yes" : "No",
-                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
+                IsDoneString = dish.IsDone ? localizedTrue : localizedFalse,
+                IsTakenAwayString = dish.IsTakenAway ? localizedTrue : localizedFalse,
+                IsPrioritizedString = dish.IsPrioritized ? localizedTrue : localizedFalse
             })
             .ToList();
 

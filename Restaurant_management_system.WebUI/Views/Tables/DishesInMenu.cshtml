@@ -1,15 +1,21 @@
 ﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishInMenuDTO>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Menu";
+    ViewData["Title"] = ViewLocalizer["Menu"];
 }
 
 <div>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Ingredients</th>
+                <th scope="col">@ViewLocalizer["Name"]</th>
+                <th scope="col">@ViewLocalizer["Price"]</th>
+                <th scope="col">@ViewLocalizer["Ingredients"]</th>
                 <th></th>
                 <th></th>
             </tr>

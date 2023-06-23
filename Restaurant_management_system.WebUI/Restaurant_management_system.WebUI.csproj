@@ -43,6 +43,14 @@
     <None Remove="Resources\" />
     <None Remove="Resources\Views\" />
     <None Remove="Resources\Controllers\" />
+    <None Remove="Resources\Views\Shared\" />
+    <None Remove="Resources\Views\Home\" />
+    <None Remove="Resources\Areas\" />
+    <None Remove="Resources\Areas\Identity\" />
+    <None Remove="Resources\Areas\Identity\Pages\" />
+    <None Remove="Resources\Areas\Identity\Pages\Account\" />
+    <None Remove="Resources\Views\Kitchen\" />
+    <None Remove="Resources\Views\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -52,6 +60,14 @@
     <Folder Include="Resources\" />
     <Folder Include="Resources\Views\" />
     <Folder Include="Resources\Controllers\" />
+    <Folder Include="Resources\Views\Shared\" />
+    <Folder Include="Resources\Views\Home\" />
+    <Folder Include="Resources\Areas\" />
+    <Folder Include="Resources\Areas\Identity\" />
+    <Folder Include="Resources\Areas\Identity\Pages\" />
+    <Folder Include="Resources\Areas\Identity\Pages\Account\" />
+    <Folder Include="Resources\Views\Kitchen\" />
+    <Folder Include="Resources\Views\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -73,6 +89,210 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeController.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\ActualDishes.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ActualDishes.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\Ingredients.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ingredients.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Kitchen\EditIngredient.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditIngredient.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInOrder.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\EditTableAndOrder.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditTableAndOrder.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tables\Tables.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tables.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -83,6 +303,159 @@
     </Compile>
     <Compile Update="Resources\Controllers\HomeController.uk.Designer.cs">
       <DependentUpon>HomeController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.en.Designer.cs">
+      <DependentUpon>Index.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.de.Designer.cs">
+      <DependentUpon>Index.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.uk.Designer.cs">
+      <DependentUpon>Index.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.de.Designer.cs">
+      <DependentUpon>KitchenController.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.en.Designer.cs">
+      <DependentUpon>KitchenController.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.uk.Designer.cs">
+      <DependentUpon>KitchenController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.de.Designer.cs">
+      <DependentUpon>TablesController.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.en.Designer.cs">
+      <DependentUpon>TablesController.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.uk.Designer.cs">
+      <DependentUpon>TablesController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.de.Designer.cs">
+      <DependentUpon>_LayoutEmployee.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.en.Designer.cs">
+      <DependentUpon>_LayoutEmployee.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.uk.Designer.cs">
+      <DependentUpon>_LayoutEmployee.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.en.Designer.cs">
+      <DependentUpon>_LoginPartial.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.de.Designer.cs">
+      <DependentUpon>_LoginPartial.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.uk.Designer.cs">
+      <DependentUpon>_LoginPartial.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.en.Designer.cs">
+      <DependentUpon>Privacy.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.de.Designer.cs">
+      <DependentUpon>Privacy.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.uk.Designer.cs">
+      <DependentUpon>Privacy.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.en.Designer.cs">
+      <DependentUpon>Login.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.de.Designer.cs">
+      <DependentUpon>Login.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.uk.Designer.cs">
+      <DependentUpon>Login.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.uk.Designer.cs">
+      <DependentUpon>Register.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.de.Designer.cs">
+      <DependentUpon>Register.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.en.Designer.cs">
+      <DependentUpon>Register.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.en.Designer.cs">
+      <DependentUpon>ActualDishes.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.de.Designer.cs">
+      <DependentUpon>ActualDishes.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\ActualDishes.uk.Designer.cs">
+      <DependentUpon>ActualDishes.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.en.Designer.cs">
+      <DependentUpon>Ingredients.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.de.Designer.cs">
+      <DependentUpon>Ingredients.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\Ingredients.uk.Designer.cs">
+      <DependentUpon>Ingredients.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.en.Designer.cs">
+      <DependentUpon>EditIngredient.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.de.Designer.cs">
+      <DependentUpon>EditIngredient.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Kitchen\EditIngredient.uk.Designer.cs">
+      <DependentUpon>EditIngredient.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.en.Designer.cs">
+      <DependentUpon>DishesInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.de.Designer.cs">
+      <DependentUpon>DishesInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\DishesInMenu.uk.Designer.cs">
+      <DependentUpon>DishesInMenu.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.en.Designer.cs">
+      <DependentUpon>AddIngredientInDish.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.de.Designer.cs">
+      <DependentUpon>AddIngredientInDish.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\AddIngredientInDish.uk.Designer.cs">
+      <DependentUpon>AddIngredientInDish.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.en.Designer.cs">
+      <DependentUpon>EditDishInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.de.Designer.cs">
+      <DependentUpon>EditDishInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInMenu.uk.Designer.cs">
+      <DependentUpon>EditDishInMenu.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.en.Designer.cs">
+      <DependentUpon>EditDishInOrder.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.de.Designer.cs">
+      <DependentUpon>EditDishInOrder.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditDishInOrder.uk.Designer.cs">
+      <DependentUpon>EditDishInOrder.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.en.Designer.cs">
+      <DependentUpon>EditTableAndOrder.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.de.Designer.cs">
+      <DependentUpon>EditTableAndOrder.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\EditTableAndOrder.uk.Designer.cs">
+      <DependentUpon>EditTableAndOrder.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.en.Designer.cs">
+      <DependentUpon>Tables.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.de.Designer.cs">
+      <DependentUpon>Tables.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tables\Tables.uk.Designer.cs">
+      <DependentUpon>Tables.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

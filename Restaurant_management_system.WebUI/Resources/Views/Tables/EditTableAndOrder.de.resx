@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Order" xml:space="preserve">
+		<value>Befehl</value>
+	</data>
+	<data name="Table" xml:space="preserve">
+		<value>Tisch</value>
+	</data>
+	<data name="Occupied" xml:space="preserve">
+		<value>Besetzt</value>
+	</data>
+	<data name="Paid" xml:space="preserve">
+		<value>Bezahlt</value>
+	</data>
+	<data name="Guests" xml:space="preserve">
+		<value>Gäste</value>
+	</data>
+	<data name="Message" xml:space="preserve">
+		<value>Nachricht</value>
+	</data>
+	<data name="Save" xml:space="preserve">
+		<value>Speichern</value>
+	</data>
+	<data name="Dish" xml:space="preserve">
+		<value>Gericht</value>
+	</data>
+	<data name="TimeOfOredring" xml:space="preserve">
+		<value>Zeitpunkt der Bestellung</value>
+	</data>
+	<data name="Cooked" xml:space="preserve">
+		<value>Gekocht</value>
+	</data>
+	<data name="TakedKromKitchen" xml:space="preserve">
+		<value>Aus der Küche genommen</value>
+	</data>
+	<data name="Prioritized" xml:space="preserve">
+		<value>Priorisiert</value>
+	</data>
+</root>

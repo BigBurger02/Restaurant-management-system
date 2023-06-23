@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
@@ -17,24 +18,29 @@ public class TablesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly RestaurantContext _context;
+    private readonly IStringLocalizer<TablesController> _localizer;
 
-    public TablesController(ILogger<HomeController> logger, RestaurantContext context)
+    public TablesController(ILogger<HomeController> logger, RestaurantContext context, IStringLocalizer<TablesController> localizer)
     {
         _logger = logger;
         _context = context;
+        _localizer = localizer;
     }
 
     [HttpGet]
     [Authorize(Roles = "Admin, Waiter")]
     public IActionResult Tables()
     {
+        string localizedTrue = _localizer["Yes"];
+        string localizedFalse = _localizer["No"];
+
         var tables = _context.Table
             .AsNoTracking()
             .Select(table => new TableDTO
             {
                 ID = table.ID,
-                IsOccupiedString = table.IsOccupied ? "Yes" : "No",
-                IsPaidString = table.IsPaid ? "Yes" : "No",
+                IsOccupiedString = table.IsOccupied ? localizedTrue : localizedFalse,
+                IsPaidString = table.IsPaid ? localizedTrue : localizedFalse,
                 AmountOfGuests = table.AmountOfGuests,
                 OrderCost = 0
             })
@@ -47,6 +53,9 @@ public class TablesController : Controller
     [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditTableAndOrder(int tableID)
     {
+        string localizedTrue = _localizer["Yes"];
+        string localizedFalse = _localizer["No"];
+
         var findTable = _context.Table
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == tableID);
@@ -64,9 +73,9 @@ public class TablesController : Controller
                 ID = dish.ID,
                 DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString(),
                 TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDoneString = dish.IsDone ? "Yes" : "No",
-                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
+                IsDoneString = dish.IsDone ? localizedTrue : localizedFalse,
+                IsTakenAwayString = dish.IsTakenAway ? localizedTrue : localizedFalse,
+                IsPrioritizedString = dish.IsPrioritized ? localizedTrue : localizedFalse
             })
             .ToList();
 
@@ -76,8 +85,8 @@ public class TablesController : Controller
             ID = findTable.ID,
             IsOccupiedBool = findTable.IsOccupied,
             IsPaidBool = findTable.IsPaid,
-            IsOccupiedString = findTable.IsOccupied ? "Yes" : "No",
-            IsPaidString = findTable.IsPaid ? "Yes" : "No",
+            IsOccupiedString = findTable.IsOccupied ? localizedTrue : localizedFalse,
+            IsPaidString = findTable.IsPaid ? localizedTrue : localizedFalse,
             AmountOfGuests = findTable.AmountOfGuests,
             OrderCost = findTable.OrderCost,
             Order = new OrderInTableDTO()
@@ -166,7 +175,7 @@ public class TablesController : Controller
             TableID = tableID
         };
         if (dish.DishID == 0)
-            dishWithTypes.DishName = "No name";
+            dishWithTypes.DishName = _localizer["empty"];
         else
         {
             dishWithTypes.DishInMenuID = dish.DishID;
@@ -310,7 +319,7 @@ public class TablesController : Controller
     {
         var newMenuEntity = new DishInMenuEntity()
         {
-            Name = "No name"
+            Name = "-"
         };
 
         _context.DishInMenu.Add(newMenuEntity);
@@ -318,7 +327,7 @@ public class TablesController : Controller
 
         int menuID = _context.DishInMenu
             .AsNoTracking()
-            .FirstOrDefault(n => n.Name == "No name")
+            .FirstOrDefault(n => n.Name == "-")
             .ID;
 
         return RedirectToAction("EditDishInMenu", new { menuID = menuID });

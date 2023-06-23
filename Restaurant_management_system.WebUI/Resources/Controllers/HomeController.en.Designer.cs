@@ -58,7 +58,7 @@ namespace Restaurant_management_system.WebUI.Resources.Controllers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
+        ///   Looks up a localized string similar to Hello from United States.
         /// </summary>
         internal static string localinfo {
             get {
