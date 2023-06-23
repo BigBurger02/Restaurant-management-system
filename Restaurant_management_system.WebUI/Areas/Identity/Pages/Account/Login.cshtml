@@ -1,8 +1,12 @@
 ﻿@page
 @model LoginModel
 
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = ViewLocalizer["Login"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,7 +14,7 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account</h2>
+                <h2>@ViewLocalizer["LocalAccount"]</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -19,28 +23,29 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="@ViewLocalizer["Password"]" />
+                    <label asp-for="Input.Password" class="form-label">@ViewLocalizer["Password"]</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label" style="margin-left: 20px;">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        @*@Html.DisplayNameFor(m => m.Input.RememberMe)*@
+                        @ViewLocalizer["RememberMe"]
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@ViewLocalizer["Login"]</button>
                 </div>
                 <div style="margin-top: 20px;">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">@ViewLocalizer["ForgotPassword"]</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">@ViewLocalizer["RegisterNewUser"]</a>
                     </p>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">@ViewLocalizer["ResendEmail"]</a>
                     </p>
                 </div>
             </form>
@@ -80,7 +85,7 @@
             </section>
         *@
         <section>
-            <h2>Use another service</h2>
+            <h2>@ViewLocalizer["NotLocalAccount"]</h2>
             <hr />
 
             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
@@ -88,19 +93,19 @@
                     <p>
                         <button type="submit" name="provider" value="Google" title="Log in using your Google account" class="btn btn-google btn-user btn-block">
                             <i class="fab fa-google fa-fw"></i>
-                            Login with Google
+                            @ViewLocalizer["Google"]
                         </button>
                         <button type="submit" name="provider" value="Microsoft" title="Log in using your Microsoft account" class="btn btn-user btn-block" style="color: white; background-color: rgb(0, 124, 182)">
                             <i class="fab fa-windows fa-fw"></i>
-                            Login with Microsoft
+                            @ViewLocalizer["Microsoft"]
                         </button>
                         <button type="submit" name="provider" value="Twitter" title="Log in using your Twitter account" class="btn btn-user btn-block" style="color: white; background-color: rgb(75, 170, 235)">
                             <i class="fab fa-twitter fa-fw"></i>
-                            Login with Twitter
+                            @ViewLocalizer["Twitter"]
                         </button>
                         <button type="submit" name="provider" value="GitHub" title="Log in using your GitHub account" class="btn btn-user btn-block" style="color: white; background-color: rgb(47, 59, 77)">
                             <i class="fab fa-github fa-fw"></i>
-                            Login with GitHub
+                            @ViewLocalizer["GitHub"]
                         </button>
                     </p>
                 </div>

@@ -58,6 +58,15 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Домашня.
+        /// </summary>
+        internal static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ласкаво просимо.
         /// </summary>
         internal static string ViewGreeting {

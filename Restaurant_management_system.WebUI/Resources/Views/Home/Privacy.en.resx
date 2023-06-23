@@ -12,10 +12,7 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="Home" xml:space="preserve">
-		<value>Heim</value>
-	</data>
-	<data name="ViewGreeting" xml:space="preserve">
-		<value>Willkommen zurück</value>
+	<data name="PrivacyPolicy" xml:space="preserve">
+		<value>Privacy Policy</value>
 	</data>
 </root>

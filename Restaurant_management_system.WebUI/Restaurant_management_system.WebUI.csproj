@@ -45,6 +45,10 @@
     <None Remove="Resources\Controllers\" />
     <None Remove="Resources\Views\Shared\" />
     <None Remove="Resources\Views\Home\" />
+    <None Remove="Resources\Areas\" />
+    <None Remove="Resources\Areas\Identity\" />
+    <None Remove="Resources\Areas\Identity\Pages\" />
+    <None Remove="Resources\Areas\Identity\Pages\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -56,6 +60,10 @@
     <Folder Include="Resources\Controllers\" />
     <Folder Include="Resources\Views\Shared\" />
     <Folder Include="Resources\Views\Home\" />
+    <Folder Include="Resources\Areas\" />
+    <Folder Include="Resources\Areas\Identity\" />
+    <Folder Include="Resources\Areas\Identity\Pages\" />
+    <Folder Include="Resources\Areas\Identity\Pages\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -125,6 +133,54 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>_LayoutEmployee.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Privacy.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Privacy.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Login.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Login.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Areas\Identity\Pages\Account\Register.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Register.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -171,6 +227,42 @@
     </Compile>
     <Compile Update="Resources\Views\Shared\_LayoutEmployee.uk.Designer.cs">
       <DependentUpon>_LayoutEmployee.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.en.Designer.cs">
+      <DependentUpon>_LoginPartial.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.de.Designer.cs">
+      <DependentUpon>_LoginPartial.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.uk.Designer.cs">
+      <DependentUpon>_LoginPartial.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.en.Designer.cs">
+      <DependentUpon>Privacy.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.de.Designer.cs">
+      <DependentUpon>Privacy.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Privacy.uk.Designer.cs">
+      <DependentUpon>Privacy.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.en.Designer.cs">
+      <DependentUpon>Login.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.de.Designer.cs">
+      <DependentUpon>Login.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Login.uk.Designer.cs">
+      <DependentUpon>Login.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.uk.Designer.cs">
+      <DependentUpon>Register.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.de.Designer.cs">
+      <DependentUpon>Register.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Areas\Identity\Pages\Account\Register.en.Designer.cs">
+      <DependentUpon>Register.en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

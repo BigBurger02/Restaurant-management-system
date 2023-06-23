@@ -19,14 +19,14 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Build.Tasks.StronglyTypedResourceBuilder", "15.1.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Index_de {
+    internal class Privacy_uk {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Index_de() {
+        internal Privacy_uk() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Home.Index.de", typeof(Index_de).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Home.Privacy.uk", typeof(Privacy_uk).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,20 +58,11 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heim.
+        ///   Looks up a localized string similar to Політика конфіденційності.
         /// </summary>
-        internal static string Home {
+        internal static string PrivacyPolicy {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Willkommen zurück.
-        /// </summary>
-        internal static string ViewGreeting {
-            get {
-                return ResourceManager.GetString("ViewGreeting", resourceCulture);
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
             }
         }
     }
