@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
 using Restaurant_management_system.WebUI.ViewModels;
+using Microsoft.Extensions.Localization;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
@@ -10,15 +11,18 @@ namespace Restaurant_management_system.WebUI.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IStringLocalizer<HomeController> _localizer;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer)
     {
         _logger = logger;
+        _localizer = localizer;
     }
 
     [AllowAnonymous]
     public IActionResult Index()
     {
+        ViewData["LocalInfo"] = _localizer["localinfo"];
         return View();
     }
 

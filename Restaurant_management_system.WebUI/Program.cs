@@ -1,10 +1,12 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.Extensions.Options;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
@@ -89,6 +91,21 @@ string? connectionStringForRestaurantContext = builder.Configuration.GetConnecti
 builder.Services.AddDbContext<RestaurantContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("RestaurantContext")));
 
+builder.Services.AddLocalization(options =>
+    options.ResourcesPath = "Resources");
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("de"),
+    new CultureInfo("uk")
+};
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("uk");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -129,6 +146,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapControllerRoute(
     name: "default",
