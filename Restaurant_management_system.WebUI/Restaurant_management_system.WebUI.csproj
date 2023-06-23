@@ -89,6 +89,42 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\KitchenController.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>KitchenController.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controllers\TablesController.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TablesController.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LayoutEmployee.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LayoutEmployee.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\HomeController.en.Designer.cs">
@@ -108,6 +144,33 @@
     </Compile>
     <Compile Update="Resources\Views\Home\Index.uk.Designer.cs">
       <DependentUpon>Index.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.de.Designer.cs">
+      <DependentUpon>KitchenController.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.en.Designer.cs">
+      <DependentUpon>KitchenController.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\KitchenController.uk.Designer.cs">
+      <DependentUpon>KitchenController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.de.Designer.cs">
+      <DependentUpon>TablesController.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.en.Designer.cs">
+      <DependentUpon>TablesController.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Controllers\TablesController.uk.Designer.cs">
+      <DependentUpon>TablesController.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.de.Designer.cs">
+      <DependentUpon>_LayoutEmployee.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.en.Designer.cs">
+      <DependentUpon>_LayoutEmployee.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LayoutEmployee.uk.Designer.cs">
+      <DependentUpon>_LayoutEmployee.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

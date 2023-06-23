@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Localization
 @using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject IViewLocalizer ViewLocalizer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,12 +51,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-utensils"></i>
-                    <span>Hall</span>
+                    <span>@ViewLocalizer["Hall"]</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-controller="Tables" asp-action="Tables">Tables</a>
-                        <a class="collapse-item" asp-controller="Tables" asp-action="DishesInMenu">Menu</a>
+                        <a class="collapse-item" asp-controller="Tables" asp-action="Tables">@ViewLocalizer["Tables"]</a>
+                        <a class="collapse-item" asp-controller="Tables" asp-action="DishesInMenu">@ViewLocalizer["Menu"]</a>
                     </div>
                 </div>
             </li>
@@ -64,14 +66,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-fish"></i>
-                    <span>Kitchen</span>
+                    <span>@ViewLocalizer["Kitchen"]</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-controller="Kitchen" asp-action="ActualDishes">Actual Dishes</a>
-                        <a class="collapse-item" asp-controller="Kitchen" asp-action="Ingredients">Ingredients</a>
-                        <a class="collapse-item" asp-controller="Kitchen" asp-action="Cooks">Cooks</a>
+                        <a class="collapse-item" asp-controller="Kitchen" asp-action="ActualDishes">@ViewLocalizer["ActualDishes"]</a>
+                        <a class="collapse-item" asp-controller="Kitchen" asp-action="Ingredients">@ViewLocalizer["Ingredients"]</a>
+                        <a class="collapse-item" asp-controller="Kitchen" asp-action="Cooks">@ViewLocalizer["Cooks"]</a>
                     </div>
                 </div>
             </li>
@@ -84,13 +86,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Other</span>
+                    <span>@ViewLocalizer["Other"]</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Other:</h6>
-                        <a class="collapse-item" asp-controller="Home" asp-action="Analytics">Analytics</a>
-                        <a class="collapse-item" asp-controller="Home" asp-action="Test">Theme</a>
+                        <a class="collapse-item" asp-controller="Home" asp-action="Analytics">@ViewLocalizer["Analytics"]</a>
+                        <a class="collapse-item" asp-controller="Home" asp-action="Test">@ViewLocalizer["Theme"]</a>
                     </div>
                 </div>
             </li>
@@ -122,7 +124,7 @@
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="@ViewLocalizer["SearchFor"]"
                                    aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -158,6 +160,7 @@
                                 </form>
                             </div>
                         </li>
+
                         <!-- Nav Item - Languages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             @{
@@ -173,14 +176,14 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Languages
+                                    @ViewLocalizer["Languages"]
                                 </h6>
                                 <!-- Ukrainian -->
                                 <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="uk"
                                    class="dropdown-item d-flex align-items-center">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <img src="img/ukraine-flag.png" height="88" width="176" />
+                                        <div class="icon-circle">
+                                            <img src="~/img/ukraine-flag.png" height="88" width="176" />
                                         </div>
                                     </div>
                                 </a>
@@ -188,8 +191,8 @@
                                 <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="en"
                                    class="dropdown-item d-flex align-items-center">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <img src="img/us-flag.png" height="88" width="176" />
+                                        <div class="icon-circle">
+                                            <img src="~/img/us-flag.png" height="88" width="176" />
                                         </div>
                                     </div>
                                 </a>
@@ -197,12 +200,12 @@
                                 <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="de"
                                    class="dropdown-item d-flex align-items-center">
                                     <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <img src="img/german-flag.png" height="88" width="176" />
+                                        <div class="icon-circle">
+                                            <img src="~/img/german-flag.png" height="88" width="176" />
                                         </div>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Languages</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">@ViewLocalizer["ShowAllLanguages"]</a>
                             </div>
                         </li>
 
@@ -382,7 +385,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Restaurant 2023</span>
+                        <span>Copyright &copy; <a asp-controller="Home" asp-action="Privacy">Restaurant</a> 2023</span>
                     </div>
                 </div>
             </footer>

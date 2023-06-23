@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 using Restaurant_management_system.WebUI.ViewModels;
-using Microsoft.Extensions.Localization;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 

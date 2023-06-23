@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Hall" xml:space="preserve">
+		<value>Saal</value>
+	</data>
+	<data name="Tables" xml:space="preserve">
+		<value>Tische</value>
+	</data>
+	<data name="Menu" xml:space="preserve">
+		<value>Speisekarte</value>
+	</data>
+	<data name="Kitchen" xml:space="preserve">
+		<value>Küche</value>
+	</data>
+	<data name="ActualDishes" xml:space="preserve">
+		<value>Aktuelle Gerichte</value>
+	</data>
+	<data name="Ingredients" xml:space="preserve">
+		<value>Zutaten</value>
+	</data>
+	<data name="Cooks" xml:space="preserve">
+		<value>Köche</value>
+	</data>
+	<data name="Other" xml:space="preserve">
+		<value>Andere</value>
+	</data>
+	<data name="Analytics" xml:space="preserve">
+		<value>Analytik</value>
+	</data>
+	<data name="Theme" xml:space="preserve">
+		<value>Thema</value>
+	</data>
+	<data name="SearchFor" xml:space="preserve">
+		<value>Suchen nach...</value>
+	</data>
+	<data name="Languages" xml:space="preserve">
+		<value>Sprachen</value>
+	</data>
+	<data name="ShowAllLanguages" xml:space="preserve">
+		<value>Alle Sprachen anzeigen</value>
+	</data>
+</root>
