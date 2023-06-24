@@ -52,6 +52,8 @@
     <None Remove="Resources\Areas\Identity\Pages\Account\" />
     <None Remove="Resources\Views\Kitchen\" />
     <None Remove="Resources\Views\Tables\" />
+    <None Remove="Views\Menu\" />
+    <None Remove="Resources\Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -69,6 +71,8 @@
     <Folder Include="Resources\Areas\Identity\Pages\Account\" />
     <Folder Include="Resources\Views\Kitchen\" />
     <Folder Include="Resources\Views\Tables\" />
+    <Folder Include="Views\Menu\" />
+    <Folder Include="Resources\Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />
@@ -222,42 +226,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditIngredient.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DishesInMenu.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DishesInMenu.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\DishesInMenu.uk.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DishesInMenu.uk.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddIngredientInDish.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddIngredientInDish.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\AddIngredientInDish.uk.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AddIngredientInDish.uk.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditDishInMenu.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.de.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditDishInMenu.de.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Tables\EditDishInMenu.uk.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EditDishInMenu.uk.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Tables\EditDishInOrder.en.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>EditDishInOrder.en.Designer.cs</LastGenOutput>
@@ -293,6 +261,42 @@
     <EmbeddedResource Update="Resources\Views\Tables\Tables.uk.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Tables.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIngredientInDish.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DishesInMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditDishInMenu.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -404,33 +408,6 @@
     <Compile Update="Resources\Views\Kitchen\EditIngredient.uk.Designer.cs">
       <DependentUpon>EditIngredient.uk.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\Views\Tables\DishesInMenu.en.Designer.cs">
-      <DependentUpon>DishesInMenu.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\DishesInMenu.de.Designer.cs">
-      <DependentUpon>DishesInMenu.de.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\DishesInMenu.uk.Designer.cs">
-      <DependentUpon>DishesInMenu.uk.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\AddIngredientInDish.en.Designer.cs">
-      <DependentUpon>AddIngredientInDish.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\AddIngredientInDish.de.Designer.cs">
-      <DependentUpon>AddIngredientInDish.de.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\AddIngredientInDish.uk.Designer.cs">
-      <DependentUpon>AddIngredientInDish.uk.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\EditDishInMenu.en.Designer.cs">
-      <DependentUpon>EditDishInMenu.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\EditDishInMenu.de.Designer.cs">
-      <DependentUpon>EditDishInMenu.de.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Views\Tables\EditDishInMenu.uk.Designer.cs">
-      <DependentUpon>EditDishInMenu.uk.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\Views\Tables\EditDishInOrder.en.Designer.cs">
       <DependentUpon>EditDishInOrder.en.resx</DependentUpon>
     </Compile>
@@ -457,6 +434,33 @@
     </Compile>
     <Compile Update="Resources\Views\Tables\Tables.uk.Designer.cs">
       <DependentUpon>Tables.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.de.Designer.cs">
+      <DependentUpon>AddIngredientInDish.de.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.en.Designer.cs">
+      <DependentUpon>AddIngredientInDish.en.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\AddIngredientInDish.uk.Designer.cs">
+      <DependentUpon>AddIngredientInDish.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.de.Designer.cs">
+      <DependentUpon>DishesInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.en.Designer.cs">
+      <DependentUpon>DishesInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\DishesInMenu.uk.Designer.cs">
+      <DependentUpon>DishesInMenu.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.de.Designer.cs">
+      <DependentUpon>EditDishInMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.en.Designer.cs">
+      <DependentUpon>EditDishInMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resources\Views\Menu\EditDishInMenu.uk.Designer.cs">
+      <DependentUpon>EditDishInMenu.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

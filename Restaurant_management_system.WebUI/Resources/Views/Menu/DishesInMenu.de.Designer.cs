@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
+namespace Restaurant_management_system.WebUI.Resources.Views.Menu {
     using System;
     
     
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Tables.DishesInMenu.de", typeof(DishesInMenu_de).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Menu.DishesInMenu.de", typeof(DishesInMenu_de).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

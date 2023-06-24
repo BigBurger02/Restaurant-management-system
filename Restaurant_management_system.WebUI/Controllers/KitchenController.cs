@@ -15,11 +15,11 @@ namespace Restaurant_management_system.WebUI.Controllers;
 [Authorize]
 public class KitchenController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<KitchenController> _logger;
     private readonly RestaurantContext _context;
     private readonly IStringLocalizer<KitchenController> _localizer;
 
-    public KitchenController(ILogger<HomeController> logger, RestaurantContext context, IStringLocalizer<KitchenController> localizer)
+    public KitchenController(ILogger<KitchenController> logger, RestaurantContext context, IStringLocalizer<KitchenController> localizer)
     {
         _logger = logger;
         _context = context;
