@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
+namespace Restaurant_management_system.WebUI.Resources.Views.Menu {
     using System;
     
     
@@ -19,14 +19,14 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Build.Tasks.StronglyTypedResourceBuilder", "15.1.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DishesInMenu_de {
+    internal class EditDishInMenu_en {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DishesInMenu_de() {
+        internal EditDishInMenu_en() {
         }
         
         /// <summary>
@@ -36,7 +36,7 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Tables.DishesInMenu.de", typeof(DishesInMenu_de).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Restaurant_management_system.WebUI.Resources.Views.Menu.EditDishInMenu.en", typeof(EditDishInMenu_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,20 +58,29 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zutaten.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string Ingredients {
+        internal static string Add {
             get {
-                return ResourceManager.GetString("Ingredients", resourceCulture);
+                return ResourceManager.GetString("Add", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Speisekarte.
+        ///   Looks up a localized string similar to Edit Dish.
         /// </summary>
-        internal static string Menu {
+        internal static string EditMenu {
             get {
-                return ResourceManager.GetString("Menu", resourceCulture);
+                return ResourceManager.GetString("EditMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients.
+        /// </summary>
+        internal static string Ingredients {
+            get {
+                return ResourceManager.GetString("Ingredients", resourceCulture);
             }
         }
         
@@ -85,11 +94,11 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Tables {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preis.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string Price {
+        internal static string Save {
             get {
-                return ResourceManager.GetString("Price", resourceCulture);
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
     }
