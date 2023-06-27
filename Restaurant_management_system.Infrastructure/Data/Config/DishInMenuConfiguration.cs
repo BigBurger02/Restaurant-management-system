@@ -13,6 +13,8 @@ public class DishInMenuConfiguration : IEntityTypeConfiguration<DishInMenuEntity
         builder.Property(d => d.Name)
             .HasColumnType("nvarchar(50)")
             .IsRequired(true);
+        builder.Property(d => d.Price)
+            .HasColumnType("int");
 
         builder.ToTable("DishesInMenu");
     }

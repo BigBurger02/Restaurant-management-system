@@ -54,6 +54,7 @@
     <None Remove="Resources\Views\Tables\" />
     <None Remove="Views\Menu\" />
     <None Remove="Resources\Views\Menu\" />
+    <None Remove="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Tables\" />
@@ -73,6 +74,7 @@
     <Folder Include="Resources\Views\Tables\" />
     <Folder Include="Views\Menu\" />
     <Folder Include="Resources\Views\Menu\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\Fonts\fontawesome-free\" />

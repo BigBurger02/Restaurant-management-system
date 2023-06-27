@@ -15,6 +15,8 @@ public class OrderInTableConfiguration : IEntityTypeConfiguration<OrderInTableEn
             .HasColumnType("int");
         builder.Property(d => d.Open)
             .HasColumnType("bit");
+        builder.Property(d => d.SelfOrdered)
+            .HasColumnType("bit");
         builder.Property(d => d.Message)
             .HasColumnType("nvarchar(500)")
             .IsRequired(false);
