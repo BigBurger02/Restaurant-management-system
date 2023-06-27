@@ -49,16 +49,16 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var menu = new DishInMenuEntity[]
             {
-                new DishInMenuEntity{ ID=1, Name="Chicken Strips" },
-                new DishInMenuEntity{ ID=2, Name="French Dip" },
-                new DishInMenuEntity{ ID=3, Name="Cobb Salad" },
-                new DishInMenuEntity{ ID=4, Name="Meat Loaf" },
-                new DishInMenuEntity{ ID=5, Name="Cannoli" },
-                new DishInMenuEntity{ ID=6, Name="ClubHouse" },
-                new DishInMenuEntity{ ID=7, Name="Roast Pork" },
-                new DishInMenuEntity{ ID=8, Name="Roast Beef" },
-                new DishInMenuEntity{ ID=9, Name="White Pizza" },
-                new DishInMenuEntity{ ID=10, Name="Hamburger" }
+                new DishInMenuEntity{ ID=1, Name="Chicken Strips", Price=0 },
+                new DishInMenuEntity{ ID=2, Name="French Dip", Price=0 },
+                new DishInMenuEntity{ ID=3, Name="Cobb Salad", Price=0 },
+                new DishInMenuEntity{ ID=4, Name="Meat Loaf", Price=0 },
+                new DishInMenuEntity{ ID=5, Name="Cannoli", Price=0 },
+                new DishInMenuEntity{ ID=6, Name="ClubHouse", Price=0 },
+                new DishInMenuEntity{ ID=7, Name="Roast Pork", Price=0 },
+                new DishInMenuEntity{ ID=8, Name="Roast Beef", Price=0 },
+                new DishInMenuEntity{ ID=9, Name="White Pizza", Price=0 },
+                new DishInMenuEntity{ ID=10, Name="Hamburger", Price=0 }
             };
             foreach (var item in menu)
                 context.DishInMenu.Add(item);

@@ -36,10 +36,12 @@ public class MenuController : Controller
             .Select(item => new DishInMenuDTO
             {
                 ID = item.ID,
-                Name = item.Name
+                Name = item.Name,
+                Price = item.Price
             })
             .ToList();
 
+        // Ingredients:
         foreach (var oneMenuEntity in menu)
         {
             var ingredientsID = _context.IngredientForDishInMenu
@@ -52,13 +54,11 @@ public class MenuController : Controller
                     .AsNoTracking()
                     .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
 
-                oneMenuEntity.Price += ingredientEntity.Price;
                 oneMenuEntity.IngredientsNames += ingredientEntity.Name + ", ";
             }
             if (ingredientsID.Count() != 0)
             {
                 oneMenuEntity.IngredientsNames = oneMenuEntity.IngredientsNames.Remove(oneMenuEntity.IngredientsNames.Length - 2);// Remove 2 last symbols: ", "
-                oneMenuEntity.Price += ((oneMenuEntity.Price * 50) / 100);// Add 50% to price
             }
         }
 
@@ -94,18 +94,20 @@ public class MenuController : Controller
 
         ViewData["MenuID"] = menuID;
         ViewData["MenuName"] = menuEntity.Name;
+        ViewData["MenuPrice"] = menuEntity.Price;
 
         return View(ingredientsDTO);
     }
 
     [HttpPost]
     [Authorize(Roles = "Admin, Chef")]
-    public IActionResult EditDishInMenu(int menuID, string menuName)
+    public IActionResult EditDishInMenu(int menuID, string menuName, int menuPrice)
     {
         var menuEntity = _context.DishInMenu
             .Find(menuID);
 
         menuEntity.Name = menuName;
+        menuEntity.Price = menuPrice;
 
         _context.SaveChanges();
 
