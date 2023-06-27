@@ -58,6 +58,42 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Я використовував Bootstrap..
+        /// </summary>
+        internal static string BootStrap {
+            get {
+                return ResourceManager.GetString("BootStrap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я використовував безкоштовні іконки Font Awesome..
+        /// </summary>
+        internal static string FontAwesome {
+            get {
+                return ResourceManager.GetString("FontAwesome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я не буду використовувати його в комерційних цілях..
+        /// </summary>
+        internal static string NotCommercial {
+            get {
+                return ResourceManager.GetString("NotCommercial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Це мій пет-проект..
+        /// </summary>
+        internal static string PetProject {
+            get {
+                return ResourceManager.GetString("PetProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Політика конфіденційності.
         /// </summary>
         internal static string PrivacyPolicy {

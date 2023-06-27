@@ -7,17 +7,25 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
+
+using Restaurant_management_system.Core.MailAggregate;
+using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
-using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("/Users/macbook/Desktop/appsettings.json");
 
 // Add services to the container.
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext(connectionString!);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// Mail settings
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()

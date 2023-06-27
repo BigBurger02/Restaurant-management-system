@@ -15,4 +15,16 @@
 	<data name="PrivacyPolicy" xml:space="preserve">
 		<value>Політика конфіденційності</value>
 	</data>
+	<data name="PetProject" xml:space="preserve">
+		<value>Це мій пет-проект.</value>
+	</data>
+	<data name="NotCommercial" xml:space="preserve">
+		<value>Я не буду використовувати його в комерційних цілях.</value>
+	</data>
+	<data name="BootStrap" xml:space="preserve">
+		<value>Я використовував Bootstrap.</value>
+	</data>
+	<data name="FontAwesome" xml:space="preserve">
+		<value>Я використовував безкоштовні іконки Font Awesome.</value>
+	</data>
 </root>
