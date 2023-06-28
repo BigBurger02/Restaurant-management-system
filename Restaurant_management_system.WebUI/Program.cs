@@ -1,17 +1,34 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Razor;
+
+using Restaurant_management_system.Core.MailAggregate;
+using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
+using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("/Users/macbook/Desktop/appsettings.json");
 
 // Add services to the container.
 string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext(connectionString!);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Mail settings
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -44,9 +61,62 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddAuthentication()
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
+        googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+    })
+    .AddGitHub(githubOptions =>
+    {
+        githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId");
+        githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret");
+    })
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId");
+        microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret");
+    })
+    .AddTwitter(twitterOptions =>
+    {
+        twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId");
+        twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret");
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
+
 string? connectionStringForRestaurantContext = builder.Configuration.GetConnectionString("RestaurantContext") ?? throw new InvalidOperationException("Connection string 'RestaurantContext' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("RestaurantContext")));
+
+builder.Services.AddLocalization(options =>
+    options.ResourcesPath = "Resources");
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("de"),
+    new CultureInfo("uk")
+};
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("uk");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 var app = builder.Build();
 
@@ -69,6 +139,17 @@ using (var scope = app.Services.CreateScope())
 
     DbInitializer.Initialize(context);
 }
+// Authorization
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+
+    var testUserPw = builder.Configuration.GetValue<string>("SeedUserPW");
+
+    await AuthDbInitializer.Initialize(services, testUserPw);
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -77,6 +158,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapControllerRoute(
     name: "default",

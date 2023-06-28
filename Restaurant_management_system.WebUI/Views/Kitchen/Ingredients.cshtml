@@ -1,14 +1,19 @@
 ﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Ingredients";
+    ViewData["Title"] = ViewLocalizer["Ingredients"];
 }
 
 <div>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
+                <th scope="col">@ViewLocalizer["Name"]</th>
+                <th scope="col">@ViewLocalizer["Price"]</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -20,31 +25,40 @@
                     <th scope="row">@item.Name</th>
                     <td>@item.Price</td>
                     <td>
-                        <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID" class="btn btn-primary btn-circle btn-sm">
-                            <i class="fas fa-info-circle"></i>
-                        </a>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Chef"))
+                        {
+                            <a asp-action="EditIngredient" asp-route-ingredientID="@item.ID" class="btn btn-primary btn-circle btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        }
                     </td>
                     <td>
-                        <a asp-action="RemoveIngredient" asp-route-ingredientID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
-                            </span>
-                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="RemoveIngredient" asp-route-ingredientID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        }
                     </td>
                 </tr>
             }
-            <tr>
-                <td>
-                    <a asp-action="EditIngredient" class="btn btn-secondary btn-icon-split btn-sm">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus-circle"></i>
-                        </span>
-                    </a>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @if (User.IsInRole("Admin") || User.IsInRole("Chef"))
+            {
+                <tr>
+                    <td>
+                        <a asp-action="EditIngredient" class="btn btn-secondary btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus-circle"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

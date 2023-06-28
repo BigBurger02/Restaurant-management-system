@@ -1,0 +1,68 @@
+﻿@model List<Restaurant_management_system.WebUI.ViewModels.DishInMenuDTO>
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
+@{
+    ViewData["Title"] = ViewLocalizer["Menu"];
+}
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@ViewLocalizer["Name"]</th>
+                <th scope="col">@ViewLocalizer["Price"]</th>
+                <th scope="col">@ViewLocalizer["Ingredients"]</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Name</th>
+                    <td>@item.Price</td>
+                    <td>@item.IngredientsNames</td>
+                    <td>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Chef"))
+                        {
+                            <a asp-action="EditDishInMenu" asp-route-menuID="@item.ID" class="btn btn-primary btn-circle btn-sm">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="RemoveDishInMenu" asp-route-menuID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+            <tr>
+                @if (User.IsInRole("Admin") || User.IsInRole("Chef"))
+                {
+                    <td>
+                        <a asp-action="AddDishInMenu" class="btn btn-secondary btn-icon-split btn-sm">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus-circle"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

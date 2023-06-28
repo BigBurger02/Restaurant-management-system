@@ -7,6 +7,7 @@ public class OrderInTableEntity
     public int ID { get; set; }
     public int TableID { get; set; }
     public bool Open { get; set; }
+    public bool SelfOrdered { get; set; }
     public string? Message { get; set; }
 
     public List<DishInOrderEntity>? Dishes { get; set; }
@@ -14,6 +15,7 @@ public class OrderInTableEntity
     public OrderInTableEntity()
     {
         Open = true;
+        SelfOrdered = false;
         Message = string.Empty;
 
         Dishes = new List<DishInOrderEntity>();
@@ -22,6 +24,7 @@ public class OrderInTableEntity
     {
         TableID = id;
         Open = true;
+        SelfOrdered = false;
         Message = string.Empty;
 
         Dishes = new List<DishInOrderEntity>();

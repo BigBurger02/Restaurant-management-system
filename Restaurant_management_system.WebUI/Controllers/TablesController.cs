@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
@@ -11,27 +13,34 @@ using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
+[Authorize]
 public class TablesController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<TablesController> _logger;
     private readonly RestaurantContext _context;
+    private readonly IStringLocalizer<TablesController> _localizer;
 
-    public TablesController(ILogger<HomeController> logger, RestaurantContext context)
+    public TablesController(ILogger<TablesController> logger, RestaurantContext context, IStringLocalizer<TablesController> localizer)
     {
         _logger = logger;
         _context = context;
+        _localizer = localizer;
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult Tables()
     {
+        string localizedTrue = _localizer["Yes"];
+        string localizedFalse = _localizer["No"];
+
         var tables = _context.Table
             .AsNoTracking()
             .Select(table => new TableDTO
             {
                 ID = table.ID,
-                IsOccupiedString = table.IsOccupied ? "Yes" : "No",
-                IsPaidString = table.IsPaid ? "Yes" : "No",
+                IsOccupiedString = table.IsOccupied ? localizedTrue : localizedFalse,
+                IsPaidString = table.IsPaid ? localizedTrue : localizedFalse,
                 AmountOfGuests = table.AmountOfGuests,
                 OrderCost = 0
             })
@@ -41,8 +50,12 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditTableAndOrder(int tableID)
     {
+        string localizedTrue = _localizer["Yes"];
+        string localizedFalse = _localizer["No"];
+
         var findTable = _context.Table
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == tableID);
@@ -57,12 +70,12 @@ public class TablesController : Controller
             .Where(order => order.OrderID == findOrder.ID)
             .Select(dish => new DishInOrderDTO
             {
-                DishID = dish.ID,
-                DishName = dish.DishName,
+                ID = dish.ID,
+                DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString(),
                 TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
-                IsDoneString = dish.IsDone ? "Yes" : "No",
-                IsTakenAwayString = dish.IsTakenAway ? "Yes" : "No",
-                IsPrioritizedString = dish.IsPrioritized ? "Yes" : "No"
+                IsDoneString = dish.IsDone ? localizedTrue : localizedFalse,
+                IsTakenAwayString = dish.IsTakenAway ? localizedTrue : localizedFalse,
+                IsPrioritizedString = dish.IsPrioritized ? localizedTrue : localizedFalse
             })
             .ToList();
 
@@ -72,8 +85,8 @@ public class TablesController : Controller
             ID = findTable.ID,
             IsOccupiedBool = findTable.IsOccupied,
             IsPaidBool = findTable.IsPaid,
-            IsOccupiedString = findTable.IsOccupied ? "Yes" : "No",
-            IsPaidString = findTable.IsPaid ? "Yes" : "No",
+            IsOccupiedString = findTable.IsOccupied ? localizedTrue : localizedFalse,
+            IsPaidString = findTable.IsPaid ? localizedTrue : localizedFalse,
             AmountOfGuests = findTable.AmountOfGuests,
             OrderCost = findTable.OrderCost,
             Order = new OrderInTableDTO()
@@ -90,8 +103,12 @@ public class TablesController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditTableAndOrder([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests,Order")] TableDTO inputTable)
     {
+        if (!ModelState.IsValid)
+            return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
+
         var findTable = _context.Table
             .Find(inputTable.ID);
 
@@ -109,6 +126,7 @@ public class TablesController : Controller
         return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
     }
 
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult ResetTable(int? tableID)
     {
         var table = _context.Table
@@ -139,6 +157,7 @@ public class TablesController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult EditDishInOrder(int? dishID, int tableID)
     {
         var dish = _context.DishInOrder
@@ -147,22 +166,21 @@ public class TablesController : Controller
 
         var dishWithTypes = new DishInOrderDTO
         {
-            DishID = dish.ID,
+            ID = dish.ID,
             OrderID = dish.OrderID,
-            DishName = dish.DishName,
             TimeOfOrderingString = dish.DateOfOrdering.Hour.ToString("D2") + ":" + dish.DateOfOrdering.Minute.ToString("D2"),
             IsDoneBool = dish.IsDone,
             IsTakenAwayBool = dish.IsTakenAway,
             IsPrioritizedBool = dish.IsPrioritized,
             TableID = tableID
         };
-
-        if (dish.DishName != "")
-            dishWithTypes.DishInMenuID = _context.DishInMenu
-                .FirstOrDefault(i => i.Name == dish.DishName)
-                .ID;
+        if (dish.DishID == 0)
+            dishWithTypes.DishName = _localizer["empty"];
         else
-            dishWithTypes.DishInMenuID = 0;
+        {
+            dishWithTypes.DishInMenuID = dish.DishID;
+            dishWithTypes.DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString();
+        }
 
         var menuDTOs = _context.DishInMenu
             .AsNoTracking()
@@ -180,15 +198,13 @@ public class TablesController : Controller
     }
 
     [HttpPost]
-    public IActionResult EditDishInOrder([Bind("DishID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
+    [Authorize(Roles = "Admin, Waiter")]
+    public IActionResult EditDishInOrder([Bind("ID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
     {
         var dishEntity = _context.DishInOrder
-            .Find(inputDish.DishID);
+            .Find(inputDish.ID);
 
-        dishEntity.DishName = _context.DishInMenu
-            .AsNoTracking()
-            .FirstOrDefault(i => i.ID == DishInMenuID)
-            .Name;
+        dishEntity.DishID = DishInMenuID;
         dishEntity.IsTakenAway = inputDish.IsTakenAwayBool;
         dishEntity.IsPrioritized = inputDish.IsPrioritizedBool;
 
@@ -197,6 +213,7 @@ public class TablesController : Controller
         return RedirectToAction("EditTableAndOrder", new { tableID = tableID });
     }
 
+    [Authorize(Roles = "Admin, Waiter")]
     public IActionResult AddDishInOrder(int orderID, int tableID)
     {
         var newdish = new DishInOrderEntity() { OrderID = orderID, };
@@ -210,170 +227,6 @@ public class TablesController : Controller
             .ID;
 
         return RedirectToAction("EditDishInOrder", new { dishID = dishID, tableID = tableID });
-    }
-
-    [HttpGet]
-    public IActionResult DishesInMenu()
-    {
-        var menu = _context.DishInMenu
-            .AsNoTracking()
-            .Select(item => new DishInMenuDTO
-            {
-                ID = item.ID,
-                Name = item.Name
-            })
-            .ToList();
-
-        foreach (var oneMenuEntity in menu)
-        {
-            var ingredientsID = _context.IngredientForDishInMenu
-                .AsNoTracking()
-                .Where(i => i.MenuID == oneMenuEntity.ID);
-
-            foreach (var oneMenuInredientsEntity in ingredientsID)
-            {
-                var ingredientEntity = _context.Ingredient
-                    .AsNoTracking()
-                    .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
-
-                oneMenuEntity.Price += ingredientEntity.Price;
-                oneMenuEntity.IngredientsNames += ingredientEntity.Name + ", ";
-            }
-            if (ingredientsID.Count() != 0)
-            {
-                oneMenuEntity.IngredientsNames = oneMenuEntity.IngredientsNames.Remove(oneMenuEntity.IngredientsNames.Length - 2);// Remove 2 last symbols: ", "
-                oneMenuEntity.Price += ((oneMenuEntity.Price * 50) / 100);// Add 50% to price
-            }
-        }
-
-        return View(menu);
-    }
-
-    [HttpGet]
-    public IActionResult EditDishInMenu(int menuID)
-    {
-        var menuEntity = _context.DishInMenu
-            .AsNoTracking()
-            .FirstOrDefault(i => i.ID == menuID);
-
-        var ingredientsID = _context.IngredientForDishInMenu
-                .AsNoTracking()
-                .Where(i => i.MenuID == menuEntity.ID);
-
-        var ingredientsDTO = new List<IngredientDTO>();
-
-        foreach (var oneMenuInredientsEntity in ingredientsID)
-        {
-            var ingredientEntity = _context.Ingredient
-                .AsNoTracking()
-                .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
-
-            ingredientsDTO.Add(new IngredientDTO
-            {
-                ID = ingredientEntity.ID,
-                Name = ingredientEntity.Name
-            });
-        }
-
-        ViewData["MenuID"] = menuID;
-        ViewData["MenuName"] = menuEntity.Name;
-
-        return View(ingredientsDTO);
-    }
-
-    [HttpPost]
-    public IActionResult EditDishInMenu(int menuID, string menuName)
-    {
-        var menuEntity = _context.DishInMenu
-            .Find(menuID);
-
-        menuEntity.Name = menuName;
-
-        _context.SaveChanges();
-
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
-    }
-
-    public IActionResult AddDishInMenu()
-    {
-        var newMenuEntity = new DishInMenuEntity()
-        {
-            Name = "No name"
-        };
-
-        _context.DishInMenu.Add(newMenuEntity);
-        _context.SaveChanges();
-
-        int menuID = _context.DishInMenu
-            .AsNoTracking()
-            .FirstOrDefault(n => n.Name == "No name")
-            .ID;
-
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
-    }
-
-    public IActionResult RemoveDishInMenu(int menuID)
-    {
-        var menuEntity = _context.DishInMenu
-            .Find(menuID);
-
-        var menuIngredientsEntity = _context.IngredientForDishInMenu
-            .Where(i => i.MenuID == menuID)
-            .AsEnumerable();
-
-        _context.IngredientForDishInMenu
-            .RemoveRange(menuIngredientsEntity);
-
-        _context.DishInMenu
-            .Remove(menuEntity);
-
-        _context.SaveChanges();
-
-        return RedirectToAction("DishesInMenu", "Tables");
-    }
-
-    public IActionResult RemoveIngredientInDish(int ingredientID, int menuID)
-    {
-        var menuIngredientEntity = _context.IngredientForDishInMenu
-            .FirstOrDefault(m => m.MenuID == menuID && m.IngredientID == ingredientID);
-
-        _context.IngredientForDishInMenu.Remove(menuIngredientEntity);
-
-        _context.SaveChanges();
-
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
-    }
-
-    [HttpGet]
-    public IActionResult AddIngredientInDish(int menuID)
-    {
-        var ingredients = _context.Ingredient
-            .Select(i => new IngredientDTO
-            {
-                ID = i.ID,
-                Name = i.Name
-            })
-            .ToList();
-
-        ViewData["MenuID"] = menuID;
-
-        return View(ingredients);
-    }
-
-    [HttpPost]
-    public IActionResult AddIngredientInDish(int ingredientID, int menuID)
-    {
-        var newMenuIngredient = new IngredientForDishInMenuEntity()
-        {
-            MenuID = menuID,
-            IngredientID = ingredientID
-        };
-
-        _context.IngredientForDishInMenu.Add(newMenuIngredient);
-
-        _context.SaveChanges();
-
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 }
 

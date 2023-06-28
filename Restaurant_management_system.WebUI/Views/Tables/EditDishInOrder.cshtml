@@ -1,12 +1,17 @@
 ﻿@model Restaurant_management_system.WebUI.ViewModels.DishInOrderDTO
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Dish";
+    ViewData["Title"] = ViewLocalizer["Dish"];
 }
 
 <div class="col-md-1">
     <form asp-action="EditDishInOrder" asp-route-tableID="TableID">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="DishID" />
+        <input type="hidden" asp-for="ID" />
         <input type="hidden" asp-for="TableID" />
 
         <select asp-for="DishInMenuID" name="DishInMenuID">
@@ -25,17 +30,17 @@
         </select>
         <div class="form-group">
             <input type="checkbox" asp-for="IsTakenAwayBool" />
-            <label asp-for="IsTakenAwayBool" class="control-label">Taken Away</label>
+            <label asp-for="IsTakenAwayBool" class="control-label">@ViewLocalizer["TakenAway"]</label>
             <span asp-validation-for="IsTakenAwayBool" class="text-danger"></span>
         </div>
         <div class="form-group">
             <input type="checkbox" asp-for="IsPrioritizedBool" />
-            <label asp-for="IsPrioritizedBool" class="control-label">Prioritized</label>
+            <label asp-for="IsPrioritizedBool" class="control-label">@ViewLocalizer["Prioritized"]</label>
             <span asp-validation-for="IsPrioritizedBool" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="@ViewLocalizer["Save"]" class="btn btn-primary" />
         </div>
     </form>
 </div>

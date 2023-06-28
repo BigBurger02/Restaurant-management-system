@@ -1,6 +1,11 @@
 ﻿@model List<Restaurant_management_system.WebUI.ViewModels.TableDTO>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Tables";
+    ViewData["Title"] = ViewLocalizer["Tables"];
 }
 
 <div>
@@ -8,10 +13,11 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Occupied</th>
-                <th scope="col">Guests</th>
-                <th scope="col">Cost</th>
-                <th scope="col">Paid</th>
+                <th scope="col">@ViewLocalizer["Occupied"]</th>
+                <th scope="col">@ViewLocalizer["Guests"]</th>
+                <th scope="col">@ViewLocalizer["Cost"]</th>
+                <th scope="col">@ViewLocalizer["Paid"]</th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -33,10 +39,21 @@
                     <td>
                         <a asp-action="ResetTable" asp-route-tableID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
                             <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-undo"></i>
                             </span>
 
                         </a>
+                    </td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="" asp-route-tableID="@item.ID" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+
+                            </a>
+                        }
                     </td>
                 </tr>
             }

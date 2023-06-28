@@ -1,18 +1,25 @@
 ﻿@model List<Restaurant_management_system.WebUI.ViewModels.IngredientDTO>
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Edit menu";
+    ViewData["Title"] = ViewLocalizer["EditMenu"];
 }
 
 <div>
     <form method="POST" asp-route-menuID="@ViewData["MenuID"]">
         <div class="form-group">
-            <label for="menuName">Name:</label>
+            <label for="menuName">@ViewLocalizer["Name"]:</label>
+            <input type="text" name="menuName" value="@ViewData["MenuName"]" required />
         </div>
         <div class="form-group">
-            <input type="text" name="menuName" value="@ViewData["MenuName"]" />
+            <label for="menuPrice">@ViewLocalizer["Price"]:</label>
+            <input type="number" name="menuPrice" value="@ViewData["MenuPrice"]" required />
         </div>
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="@ViewLocalizer["Save"]" class="btn btn-primary" />
         </div>
     </form>
 </div>
@@ -23,7 +30,7 @@
     <table>
         <thead>
             <tr>
-                <th>Ingredient</th>
+                <th>@ViewLocalizer["Ingredients"]</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,5 +46,5 @@
             }
         </tbody>
     </table>
-    <a asp-action="AddIngredientInDish" asp-route-menuID="@ViewData["MenuID"]">Add</a>
+    <a asp-action="AddIngredientInDish" asp-route-menuID="@ViewData["MenuID"]">@ViewLocalizer["Add"]</a>
 </div>

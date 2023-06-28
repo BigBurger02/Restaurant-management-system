@@ -1,6 +1,11 @@
 ﻿@model Restaurant_management_system.WebUI.ViewModels.IngredientDTO
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer ViewLocalizer
+
 @{
-    ViewData["Title"] = "Edit ingredient";
+    ViewData["Title"] = ViewLocalizer["EditIngredient"];
 }
 
 <div class="col-md-2">
@@ -8,18 +13,18 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="ID" />
         <div class="form-group">
-            <label asp-for="Name" class="control-label">Ingredient name</label>
-            <input type="text" asp-for="Name" />
+            <label asp-for="Name" class="control-label">@ViewLocalizer["IngredientName"]</label>
+            <input type="text" asp-for="Name" required />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Price" class="control-label">Price</label>
-            <input type="number" asp-for="Price" />
+            <label asp-for="Price" class="control-label">@ViewLocalizer["Price"]</label>
+            <input type="number" asp-for="Price" required />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="@ViewLocalizer["Save"]" class="btn btn-primary" />
         </div>
     </form>
 </div>

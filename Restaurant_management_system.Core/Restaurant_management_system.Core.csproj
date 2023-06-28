@@ -10,10 +10,14 @@
     <None Remove="DishesAggregate\" />
     <None Remove="TablesAggregate\" />
     <None Remove="Services\" />
+    <None Remove="MailAggregate\" />
+    <None Remove="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DishesAggregate\" />
     <Folder Include="TablesAggregate\" />
     <Folder Include="Services\" />
+    <Folder Include="MailAggregate\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>
