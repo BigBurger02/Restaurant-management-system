@@ -6,25 +6,26 @@ using Microsoft.Extensions.Localization;
 using Restaurant_management_system.WebUI.ApiModels;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Core.DishesAggregate;
+using Restaurant_management_system.Core.TablesAggregate;
 
 namespace Restaurant_management_system.WebUI.Api;
 
 [AllowAnonymous]
 [Route("api/[controller]")]
-public class VisitorController : Controller
+public class MenuController : Controller
 {
-    private readonly ILogger<VisitorController> _logger;
+    private readonly ILogger<MenuController> _logger;
     private readonly RestaurantContext _context;
-    private readonly IStringLocalizer<VisitorController> _localizer;
+    private readonly IStringLocalizer<MenuController> _localizer;
 
-    public VisitorController(ILogger<VisitorController> logger, RestaurantContext context, IStringLocalizer<VisitorController> localizer)
+    public MenuController(ILogger<MenuController> logger, RestaurantContext context, IStringLocalizer<MenuController> localizer)
     {
         _logger = logger;
         _context = context;
         _localizer = localizer;
     }
 
-    // GET: api/values
+    // GET: api/visitor
     [HttpGet]
     public List<DishItemDTO> GetMenu()
     {
@@ -55,42 +56,4 @@ public class VisitorController : Controller
 
         return dishes;
     }
-
-
-
-
-
-
-    //// GET: api/values
-    //[HttpGet]
-    //public IEnumerable<string> Get()
-    //{
-    //    return new string[] { "value1", "value2" };
-    //}
-
-    // GET api/values/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
-    }
-
-    // POST api/values
-    [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
-
-    // PUT api/values/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/values/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }
 }
-
