@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.OpenApi.Models;
 
 using Restaurant_management_system.Core.MailAggregate;
 using Restaurant_management_system.Core.Interfaces;
@@ -30,7 +31,14 @@ builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Restaurant API", Version = "v1" });
+});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -54,7 +62,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    options.ExpireTimeSpan = TimeSpan.FromHours(24);
 
     options.LoginPath = "/Identity/Account/Login";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
@@ -151,10 +159,14 @@ using (var scope = app.Services.CreateScope())
     await AuthDbInitializer.Initialize(services, testUserPw);
 }
 
+app.UseRouting();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy();
 
-app.UseRouting();
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API V1"));
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -164,6 +176,9 @@ app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocal
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "swagger",
+    pattern: "swagger/index.html");
 app.MapRazorPages();
 
 app.Run();
