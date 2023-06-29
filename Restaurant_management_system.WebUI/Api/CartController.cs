@@ -25,7 +25,7 @@ public class CartController : Controller
         _localizer = localizer;
     }
 
-    // PATCH: api/visitor/5/5/5
+    // PATCH: api/cart/5/5/5
     [HttpPatch("{tableID}/{orderID}/{dishID}")]
     public bool AddToCart(int tableID, int orderID, int dishID)
     {
@@ -43,7 +43,7 @@ public class CartController : Controller
         return true;
     }
 
-    // DELETE: api/visitor/5/5/5
+    // DELETE: api/cart/5/5/5
     [HttpDelete("{tableID}/{orderID}/{dishID}")]
     public bool DeleteFromCart(int tableID, int orderID, int dishID)
     {

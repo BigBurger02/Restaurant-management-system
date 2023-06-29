@@ -25,7 +25,7 @@ public class MenuController : Controller
         _localizer = localizer;
     }
 
-    // GET: api/visitor
+    // GET: api/menu
     [HttpGet]
     public List<DishItemDTO> GetMenu()
     {

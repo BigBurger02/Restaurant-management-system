@@ -25,7 +25,7 @@ public class OrderController : Controller
         _localizer = localizer;
     }
 
-    // PUT: api/visitor/5
+    // PUT: api/order/5
     [HttpPut("{tableID}")]
     public int CreateOrder(int tableID)
     {
@@ -37,7 +37,7 @@ public class OrderController : Controller
         return newOrder.ID;
     }
 
-    // PATCH: api/visitor/5
+    // PATCH: api/order/5
     [HttpPatch("{orderID}")]
     public bool CloseOrder(int orderID)
     {
