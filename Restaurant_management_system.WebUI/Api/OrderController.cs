@@ -25,8 +25,23 @@ public class OrderController : Controller
         _localizer = localizer;
     }
 
+    /// <summary>
+    /// Open new order for the specified table
+    /// </summary>
+    /// <returns>int</returns>
+    /// <remarks>
+    /// Sample request:
+    /// 
+    ///     PUT api/order/5
+    /// </remarks>
+    /// <param name="tableID"></param>
+    /// <response code="201">Returns the orderID. Order connected to given tableID</response>
+    /// <response code="400">Can't find that table (not implemented)</response>
     // PUT: api/order/5
     [HttpPut("{tableID}")]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    [Produces("application/json")]
     public int CreateOrder(int tableID)
     {
         var newOrder = new OrderInTableEntity() { TableID = tableID, SelfOrdered = true };
@@ -37,8 +52,23 @@ public class OrderController : Controller
         return newOrder.ID;
     }
 
-    // PATCH: api/order/5
+    /// <summary>
+    /// Close order
+    /// </summary>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    /// 
+    ///     PATCH api/order/4
+    /// </remarks>
+    /// <param name="orderID"></param>
+    /// <response code="201">Order closed successfuly</response>
+    /// <response code="400">Some problems (not implemented)</response>
+    // PATCH: api/order/4
     [HttpPatch("{orderID}")]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    [Produces("application/json")]
     public bool CloseOrder(int orderID)
     {
         var order = _context.OrderInTable

@@ -25,8 +25,22 @@ public class MenuController : Controller
         _localizer = localizer;
     }
 
+    /// <summary>
+    /// Take all dishes
+    /// </summary>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    /// 
+    ///     GET api/menu
+    /// </remarks>
+    /// <response code="201">Returns all menu items</response>
+    /// <response code="400">Some problems (not implemented)</response>
     // GET: api/menu
     [HttpGet]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
+    [Produces("application/json")]
     public List<DishItemDTO> GetMenu()
     {
         var dishes = _context.DishInMenu
@@ -57,3 +71,14 @@ public class MenuController : Controller
         return dishes;
     }
 }
+
+//// <remarks>
+//// Sample request:
+//// 
+////     GET api/menu
+////     {
+////       "firstName": "Mike",
+////       "lastName": "Andrew",
+////       "emailId": "Mike.Andrew@gmail.com"
+////     }
+//// </ remarks >

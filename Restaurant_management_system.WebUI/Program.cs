@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
@@ -18,7 +19,6 @@ using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Infrastructure.Data.Authorization;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +50,8 @@ builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Restaurant API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Restaurant Management System API", Version = "v1" });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 
 // Authentication
