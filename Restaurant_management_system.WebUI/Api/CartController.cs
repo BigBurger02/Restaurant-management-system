@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 using Restaurant_management_system.WebUI.ApiModels;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
+using Restaurant_management_system.Core.Services.Attributes;
 
 namespace Restaurant_management_system.WebUI.Api;
 
 [AllowAnonymous]
 [Route("api/[controller]")]
+[SwaggerControllerOrder(3)]
 public class CartController : Controller
 {
     private readonly ILogger<CartController> _logger;
@@ -26,7 +29,7 @@ public class CartController : Controller
     }
 
     /// <summary>
-    /// Add one dish to the specified order
+    /// Add one dish to the specified order (in development)
     /// </summary>
     /// <returns></returns>
     /// <remarks>
@@ -61,7 +64,7 @@ public class CartController : Controller
     }
 
     /// <summary>
-    /// Delete one dish from the specified order
+    /// Delete one dish from the specified order (in development)
     /// </summary>
     /// <returns></returns>
     /// <remarks>

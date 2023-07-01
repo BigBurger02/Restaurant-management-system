@@ -7,11 +7,13 @@ using Restaurant_management_system.WebUI.ApiModels;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
+using Restaurant_management_system.Core.Services.Attributes;
 
 namespace Restaurant_management_system.WebUI.Api;
 
 [AllowAnonymous]
 [Route("api/[controller]")]
+[SwaggerControllerOrder(1)]
 public class MenuController : Controller
 {
     private readonly ILogger<MenuController> _logger;
@@ -26,7 +28,7 @@ public class MenuController : Controller
     }
 
     /// <summary>
-    /// Take all dishes
+    /// Take all dishes (in development)
     /// </summary>
     /// <returns></returns>
     /// <remarks>

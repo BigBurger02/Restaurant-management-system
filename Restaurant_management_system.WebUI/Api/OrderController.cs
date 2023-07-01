@@ -7,11 +7,13 @@ using Restaurant_management_system.WebUI.ApiModels;
 using Restaurant_management_system.Infrastructure.Data;
 using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
+using Restaurant_management_system.Core.Services.Attributes;
 
 namespace Restaurant_management_system.WebUI.Api;
 
 [AllowAnonymous]
 [Route("api/[controller]")]
+[SwaggerControllerOrder(2)]
 public class OrderController : Controller
 {
     private readonly ILogger<OrderController> _logger;
@@ -26,7 +28,7 @@ public class OrderController : Controller
     }
 
     /// <summary>
-    /// Open new order for the specified table
+    /// Open new order for the specified table (in development)
     /// </summary>
     /// <returns>int</returns>
     /// <remarks>
@@ -53,7 +55,7 @@ public class OrderController : Controller
     }
 
     /// <summary>
-    /// Close order
+    /// Close order (in development)
     /// </summary>
     /// <returns></returns>
     /// <remarks>
