@@ -28,7 +28,7 @@ public class MenuController : Controller
     }
 
     /// <summary>
-    /// Take all dishes (in development)
+    /// Get all dishes
     /// </summary>
     /// <returns></returns>
     /// <remarks>
@@ -36,14 +36,14 @@ public class MenuController : Controller
     /// 
     ///     GET api/menu
     /// </remarks>
-    /// <response code="201">Returns all menu items</response>
-    /// <response code="400">Some problems (not implemented)</response>
+    /// <response code="200">Returns all menu items</response>
+    /// <response code="204">Menu is empty</response>
     // GET: api/menu
     [HttpGet]
-    [ProducesResponseType(201)]
-    [ProducesResponseType(400)]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     [Produces("application/json")]
-    public List<DishItemDTO> GetMenu()
+    public ActionResult<List<DishItemDTO>> GetMenu()
     {
         var dishes = _context.DishInMenu
             .AsNoTracking()
@@ -54,6 +54,9 @@ public class MenuController : Controller
                 Price = d.Price
             })
             .ToList();
+
+        if (dishes.Count == 0)
+            return NoContent();
 
         // Ingredients:
         foreach (var oneMenuEntity in dishes)
@@ -70,7 +73,7 @@ public class MenuController : Controller
             }
         }
 
-        return dishes;
+        return Ok(dishes);
     }
 }
 
