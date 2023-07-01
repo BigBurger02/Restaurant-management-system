@@ -8,10 +8,11 @@ namespace Restaurant_management_system.Infrastructure.Data
     {
         public static void Initialize(RestaurantContext context)
         {
+            context.Database.EnsureDeleted();// temporary code
             context.Database.EnsureCreated();
 
-            if (context.DishInOrder.Any())
-                return;
+            //if (context.DishInOrder.Any())
+            //    return;
 
             var ingredients = new IngredientEntity[]
             {
@@ -49,16 +50,16 @@ namespace Restaurant_management_system.Infrastructure.Data
 
             var menu = new DishInMenuEntity[]
             {
-                new DishInMenuEntity{ ID=1, Name="Chicken Strips", Price=0 },
-                new DishInMenuEntity{ ID=2, Name="French Dip", Price=0 },
-                new DishInMenuEntity{ ID=3, Name="Cobb Salad", Price=0 },
-                new DishInMenuEntity{ ID=4, Name="Meat Loaf", Price=0 },
-                new DishInMenuEntity{ ID=5, Name="Cannoli", Price=0 },
-                new DishInMenuEntity{ ID=6, Name="ClubHouse", Price=0 },
-                new DishInMenuEntity{ ID=7, Name="Roast Pork", Price=0 },
-                new DishInMenuEntity{ ID=8, Name="Roast Beef", Price=0 },
-                new DishInMenuEntity{ ID=9, Name="White Pizza", Price=0 },
-                new DishInMenuEntity{ ID=10, Name="Hamburger", Price=0 }
+                new DishInMenuEntity{ ID=1, Name="Chicken Strips", Price=250 },
+                new DishInMenuEntity{ ID=2, Name="French Dip", Price=116 },
+                new DishInMenuEntity{ ID=3, Name="Cobb Salad", Price=99 },
+                new DishInMenuEntity{ ID=4, Name="Meat Loaf", Price=298 },
+                new DishInMenuEntity{ ID=5, Name="Cannoli", Price=100 },
+                new DishInMenuEntity{ ID=6, Name="ClubHouse", Price=199 },
+                new DishInMenuEntity{ ID=7, Name="Roast Pork", Price=270 },
+                new DishInMenuEntity{ ID=8, Name="Roast Beef", Price=320 },
+                new DishInMenuEntity{ ID=9, Name="White Pizza", Price=150 },
+                new DishInMenuEntity{ ID=10, Name="Hamburger", Price=120 }
             };
             foreach (var item in menu)
                 context.DishInMenu.Add(item);
