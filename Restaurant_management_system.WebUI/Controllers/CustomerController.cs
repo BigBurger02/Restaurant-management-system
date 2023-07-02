@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 
@@ -77,6 +74,8 @@ public class CustomerController : Controller
 
         var order = _context.OrderInTable
             .FirstOrDefault(o => o.ID == orderID);
+        if (order == null)
+            return NotFound();
 
         order.SelfOrdered = true;
 
@@ -104,12 +103,13 @@ public class CustomerController : Controller
 
             foreach (var item in dishesFromOrder)
             {
-                item.Name = _context.DishInMenu
-                .Find(item.ID)
-                .Name;
-                item.Price = _context.DishInMenu
-                .Find(item.ID)
-                .Price;
+                var dish = _context.DishInMenu
+                    .Find(item.ID);
+                if (dish == null)
+                    return NotFound();
+
+                item.Name = dish.Name;
+                item.Price = dish.Price;
             }
 
             ViewData["orderID"] = orderID;
@@ -124,6 +124,9 @@ public class CustomerController : Controller
         var dishInOrder = _context.DishInOrder
             .Where(o => o.OrderID == orderID && o.DishID == dishID)
             .FirstOrDefault();
+        if (dishInOrder == null)
+            return NotFound();
+
         _context.Remove(dishInOrder);
         _context.SaveChanges();
 

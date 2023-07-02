@@ -59,11 +59,15 @@ public class TablesController : Controller
         var findTable = _context.Table
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == tableID);
+        if (findTable == null)
+            return NotFound();
 
         var findOrder = _context.OrderInTable
             .AsNoTracking()
             .OrderByDescending(o => o.ID)
             .First(table => table.TableID == tableID);
+        if (findOrder == null)
+            return NotFound();
 
         var findDishes = _context.DishInOrder
             .AsNoTracking()
@@ -96,8 +100,9 @@ public class TablesController : Controller
         table.Order.TableID = findOrder.TableID;
         table.Order.Open = findOrder.Open;
         table.Order.Message = findOrder.Message;
-        foreach (var item in findDishes)
-            table.Order.Dishes.Add(item);
+        if (table.Order.Dishes != null)
+            foreach (var item in findDishes)
+                table.Order.Dishes.Add(item);
 
         return View(table);
     }
@@ -111,15 +116,20 @@ public class TablesController : Controller
 
         var findTable = _context.Table
             .Find(inputTable.ID);
+        if (findTable == null)
+            return NotFound();
 
         findTable.Order = _context.OrderInTable
             .OrderByDescending(o => o.ID)
             .First(table => table.TableID == inputTable.ID);
+        if (findTable.Order == null)
+            return NotFound();
 
         findTable.IsOccupied = inputTable.IsOccupiedBool;
         findTable.IsPaid = inputTable.IsPaidBool;
         findTable.AmountOfGuests = inputTable.AmountOfGuests;
-        findTable.Order.Message = inputTable.Order.Message;
+        if (inputTable.Order != null)
+            findTable.Order.Message = inputTable.Order.Message;
 
         _context.SaveChanges();
 
@@ -132,28 +142,27 @@ public class TablesController : Controller
         var table = _context.Table
             .Where(t => t.ID == tableID)
             .FirstOrDefault();
+        if (table == null)
+            return NotFound();
 
-        if (table != null)
-        {
-            table.IsOccupied = false;
-            table.AmountOfGuests = 0;
-            table.OrderCost = 0;
-            table.IsPaid = false;
+        table.IsOccupied = false;
+        table.AmountOfGuests = 0;
+        table.OrderCost = 0;
+        table.IsPaid = false;
 
-            var findOrder = _context.OrderInTable
-                .OrderBy(table => table.TableID)
-                .LastOrDefault(table => table.TableID == tableID);
-            findOrder.Open = false;
-            table.Order = new Core.TablesAggregate.OrderInTableEntity(table.ID);
-            _context.OrderInTable.Add(table.Order);
+        var findOrder = _context.OrderInTable
+            .OrderBy(table => table.TableID)
+            .LastOrDefault(table => table.TableID == tableID);
+        if (findOrder == null)
+            return NotFound();
 
-            _context.SaveChanges();
+        findOrder.Open = false;
+        table.Order = new OrderInTableEntity(table.ID);
+        _context.OrderInTable.Add(table.Order);
 
-            return RedirectToAction("Tables", "Tables");
-        }
-        else
-            return RedirectToAction("Error", "Home");
+        _context.SaveChanges();
 
+        return RedirectToAction("Tables", "Tables");
     }
 
     [HttpGet]
@@ -163,6 +172,8 @@ public class TablesController : Controller
         var dish = _context.DishInOrder
             .AsNoTracking()
             .FirstOrDefault(d => d.ID == dishID);
+        if (dish == null)
+            return NotFound();
 
         var dishWithTypes = new DishInOrderDTO
         {
@@ -179,7 +190,11 @@ public class TablesController : Controller
         else
         {
             dishWithTypes.DishInMenuID = dish.DishID;
-            dishWithTypes.DishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID).Name.ToString();
+            var dishName = _context.DishInMenu.FirstOrDefault(i => i.ID == dish.DishID);
+            if (dishName == null)
+                dishWithTypes.DishName = "";
+            else
+                dishWithTypes.DishName = dishName.Name.ToString();
         }
 
         var menuDTOs = _context.DishInMenu
@@ -203,6 +218,8 @@ public class TablesController : Controller
     {
         var dishEntity = _context.DishInOrder
             .Find(inputDish.ID);
+        if (dishEntity == null)
+            return NotFound();
 
         dishEntity.DishID = DishInMenuID;
         dishEntity.IsTakenAway = inputDish.IsTakenAwayBool;
@@ -216,7 +233,7 @@ public class TablesController : Controller
     [Authorize(Roles = "Admin, Waiter")]
     public IActionResult AddDishInOrder(int orderID, int tableID)
     {
-        var newdish = new DishInOrderEntity() { OrderID = orderID, };
+        var newdish = new DishInOrderEntity() { OrderID = orderID };
         _context.DishInOrder.Add(newdish);
         _context.SaveChanges();
 
