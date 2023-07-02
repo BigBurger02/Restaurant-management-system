@@ -46,7 +46,7 @@ public class CustomerController : Controller
                 .AsNoTracking()
                 .Where(i => i.DishInMenuID == oneMenuEntity.ID);
 
-            foreach (var oneMenuInredientsEntity in ingredientsID)
+            foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
             {
                 var ingredientEntity = _context.Ingredient
                     .AsNoTracking()

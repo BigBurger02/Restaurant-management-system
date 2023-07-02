@@ -39,10 +39,10 @@ builder.Services.AddControllersWithViews();
 // DB
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 string? AuthConnectionString = builder.Configuration.GetConnectionString("AuthContext") ?? throw new InvalidOperationException("Connection string 'AuthContext' not found.");
-string? DataConnectionString = builder.Configuration.GetConnectionString("DataContext") ?? throw new InvalidOperationException("Connection string 'DataContext' not found.");
+string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
 builder.Services.AddDbContext(AuthConnectionString!);
 builder.Services.AddDbContext<RestaurantContext>(options =>
-        options.UseSqlite(DataConnectionString));
+    options.UseSqlServer(DataConnectionString));
 
 // Mail
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
@@ -168,15 +168,15 @@ else
 }
 
 // DB init
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var authContext = services.GetRequiredService<ApplicationDbContext>();
-    var dataContext = services.GetRequiredService<RestaurantContext>();
-    authContext.Database.Migrate();
-    await AuthDbInitializer.Initialize(services, builder.Configuration.GetValue<string>("TestUserPassword")!);
-    DbInitializer.Initialize(dataContext);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    var authContext = services.GetRequiredService<ApplicationDbContext>();
+//    var dataContext = services.GetRequiredService<RestaurantContext>();
+//    authContext.Database.Migrate();
+//    await AuthDbInitializer.Initialize(services, builder.Configuration.GetValue<string>("TestUserPassword")!);
+//    DbInitializer.Initialize(dataContext);
+//}
 
 app.UseRouting();
 
