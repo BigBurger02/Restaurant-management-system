@@ -53,10 +53,12 @@ public class MenuController : Controller
                 var ingredientEntity = _context.Ingredient
                     .AsNoTracking()
                     .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
+                if (ingredientEntity == null)
+                    continue;
 
                 oneMenuEntity.IngredientsNames += ingredientEntity.Name + ", ";
             }
-            if (ingredientsID.Count() != 0)
+            if (ingredientsID.Any())
             {
                 oneMenuEntity.IngredientsNames = oneMenuEntity.IngredientsNames.Remove(oneMenuEntity.IngredientsNames.Length - 2);// Remove 2 last symbols: ", "
             }
@@ -72,18 +74,23 @@ public class MenuController : Controller
         var menuEntity = _context.DishInMenu
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == menuID);
+        if (menuEntity == null)
+            return NotFound();
 
         var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
-                .Where(i => i.DishInMenuID == menuEntity.ID).ToList();
+                .Where(i => i.DishInMenuID == menuEntity.ID)
+                .ToList();
 
         var ingredientsDTO = new List<IngredientDTO>();
 
-        foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
+        foreach (var oneMenuInredientsEntity in ingredientsID)
         {
             var ingredientEntity = _context.Ingredient
                 .AsNoTracking()
                 .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
+            if (ingredientEntity == null)
+                continue;
 
             ingredientsDTO.Add(new IngredientDTO
             {
@@ -105,32 +112,26 @@ public class MenuController : Controller
     {
         var menuEntity = _context.DishInMenu
             .Find(menuID);
+        if (menuEntity == null)
+            return NotFound();
 
         menuEntity.Name = menuName;
         menuEntity.Price = menuPrice;
 
         _context.SaveChanges();
 
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID });
     }
 
     [Authorize(Roles = "Admin, Chef")]
     public IActionResult AddDishInMenu()
     {
-        var newMenuEntity = new DishInMenuEntity()
-        {
-            Name = "-"
-        };
+        var newMenuEntity = new DishInMenuEntity();
 
         _context.DishInMenu.Add(newMenuEntity);
         _context.SaveChanges();
 
-        int menuID = _context.DishInMenu
-            .AsNoTracking()
-            .FirstOrDefault(n => n.Name == "-")
-            .ID;
-
-        return RedirectToAction("EditDishInMenu", new { menuID = menuID });
+        return RedirectToAction("EditDishInMenu", new { menuID = newMenuEntity.ID });
     }
 
     [Authorize(Roles = "Admin")]
@@ -138,13 +139,16 @@ public class MenuController : Controller
     {
         var menuEntity = _context.DishInMenu
             .Find(menuID);
+        if (menuEntity == null)
+            return NotFound();
 
         var menuIngredientsEntity = _context.IngredientForDishInMenu
             .Where(i => i.DishInMenuID == menuID)
             .AsEnumerable();
 
-        _context.IngredientForDishInMenu
-            .RemoveRange(menuIngredientsEntity);
+        if (menuIngredientsEntity.Any())
+            _context.IngredientForDishInMenu
+                .RemoveRange(menuIngredientsEntity);
 
         _context.DishInMenu
             .Remove(menuEntity);
@@ -159,6 +163,8 @@ public class MenuController : Controller
     {
         var menuIngredientEntity = _context.IngredientForDishInMenu
             .FirstOrDefault(m => m.DishInMenuID == menuID && m.IngredientID == ingredientID);
+        if (menuIngredientEntity == null)
+            return NotFound();
 
         _context.IngredientForDishInMenu.Remove(menuIngredientEntity);
 
@@ -201,4 +207,3 @@ public class MenuController : Controller
         return RedirectToAction("EditDishInMenu", new { menuID = menuID });
     }
 }
-

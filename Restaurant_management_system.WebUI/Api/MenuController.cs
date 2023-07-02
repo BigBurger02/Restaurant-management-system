@@ -63,14 +63,20 @@ public class MenuController : Controller
         {
             var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
-                .Where(i => i.DishInMenuID == oneMenuEntity.ID);
+                .Where(i => i.DishInMenuID == oneMenuEntity.ID)
+                .ToList();
 
-            foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
-            {
-                oneMenuEntity.Ingredients.Add(_context.Ingredient
-                    .AsNoTracking()
-                    .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID).Name);
-            }
+            if (oneMenuEntity.Ingredients != null)
+                foreach (var oneMenuInredientsEntity in ingredientsID)
+                {
+                    var ingredient = _context.Ingredient
+                        .AsNoTracking()
+                        .FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
+                    if (ingredient == null)
+                        continue;
+
+                    oneMenuEntity.Ingredients.Add(ingredient.Name);
+                }
         }
 
         return Ok(dishes);

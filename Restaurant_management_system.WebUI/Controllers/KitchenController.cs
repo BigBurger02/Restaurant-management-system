@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 
@@ -55,6 +53,8 @@ public class KitchenController : Controller
     {
         var dish = _context.DishInOrder
             .Find(dishID);
+        if (dish == null)
+            return NotFound();
 
         if (dish.IsDone == true)
             dish.IsDone = false;
@@ -94,6 +94,9 @@ public class KitchenController : Controller
             .AsNoTracking()
             .FirstOrDefault(i => i.ID == ingredientID);
 
+        if (findIngredient == null)
+            return NotFound();
+
         var ingredient = new IngredientDTO
         {
             ID = findIngredient.ID,
@@ -126,6 +129,8 @@ public class KitchenController : Controller
 
         var ingredient = _context.Ingredient
             .Find(inputIngredient.ID);
+        if (ingredient == null)
+            return NotFound();
 
         ingredient.Name = inputIngredient.Name;
         ingredient.Price = inputIngredient.Price;
@@ -139,6 +144,8 @@ public class KitchenController : Controller
     {
         var ingredient = _context.Ingredient
             .Find(ingredientID);
+        if (ingredient == null)
+            return NotFound();
 
         _context.Ingredient.Remove(ingredient);
         _context.SaveChanges();
