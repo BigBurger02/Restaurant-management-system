@@ -48,7 +48,7 @@ public class MenuController : Controller
                 .AsNoTracking()
                 .Where(i => i.DishInMenuID == oneMenuEntity.ID);
 
-            foreach (var oneMenuInredientsEntity in ingredientsID)
+            foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
             {
                 var ingredientEntity = _context.Ingredient
                     .AsNoTracking()
@@ -75,11 +75,11 @@ public class MenuController : Controller
 
         var ingredientsID = _context.IngredientForDishInMenu
                 .AsNoTracking()
-                .Where(i => i.DishInMenuID == menuEntity.ID);
+                .Where(i => i.DishInMenuID == menuEntity.ID).ToList();
 
         var ingredientsDTO = new List<IngredientDTO>();
 
-        foreach (var oneMenuInredientsEntity in ingredientsID)
+        foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
         {
             var ingredientEntity = _context.Ingredient
                 .AsNoTracking()

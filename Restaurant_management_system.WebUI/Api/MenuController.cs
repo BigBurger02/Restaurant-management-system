@@ -65,7 +65,7 @@ public class MenuController : Controller
                 .AsNoTracking()
                 .Where(i => i.DishInMenuID == oneMenuEntity.ID);
 
-            foreach (var oneMenuInredientsEntity in ingredientsID)
+            foreach (var oneMenuInredientsEntity in ingredientsID.ToList())
             {
                 oneMenuEntity.Ingredients.Add(_context.Ingredient
                     .AsNoTracking()
