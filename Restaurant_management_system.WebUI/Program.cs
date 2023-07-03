@@ -151,6 +151,14 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORS", corsPolicyBuilder => corsPolicyBuilder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 
@@ -183,6 +191,8 @@ app.UseRouting();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCookiePolicy();
+
+app.UseCors("CORS");
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API V1"));
