@@ -1,10 +1,10 @@
-name: .NET Core Desktop
+name: .NET Core Desktop Deploy To Azure
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "azure-release" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "azure-release" ]
 
 jobs:
 
