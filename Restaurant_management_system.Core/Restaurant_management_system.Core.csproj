@@ -13,6 +13,7 @@
     <None Remove="MailAggregate\" />
     <None Remove="Interfaces\" />
     <None Remove="Services\Attributes\" />
+    <None Remove="Services\Logger\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DishesAggregate\" />
@@ -21,6 +22,7 @@
     <Folder Include="MailAggregate\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Services\Attributes\" />
+    <Folder Include="Services\Logger\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
