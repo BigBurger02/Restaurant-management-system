@@ -13,41 +13,26 @@ jobs:
   build:
     runs-on: windows-latest
 
-    env:
-      DOTNET_VERSION: "7.0.x"
-      Solution_Name: Restaurant_management_system.sln
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '7.0.x'
           include-prerelease: true
-      
-      - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v1.0.2
-        
-      - name: Restore the application
-        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-        env:
-          Configuration: Release
-      
-      - name: Create the app package
-        run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-        env:
-          Appx_Bundle: Always
-          Appx_Bundle_Platforms: x86|x64
-          Appx_Package_Build_Mode: StoreUpload
-          Configuration: ${{ matrix.configuration }}
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
         with:
-          name: MSIX Package
-          path: ${{ env.Wap_Project_Directory }}\AppPackages
-          #path: ${{env.DOTNET_ROOT}}/myapp
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: windows-latest
@@ -58,13 +43,13 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: .net-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'Restaurant-management-system'
           slot-name: 'Production'
