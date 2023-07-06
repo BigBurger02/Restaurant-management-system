@@ -4,6 +4,9 @@
 # MacOS
 *.DS_Store
 
+# Keys
+keys/
+
 #DataBase
 *.db
 *.db-shm
