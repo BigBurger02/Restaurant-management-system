@@ -17,9 +17,26 @@ public static class Config
 				UserClaims = new List<string>
 				{
 					JwtClaimTypes.Email,
-					JwtClaimTypes.EmailVerified
+					JwtClaimTypes.EmailVerified,
 				}
 			},
+			//new IdentityResource("roles", new[] { "role" }),
+			new IdentityResource()
+			{
+				Name = "roles",
+				UserClaims = new List<string>
+				{
+					JwtClaimTypes.Role
+				}
+			},
+			//new IdentityResource()
+			//{
+			//	Name = "role",
+			//	UserClaims = new List<string>
+			//	{
+			//		JwtClaimTypes.Role
+			//	}
+			//},
 		};
 
 
@@ -49,7 +66,9 @@ public static class Config
 					IdentityServerConstants.StandardScopes.Profile,
 					"api",
 					"email",
-				}
+					"roles",
+				},
+
 			},
 		};
 

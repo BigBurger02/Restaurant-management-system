@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Services;
+using IdentityServer.Services;
 
 namespace IdentityServer;
 
@@ -20,6 +22,8 @@ internal static class HostingExtensions
 		builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>()
 			.AddDefaultTokenProviders();
+
+		builder.Services.AddTransient<IProfileService, ProfileService>();
 
 		builder.Services.Configure<IdentityOptions>(options =>
 		{
