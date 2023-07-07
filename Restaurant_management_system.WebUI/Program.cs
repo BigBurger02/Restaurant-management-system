@@ -254,7 +254,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapControllers().RequireAuthorization("ApiScope");
+app.MapControllers();
 app.MapRazorPages();
 
 app.Run();
