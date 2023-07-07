@@ -1,0 +1,51 @@
+﻿@model UserInfo
+
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Authentication
+
+@*@inject SignInManager<IdentityUser> SignInManager*@
+@*@inject UserManager<IdentityUser> UserManager*@
+
+@{
+    ViewData["Title"] = "User Info";
+}
+
+<h2>Claims</h2>
+@Model.Claims
+
+<h2>Claims</h2>
+
+<dl>
+    @foreach (var claim in Model.AuthenticateResult.Principal.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
+
+<h2>Properties</h2>
+
+<dl>
+    @foreach (var prop in Model.AuthenticateResult.Properties.Items)
+    {
+        <dt>@prop.Key</dt>
+        <dd>@prop.Value</dd>
+    }
+    @if (Model.Clients.Any())
+    {
+        <dt>Clients</dt>
+        <dd>
+            @{
+                var clients = Model.Clients.ToArray();
+                for (var i = 0; i < clients.Length; i++)
+                {
+                    <text>@clients[i]</text>
+                    if (i < clients.Length - 1)
+                    {
+                        <text>, </text>
+                    }
+                }
+            }
+        </dd>
+    }
+</dl>
