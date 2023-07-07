@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - Restaurant-management
 on:
   push:
     branches:
-      - azure-release
+      - master
   workflow_dispatch:
 
 jobs:
