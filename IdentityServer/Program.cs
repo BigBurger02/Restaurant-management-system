@@ -30,7 +30,7 @@ try
 
 	app.Run();
 }
-catch (Exception ex) when (ex.GetType().Name is not "HostAbortedException")
+catch (Exception ex) when (ex.GetType().Name is not "HostAbortedException") // HostAbortedException thrown because of /seed argument
 {
 	Log.Fatal(ex, "Unhandled exception");
 }

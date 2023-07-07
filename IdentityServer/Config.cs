@@ -20,7 +20,6 @@ public static class Config
 					JwtClaimTypes.EmailVerified,
 				}
 			},
-			//new IdentityResource("roles", new[] { "role" }),
 			new IdentityResource()
 			{
 				Name = "roles",
@@ -29,14 +28,6 @@ public static class Config
 					JwtClaimTypes.Role
 				}
 			},
-			//new IdentityResource()
-			//{
-			//	Name = "role",
-			//	UserClaims = new List<string>
-			//	{
-			//		JwtClaimTypes.Role
-			//	}
-			//},
 		};
 
 
@@ -48,7 +39,7 @@ public static class Config
 
 	public static IEnumerable<Client> Clients;
 
-	public static IEnumerable<Client> SetSecrets(IConfigurationSection config)
+	public static IEnumerable<Client> GetClients(IConfigurationSection config)
 	{
 		Clients = new List<Client>
 		{
@@ -57,8 +48,8 @@ public static class Config
 				ClientId = "webapp1",
 				ClientSecrets = { new Secret(config.GetValue<string>("webapp1:secret").Sha256()) },
 				AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
-				RedirectUris = { "https://" + config.GetValue<string>("webapp1:uri") + "/signin-oidc" }, // https://localhost:9000/signin-oidc
-				PostLogoutRedirectUris = { "https://" + config.GetValue<string>("webapp1:uri") + "/signout-callback-oidc" }, // https://localhost:9000/signout-callback-oidc
+				RedirectUris = { "https://" + config.GetValue<string>("webapp1:uri") + "/signin-oidc" }, // https://localhost:9001/signin-oidc
+				PostLogoutRedirectUris = { "https://" + config.GetValue<string>("webapp1:uri") + "/signout-callback-oidc" }, // https://localhost:9001/signout-callback-oidc
 				AllowOfflineAccess = true,
 				AllowedScopes =
 				{
@@ -68,7 +59,6 @@ public static class Config
 					"email",
 					"roles",
 				},
-
 			},
 		};
 

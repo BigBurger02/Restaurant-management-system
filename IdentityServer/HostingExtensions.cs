@@ -54,7 +54,7 @@ internal static class HostingExtensions
 			})
 			.AddInMemoryIdentityResources(Config.IdentityResources)
 			.AddInMemoryApiScopes(Config.ApiScopes)
-			.AddInMemoryClients(Config.SetSecrets(builder.Configuration.GetSection("ClientSecrets")))
+			.AddInMemoryClients(Config.GetClients(builder.Configuration.GetSection("ClientSecrets")))
 			.AddAspNetIdentity<ApplicationUser>();
 
 		builder.Services.AddAuthentication()
