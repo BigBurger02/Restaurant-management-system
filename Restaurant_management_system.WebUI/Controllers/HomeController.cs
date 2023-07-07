@@ -9,7 +9,7 @@ using Restaurant_management_system.Core.Services.Logger;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
-[Authorize]
+//[Authorize]
 public class HomeController : Controller
 {
 	private readonly ILogger<HomeController> _logger;
@@ -38,7 +38,7 @@ public class HomeController : Controller
 	}
 
 	[HttpGet]
-	[Authorize(Roles = "Admin")]
+	//[Authorize(Roles = "Admin")]
 	public IActionResult Analytics()
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
@@ -46,7 +46,7 @@ public class HomeController : Controller
 		throw new NotImplementedException();
 	}
 
-	[AllowAnonymous]
+	//[AllowAnonymous]
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Error()
 	{
@@ -55,7 +55,7 @@ public class HomeController : Controller
 		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 	}
 
-	[Authorize(Roles = "Admin")]
+	//[Authorize(Roles = "Admin")]
 	public IActionResult Test()
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);

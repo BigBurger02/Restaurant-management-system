@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
@@ -63,9 +64,9 @@ builder.Services.AddControllersWithViews();
 // DB
 if (builder.Environment.IsDevelopment())
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-string? AuthConnectionString = builder.Configuration.GetConnectionString("AuthContext") ?? throw new InvalidOperationException("Connection string 'AuthContext' not found.");
+//string? AuthConnectionString = builder.Configuration.GetConnectionString("AuthContext") ?? throw new InvalidOperationException("Connection string 'AuthContext' not found.");
 string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
-builder.Services.AddDbContext(AuthConnectionString!);
+//builder.Services.AddDbContext(AuthConnectionString!);
 builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
 
@@ -89,72 +90,91 @@ builder.Services.AddSwaggerGen(c =>
 	c.OrderActionsBy((apiDesc) => $"{swaggerControllerOrder.SortKey(apiDesc.ActionDescriptor.RouteValues["controller"]!)}");
 });
 
-// Authentication
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddRoles<IdentityRole>()
-	.AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.Configure<IdentityOptions>(options =>
-{
-	// Password settings
-	options.Password.RequireDigit = true;
-	options.Password.RequireUppercase = false;
-	options.Password.RequireLowercase = false;
-	options.Password.RequireNonAlphanumeric = false;
-	options.Password.RequiredLength = 6;
-	options.Password.RequiredUniqueChars = 0;
+// Auth
+builder.Services.AddAuthentication("Bearer")
+	.AddJwtBearer("Bearer", options =>
+	{
+		options.Authority = "https://" + builder.Configuration.GetValue<string>("Authority");
 
-	// Lockout settings
-	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-	options.Lockout.MaxFailedAccessAttempts = 7;
-	options.Lockout.AllowedForNewUsers = true;
-
-	// User settings
-	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-	options.User.RequireUniqueEmail = true;
-});
-builder.Services.AddAuthentication()
-	.AddGoogle(googleOptions =>
-	{
-		googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId")!;
-		googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret")!;
-	})
-	.AddGitHub(githubOptions =>
-	{
-		githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId")!;
-		githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret")!;
-	})
-	.AddMicrosoftAccount(microsoftOptions =>
-	{
-		microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId")!;
-		microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret")!;
-	})
-	.AddTwitter(twitterOptions =>
-	{
-		twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId")!;
-		twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret")!;
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateAudience = false
+		};
 	});
-builder.Services.ConfigureApplicationCookie(options =>
-{
-	options.Cookie.HttpOnly = true;
-	options.ExpireTimeSpan = TimeSpan.FromHours(24);
-
-	options.LoginPath = "/Identity/Account/Login";
-	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-	options.SlidingExpiration = true;
-});
-
-// Authorization
 builder.Services.AddAuthorization(options =>
-{
-	options.FallbackPolicy = new AuthorizationPolicyBuilder()
-		.RequireAuthenticatedUser()
-		.Build();
-});
-builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
-builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
+	options.AddPolicy("ApiScope", policy =>
+	{
+		policy.RequireAuthenticatedUser();
+		policy.RequireClaim("scope", "api");
+	})
+);
+
+//// Authentication
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//	.AddRoles<IdentityRole>()
+//	.AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.Configure<IdentityOptions>(options =>
+//{
+//	// Password settings
+//	options.Password.RequireDigit = true;
+//	options.Password.RequireUppercase = false;
+//	options.Password.RequireLowercase = false;
+//	options.Password.RequireNonAlphanumeric = false;
+//	options.Password.RequiredLength = 6;
+//	options.Password.RequiredUniqueChars = 0;
+
+//	// Lockout settings
+//	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+//	options.Lockout.MaxFailedAccessAttempts = 7;
+//	options.Lockout.AllowedForNewUsers = true;
+
+//	// User settings
+//	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+//	options.User.RequireUniqueEmail = true;
+//});
+//builder.Services.AddAuthentication()
+//	.AddGoogle(googleOptions =>
+//	{
+//		googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId")!;
+//		googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret")!;
+//	})
+//	.AddGitHub(githubOptions =>
+//	{
+//		githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId")!;
+//		githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret")!;
+//	})
+//	.AddMicrosoftAccount(microsoftOptions =>
+//	{
+//		microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId")!;
+//		microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret")!;
+//	})
+//	.AddTwitter(twitterOptions =>
+//	{
+//		twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId")!;
+//		twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret")!;
+//	});
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//	options.Cookie.HttpOnly = true;
+//	options.ExpireTimeSpan = TimeSpan.FromHours(24);
+
+//	options.LoginPath = "/Identity/Account/Login";
+//	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+//	options.SlidingExpiration = true;
+//});
+
+//// Authorization
+//builder.Services.AddAuthorization(options =>
+//{
+//	options.FallbackPolicy = new AuthorizationPolicyBuilder()
+//		.RequireAuthenticatedUser()
+//		.Build();
+//});
+//builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
 
 // Localization
 builder.Services.AddLocalization(options =>
@@ -234,6 +254,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers().RequireAuthorization("ApiScope");
 app.MapRazorPages();
 
 app.Run();

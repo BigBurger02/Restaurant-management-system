@@ -15,7 +15,7 @@ using Restaurant_management_system.Core.Services.Logger;
 
 namespace Restaurant_management_system.WebUI.Controllers;
 
-[Authorize]
+//[Authorize]
 public class TablesController : Controller
 {
 	private readonly ILogger<TablesController> _logger;
@@ -30,7 +30,7 @@ public class TablesController : Controller
 	}
 
 	[HttpGet]
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult Tables()
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
@@ -54,7 +54,7 @@ public class TablesController : Controller
 	}
 
 	[HttpGet]
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult EditTableAndOrder(int tableID)
 	{
 		string localizedTrue = _localizer["Yes"];
@@ -112,7 +112,7 @@ public class TablesController : Controller
 	}
 
 	[HttpPost]
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult EditTableAndOrder([Bind("ID,IsOccupiedBool,IsPaidBool,AmountOfGuests,Order")] TableDTO inputTable)
 	{
 		if (!ModelState.IsValid)
@@ -140,7 +140,7 @@ public class TablesController : Controller
 		return RedirectToAction("EditTableAndOrder", new { tableID = inputTable.ID });
 	}
 
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult ResetTable(int? tableID)
 	{
 		var table = _context.Table
@@ -170,7 +170,7 @@ public class TablesController : Controller
 	}
 
 	[HttpGet]
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult EditDishInOrder(int? dishID, int tableID)
 	{
 		var dish = _context.DishInOrder
@@ -217,7 +217,7 @@ public class TablesController : Controller
 	}
 
 	[HttpPost]
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult EditDishInOrder([Bind("ID,IsTakenAwayBool,IsPrioritizedBool")] DishInOrderDTO inputDish, int tableID, int DishInMenuID)
 	{
 		var dishEntity = _context.DishInOrder
@@ -234,7 +234,7 @@ public class TablesController : Controller
 		return RedirectToAction("EditTableAndOrder", new { tableID = tableID });
 	}
 
-	[Authorize(Roles = "Admin, Waiter")]
+	//[Authorize(Roles = "Admin, Waiter")]
 	public IActionResult AddDishInOrder(int orderID, int tableID)
 	{
 		var newdish = new DishInOrderEntity() { OrderID = orderID };
