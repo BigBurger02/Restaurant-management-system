@@ -16,29 +16,16 @@ public class HomeController : Controller
 		_logger = logger;
 	}
 
-	[Authorize(Roles = "Admin")]
+	[AllowAnonymous]
 	public IActionResult Index()
 	{
 		ViewData["roles"] = User.IsInRole("Admin").ToString() + User.IsInRole("Waiter").ToString();
 		return View();
 	}
-	[AllowAnonymous]
+	[Authorize(Roles = "Admin")]
 	public IActionResult Privacy()
 	{
 		return View();
-	}
-
-	public async Task<IActionResult> UserInfo()
-	{
-		var localAddresses = new string[] { "127.0.0.1", "::1", HttpContext.Connection.LocalIpAddress.ToString() };
-		if (!localAddresses.Contains(HttpContext.Connection.RemoteIpAddress.ToString()))
-		{
-			return NotFound();
-		}
-
-		var userInfo = new UserInfo(await HttpContext.AuthenticateAsync());
-
-		return View(userInfo);
 	}
 
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -17,7 +17,7 @@ internal static class HostingExtensions
 		builder.Services.AddRazorPages();
 
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+			options.UseSqlite(builder.Configuration.GetConnectionString("AuthConnectionString")));
 
 		builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>()
@@ -54,7 +54,7 @@ internal static class HostingExtensions
 			})
 			.AddInMemoryIdentityResources(Config.IdentityResources)
 			.AddInMemoryApiScopes(Config.ApiScopes)
-			.AddInMemoryClients(Config.GetClients(builder.Configuration.GetSection("ClientSecrets")))
+			.AddInMemoryClients(Config.GetClients(builder.Configuration.GetSection("clientSecrets")))
 			.AddAspNetIdentity<ApplicationUser>();
 
 		builder.Services.AddAuthentication()

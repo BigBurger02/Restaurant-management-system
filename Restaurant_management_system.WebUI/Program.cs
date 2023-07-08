@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Logging;
 
 using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
@@ -48,6 +49,7 @@ builder.Logging.AddApplicationInsights(
 		config.ConnectionString = builder.Configuration.GetConnectionString("AppInsights") ?? throw new InvalidOperationException("Connection string 'AppInsights' not found."),
 	configureApplicationInsightsLoggerOptions: (options) => { }
 );
+IdentityModelEventSource.ShowPII = true;
 
 // Azure key vault config
 string kvURL = builder.Configuration.GetValue<string>("keyVaultConfig:KVUrl")!;
@@ -64,9 +66,7 @@ builder.Services.AddControllersWithViews();
 // DB
 if (builder.Environment.IsDevelopment())
 	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-//string? AuthConnectionString = builder.Configuration.GetConnectionString("AuthContext") ?? throw new InvalidOperationException("Connection string 'AuthContext' not found.");
 string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
-//builder.Services.AddDbContext(AuthConnectionString!);
 builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
 
@@ -74,7 +74,7 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
 
-// API
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -94,8 +94,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication("Bearer")
 	.AddJwtBearer("Bearer", options =>
 	{
-		options.Authority = "https://" + builder.Configuration.GetValue<string>("Authority");
-
+		options.Authority = "https://" + builder.Configuration.GetValue<string>("Authority:IdentityServer:Uri"); // https://localhost:9003
 		options.TokenValidationParameters = new TokenValidationParameters
 		{
 			ValidateAudience = false
@@ -225,10 +224,7 @@ else
 //using (var scope = app.Services.CreateScope())
 //{
 //    var services = scope.ServiceProvider;
-//    var authContext = services.GetRequiredService<ApplicationDbContext>();
 //    var dataContext = services.GetRequiredService<RestaurantContext>();
-//    authContext.Database.Migrate();
-//    await AuthDbInitializer.Initialize(services, builder.Configuration.GetValue<string>("TestUserPassword")!);
 //    DbInitializer.Initialize(dataContext);
 //}
 

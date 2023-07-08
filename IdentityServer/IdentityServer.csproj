@@ -7,21 +7,24 @@
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(RunConfiguration)' == 'SelfHost' " />
 	<ItemGroup>
-		<PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.2" />
+		<PackageReference Include="Azure.Identity" Version="1.9.0" />
+		<PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.3.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.8" />
 		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8"><IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-<PrivateAssets>all</PrivateAssets>
-</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Services\" />
+		<None Remove="Services\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Services\" />
+		<Folder Include="Services\" />
 	</ItemGroup>
 </Project>

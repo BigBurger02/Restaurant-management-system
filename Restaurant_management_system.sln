@@ -5,11 +5,6 @@ VisualStudioVersion = 25.0.1705.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant_management_system.WebUI", "Restaurant_management_system.WebUI\Restaurant_management_system.WebUI.csproj", "{14AE1201-737C-4785-A198-79F95979DB3B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11E71208-7EB6-43C3-9D49-6E4CA01115B0}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant_management_system.Core", "Restaurant_management_system.Core\Restaurant_management_system.Core.csproj", "{C742A302-C354-489B-8D63-6F65B3FC1B91}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant_management_system.Infrastructure", "Restaurant_management_system.Infrastructure\Restaurant_management_system.Infrastructure.csproj", "{DE87A55B-2AFA-4254-8BB9-0E94485B2380}"

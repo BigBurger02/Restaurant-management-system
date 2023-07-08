@@ -13,7 +13,7 @@ using Restaurant_management_system.Core.Services.Logger;
 
 namespace Restaurant_management_system.WebUI.Api;
 
-//[AllowAnonymous]
+[Authorize]
 [Route("api/[controller]")]
 [SwaggerControllerOrder(3)]
 public class CartController : Controller
