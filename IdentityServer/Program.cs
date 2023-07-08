@@ -32,13 +32,13 @@ try
 		.ConfigureServices()
 		.ConfigurePipeline();
 
-	if (args.Contains("/seed"))
-	{
-		Log.Information("Seeding database...");
-		SeedData.EnsureSeedData(app, "12345");
-		Log.Information("Done seeding database. Exiting.");
-		return;
-	}
+	//if (args.Contains("/seed"))
+	//{
+	Log.Information("Seeding database...");
+	SeedData.EnsureSeedData(app, "12345");
+	Log.Information("Done seeding database. Exiting.");
+	//return;
+	//}
 
 	app.Run();
 }
