@@ -11,11 +11,6 @@ public class UserInfo
 	{
 		AuthenticateResult = result;
 
-		foreach (var item in AuthenticateResult.Principal.Claims)
-		{
-			Claims += item.Type + "-" + item.Value + "<->";
-		}
-
 		if (result.Properties.Items.ContainsKey("client_list"))
 		{
 			var encoded = result.Properties.Items["client_list"];
@@ -28,7 +23,5 @@ public class UserInfo
 
 	public AuthenticateResult AuthenticateResult { get; }
 	public IEnumerable<string> Clients { get; } = new List<string>();
-
-	public string Claims { get; } = string.Empty;
 }
 

@@ -31,7 +31,7 @@
                                 <label asp-for="Input.Password"></label>
                                 <input type="password" class="form-control" placeholder="Password" asp-for="Input.Password" autocomplete="off">
                             </div>
-                            
+
                             @if (Model.View.AllowRememberLogin)
                             {
                                 <div class="form-group">
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             }
-                            
+
                             <button class="btn btn-primary" name="Input.Button" value="login">Login</button>
                             <button class="btn btn-secondary" name="Input.Button" value="cancel">Cancel</button>
                         </form>
@@ -52,38 +52,41 @@
             </div>
         }
 
-        @if (Model.View.VisibleExternalProviders.Any())
-        {
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>External Account</h2>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-inline">
-                            @foreach (var provider in Model.View.VisibleExternalProviders)
-                            {
-                                <li class="list-inline-item">
-                                    <a class="btn btn-secondary"
-                                       asp-page="/ExternalLogin/Challenge"
-                                       asp-route-scheme="@provider.AuthenticationScheme"
-                                       asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                        @provider.DisplayName
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>External Account</h2>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-google btn-user btn-block"
+                       asp-page="/ExternalLogin/Challenge"
+                       asp-route-scheme="Google"
+                       asp-route-returnUrl="@Model.Input.ReturnUrl">
+                        Google
+                    </a>
+                    <a class="btn btn-microsoft btn-user btn-block"
+                       asp-page="/ExternalLogin/Challenge"
+                       asp-route-scheme="Microsoft"
+                       asp-route-returnUrl="@Model.Input.ReturnUrl">
+                        <i class="fab fa-windows fa-fw"></i>
+                        Microsoft
+                    </a>
+                    <a class="btn btn-github btn-user btn-block"
+                       asp-page="/ExternalLogin/Challenge"
+                       asp-route-scheme="GitHub"
+                       asp-route-returnUrl="@Model.Input.ReturnUrl">
+                        <i class="fab fa-github fa-fw"></i>
+                        GitHub
+                    </a>
+                    <a class="btn btn-twitter btn-user btn-block"
+                       asp-page="/ExternalLogin/Challenge"
+                       asp-route-scheme="Twitter"
+                       asp-route-returnUrl="@Model.Input.ReturnUrl">
+                        <i class="fab fa-twitter fa-fw"></i>
+                        Twitter
+                    </a>
                 </div>
             </div>
-        }
-
-        @if (!Model.View.EnableLocalLogin && !Model.View.VisibleExternalProviders.Any())
-        {
-            <div class="alert alert-warning">
-                <strong>Invalid login request</strong>
-                There are no login schemes configured for this request.
-            </div>
-        }
+        </div>
     </div>
 </div>

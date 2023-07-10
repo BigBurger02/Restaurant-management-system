@@ -11,7 +11,7 @@ using Restaurant_management_system.Core.Services.Logger;
 
 namespace Restaurant_management_system.Infrastructure;
 
-public class SmtpEmailSender : IEmailSender
+public class SmtpEmailSender : IMyEmailSender
 {
 	private readonly ILogger<SmtpEmailSender> _logger;
 	private readonly MailSettings _settings;

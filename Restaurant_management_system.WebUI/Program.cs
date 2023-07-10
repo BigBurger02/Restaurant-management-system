@@ -1,11 +1,6 @@
 using System.Globalization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
@@ -24,7 +19,6 @@ using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Core.Services;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
-using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,18 +55,17 @@ builder.Configuration.AddAzureKeyVault(
 	new ClientSecretCredential(tenantID, clientID, clientSecret),
 	new AzureKeyVaultConfigurationOptions());
 
-builder.Services.AddControllersWithViews();
-
 // DB
-if (builder.Environment.IsDevelopment())
-	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//if (builder.Environment.IsDevelopment())
+//	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
 
 // Mail
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
-builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMyEmailSender, SmtpEmailSender>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -108,73 +101,6 @@ builder.Services.AddAuthorization(options =>
 	})
 );
 
-//// Authentication
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//	.AddRoles<IdentityRole>()
-//	.AddEntityFrameworkStores<ApplicationDbContext>();
-//builder.Services.Configure<IdentityOptions>(options =>
-//{
-//	// Password settings
-//	options.Password.RequireDigit = true;
-//	options.Password.RequireUppercase = false;
-//	options.Password.RequireLowercase = false;
-//	options.Password.RequireNonAlphanumeric = false;
-//	options.Password.RequiredLength = 6;
-//	options.Password.RequiredUniqueChars = 0;
-
-//	// Lockout settings
-//	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-//	options.Lockout.MaxFailedAccessAttempts = 7;
-//	options.Lockout.AllowedForNewUsers = true;
-
-//	// User settings
-//	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-//	options.User.RequireUniqueEmail = true;
-//});
-//builder.Services.AddAuthentication()
-//	.AddGoogle(googleOptions =>
-//	{
-//		googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId")!;
-//		googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret")!;
-//	})
-//	.AddGitHub(githubOptions =>
-//	{
-//		githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId")!;
-//		githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret")!;
-//	})
-//	.AddMicrosoftAccount(microsoftOptions =>
-//	{
-//		microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId")!;
-//		microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret")!;
-//	})
-//	.AddTwitter(twitterOptions =>
-//	{
-//		twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId")!;
-//		twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret")!;
-//	});
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//	options.Cookie.HttpOnly = true;
-//	options.ExpireTimeSpan = TimeSpan.FromHours(24);
-
-//	options.LoginPath = "/Identity/Account/Login";
-//	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-//	options.SlidingExpiration = true;
-//});
-
-//// Authorization
-//builder.Services.AddAuthorization(options =>
-//{
-//	options.FallbackPolicy = new AuthorizationPolicyBuilder()
-//		.RequireAuthenticatedUser()
-//		.Build();
-//});
-//builder.Services.AddSingleton<IAuthorizationHandler, AdministratorsAuthorizationHandler>();
-//builder.Services.AddSingleton<IAuthorizationHandler, WaitersAuthorizationHandler>();
-//builder.Services.AddSingleton<IAuthorizationHandler, CooksAuthorizationHandler>();
-//builder.Services.AddSingleton<IAuthorizationHandler, ChefAuthorizationHandler>();
-//builder.Services.AddSingleton<IAuthorizationHandler, GuestAuthorizationHandler>();
-
 // Localization
 builder.Services.AddLocalization(options =>
 	options.ResourcesPath = "Resources");
@@ -203,6 +129,8 @@ builder.Services.AddCors(options =>
 		.AllowAnyMethod()
 		.AllowAnyHeader());
 });
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

@@ -1,11 +1,12 @@
 using Duende.IdentityServer;
-using IdentityServer.Data;
-using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
+using Microsoft.IdentityModel.Logging;
+
+using IdentityServer.Data;
+using IdentityServer.Models;
 using IdentityServer.Services;
 
 namespace IdentityServer;
@@ -14,10 +15,14 @@ internal static class HostingExtensions
 {
 	public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
 	{
+		IdentityModelEventSource.ShowPII = true;
+
 		builder.Services.AddRazorPages();
 
+		builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+		string AuthConnectionString = builder.Configuration.GetConnectionString("AuthConnectionString") ?? throw new InvalidOperationException("Connection string 'AuthConnectionString' not found.");
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseSqlite(builder.Configuration.GetConnectionString("AuthConnectionString")));
+			options.UseSqlServer(AuthConnectionString));
 
 		builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>()
@@ -40,6 +45,13 @@ internal static class HostingExtensions
 
 			options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 			options.User.RequireUniqueEmail = true;
+
+			options.SignIn.RequireConfirmedEmail = true;
+		});
+
+		builder.Services.ConfigureApplicationCookie(options =>
+		{
+			options.AccessDeniedPath = "/Account/AccessDenied";
 		});
 
 		builder.Services
@@ -64,6 +76,31 @@ internal static class HostingExtensions
 
 				options.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
 				options.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+			})
+			.AddMicrosoftAccount(microsoftOptions =>
+			{
+				microsoftOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId")!;
+				microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret")!;
+			})
+			.AddGitHub(githubOptions =>
+			{
+				githubOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId")!;
+				githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret")!;
+
+				githubOptions.Scope.Add("user:email");
+			})
+			.AddTwitter(twitterOptions =>
+			{
+				twitterOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId")!;
+				twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret")!;
+
+				twitterOptions.RetrieveUserDetails = true;
 			});
 
 		return builder.Build();
@@ -73,10 +110,11 @@ internal static class HostingExtensions
 	{
 		app.UseSerilogRequestLogging();
 
-		if (app.Environment.IsDevelopment())
-		{
-			app.UseDeveloperExceptionPage();
-		}
+		//if (app.Environment.IsDevelopment())
+		//{
+		//	app.UseDeveloperExceptionPage();
+		//}
+		app.UseDeveloperExceptionPage();
 
 		app.UseStaticFiles();
 		app.UseRouting();
@@ -84,8 +122,7 @@ internal static class HostingExtensions
 		app.UseIdentityServer();
 		app.UseAuthorization();
 
-		app.MapRazorPages()
-			.RequireAuthorization();
+		app.MapRazorPages().RequireAuthorization();
 
 		return app;
 	}

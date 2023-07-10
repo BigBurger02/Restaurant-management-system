@@ -1,7 +1,9 @@
-﻿using IdentityServer;
-using Serilog;
+﻿using Serilog;
 using Azure.Identity;
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
+
+using IdentityServer;
+using IdentityServer.Data;
 
 Log.Logger = new LoggerConfiguration()
 	.WriteTo.Console()
