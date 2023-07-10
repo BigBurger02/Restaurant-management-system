@@ -41,7 +41,7 @@ public static class Config
 
 	public static IEnumerable<Client> GetClients(IConfigurationSection config)
 	{
-		Clients = new List<Client>
+		return Clients = new List<Client>
 		{
 			new Client
 			{
@@ -61,7 +61,5 @@ public static class Config
 				},
 			},
 		};
-
-		return Clients;
 	}
 }

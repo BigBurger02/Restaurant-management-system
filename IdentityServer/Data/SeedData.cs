@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace IdentityServer;
+namespace IdentityServer.Data;
 
 public class SeedData
 {

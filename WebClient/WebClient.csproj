@@ -17,10 +17,12 @@
     <None Remove="Pages\" />
     <None Remove="Views\Menu\" />
     <None Remove="Views\aa\" />
+    <None Remove="Pages\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="Views\Menu\" />
     <Folder Include="Views\aa\" />
+    <Folder Include="Pages\Account\" />
   </ItemGroup>
 </Project>

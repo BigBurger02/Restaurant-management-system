@@ -1,17 +1,13 @@
 using Duende.IdentityServer;
-using IdentityServer.Data;
-using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
-using IdentityServer.Services;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.AspNetCore.Authentication.Twitter;
-using System.Security.Claims;
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
+
+using IdentityServer.Data;
+using IdentityServer.Models;
+using IdentityServer.Services;
 
 namespace IdentityServer;
 
@@ -51,6 +47,11 @@ internal static class HostingExtensions
 			options.User.RequireUniqueEmail = true;
 
 			options.SignIn.RequireConfirmedEmail = true;
+		});
+
+		builder.Services.ConfigureApplicationCookie(options =>
+		{
+			options.AccessDeniedPath = "/Account/AccessDenied";
 		});
 
 		builder.Services
@@ -121,8 +122,7 @@ internal static class HostingExtensions
 		app.UseIdentityServer();
 		app.UseAuthorization();
 
-		app.MapRazorPages()
-			.RequireAuthorization();
+		app.MapRazorPages().RequireAuthorization();
 
 		return app;
 	}

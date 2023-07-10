@@ -8,11 +8,12 @@ IdentityModelEventSource.ShowPII = true;
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-builder.Services.AddAuthentication(options =>
-{
-	options.DefaultScheme = "Cookies";
-	options.DefaultChallengeScheme = "oidc";
-})
+builder.Services
+	.AddAuthentication(options =>
+	{
+		options.DefaultScheme = "Cookies";
+		options.DefaultChallengeScheme = "oidc";
+	})
 	.AddCookie("Cookies")
 	.AddOpenIdConnect("oidc", options =>
 	{
@@ -38,6 +39,11 @@ builder.Services.AddAuthentication(options =>
 		options.GetClaimsFromUserInfoEndpoint = true;
 		options.SaveTokens = true;
 	});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.AccessDeniedPath = "/AccessDenied";
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

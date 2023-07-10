@@ -52,60 +52,6 @@
             </div>
         }
 
-        @*@if (Model.View.VisibleExternalProviders.Any())
-            {
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>External Account</h2>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-inline">
-                                @foreach (var provider in Model.View.VisibleExternalProviders)
-                                {
-                                    <li class="list-inline-item">
-                                        <a class="btn btn-secondary"
-                                           asp-page="/ExternalLogin/Challenge"
-                                           asp-route-scheme="@provider.AuthenticationScheme"
-                                           asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                            @provider.DisplayName
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            }*@
-
-        @*<section>
-                <h2>External Account</h2>
-                <hr />
-
-                <form id="external-account" asp-page="/ExternalLogin/Challenge" asp-route-returnUrl="@Model.Input.ReturnUrl" method="post" class="form-horizontal">
-                    <div>
-                        <p>
-                            <button type="submit" name="provider" value="Google" asp-route-scheme="Google" title="Log in using your Google account" class="btn btn-google btn-user btn-block">
-                                <i class="fab fa-google fa-fw"></i>
-                                Google
-                            </button>
-                            <button type="submit" name="provider" value="Microsoft" asp-route-scheme="Microsoft" title="Log in using your Microsoft account" class="btn btn-user btn-block" style="color: white; background-color: rgb(0, 124, 182)">
-                                <i class="fab fa-windows fa-fw"></i>
-                                Microsoft
-                            </button>
-                            <button type="submit" name="provider" value="Twitter" asp-route-scheme="GitHub" title="Log in using your Twitter account" class="btn btn-user btn-block" style="color: white; background-color: rgb(75, 170, 235)">
-                                <i class="fab fa-twitter fa-fw"></i>
-                                Twitter
-                            </button>
-                            <button type="submit" name="provider" value="GitHub" asp-route-scheme="Twitter" title="Log in using your GitHub account" class="btn btn-user btn-block" style="color: white; background-color: rgb(47, 59, 77)">
-                                <i class="fab fa-github fa-fw"></i>
-                                GitHub
-                            </button>
-                        </p>
-                    </div>
-                </form>
-            </section>*@
-
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
@@ -142,13 +88,5 @@
                 </div>
             </div>
         </div>
-
-        @*@if (!Model.View.EnableLocalLogin && !Model.View.VisibleExternalProviders.Any())
-            {
-                <div class="alert alert-warning">
-                    <strong>Invalid login request</strong>
-                    There are no login schemes configured for this request.
-                </div>
-            }*@
     </div>
 </div>

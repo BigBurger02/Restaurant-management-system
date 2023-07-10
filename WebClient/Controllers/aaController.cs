@@ -13,6 +13,18 @@ namespace WebClient.Controllers
 {
 	public class aaController : Controller
 	{
+		private readonly IConfigurationSection ConfigSection;
+		private readonly string ISUri; // IdentityServer Uri
+		private readonly string ApiUri; //Api Uri
+
+		public aaController(IConfiguration configRoot)
+		{
+			ConfigSection = configRoot.GetSection("ClientSecrets");
+			ISUri = "https://" + ConfigSection.GetValue<string>("IdentityServer:uri") + "/";
+			ApiUri = "https://" + ConfigSection.GetValue<string>("Api:uri") + "/";
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> checktokenfromclient()
 		{
 			var localAddresses = new string[] { "127.0.0.1", "::1", HttpContext.Connection.LocalIpAddress.ToString() };
@@ -33,8 +45,7 @@ namespace WebClient.Controllers
 			var client = new HttpClient();
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-			var content = await client.GetStringAsync("https://localhost:9002/api/menu");
-			//var content = await client.GetStringAsync("https://restaurant-management-system.azurewebsites.net/api/menu");
+			var content = await client.GetStringAsync(ApiUri + "api/menu");
 
 			var parsed = JsonDocument.Parse(content);
 			var formatted = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
@@ -51,8 +62,7 @@ namespace WebClient.Controllers
 			var client = new HttpClient();
 
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-			var content = await client.GetStringAsync("https://localhost:9002/identity");
-			//var content = await client.GetStringAsync("https://restaurant-management-system.azurewebsites.net/identity");
+			var content = await client.GetStringAsync(ApiUri + "identity");
 
 			var parsed = JsonDocument.Parse(content);
 			var formatted = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
@@ -68,8 +78,7 @@ namespace WebClient.Controllers
 			var client = new HttpClient();
 
 			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-			var content = await client.GetStringAsync("https://localhost:9002/api/mail");
-			//var content = await client.GetStringAsync("https://restaurant-management-system.azurewebsites.net/api/mail");
+			var content = await client.GetStringAsync(ApiUri + "api/mail");
 
 			return "sent";
 		}

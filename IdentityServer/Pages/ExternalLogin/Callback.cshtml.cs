@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Text.Json;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Docs.Samples;
+using System.Text.Encodings.Web;
 
 using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
 using Restaurant_management_system.Core.MailAggregate;
-using System.Text.Encodings.Web;
 
 namespace Restaurant_management_system.WebUI.Api;
 
@@ -25,9 +25,8 @@ public class MailController : Controller
 	}
 
 	/// <summary>
-	/// Send email to one receiver
+	/// Send confirmation email
 	/// </summary>
-	/// <returns></returns>
 	/// <remarks>
 	/// Sample request:
 	/// 
@@ -60,7 +59,7 @@ public class MailController : Controller
 		MailData data = new MailData(to, "Confirm email", body);
 		await _emailSender.SendAsync(data, CancellationToken.None);
 
-		_logger.LogInformation(9000, "Email sent");
+		_logger.LogInformation("Email sent");
 
 		return Ok("Email sent");
 	}
