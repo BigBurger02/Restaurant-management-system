@@ -23,15 +23,20 @@
 		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="7.0.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.8" />
+		<PackageReference Include="Duende.IdentityServer.EntityFramework" Version="6.3.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Remove="Services\" />
 		<None Remove="Pages\Roles\" />
 		<None Remove="Pages\Account\Signup\" />
+		<None Remove="Data\Migrations\" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Services\" />
 		<Folder Include="Pages\Roles\" />
 		<Folder Include="Pages\Account\Signup\" />
+		<Folder Include="Data\Migrations\" />
 	</ItemGroup>
 </Project>

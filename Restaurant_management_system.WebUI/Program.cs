@@ -1,11 +1,6 @@
 using System.Globalization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
@@ -24,7 +19,6 @@ using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Core.Services;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
-using Restaurant_management_system.Infrastructure.Data.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 

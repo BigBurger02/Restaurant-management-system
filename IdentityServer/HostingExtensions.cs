@@ -23,8 +23,10 @@ internal static class HostingExtensions
 
 		builder.Services.AddRazorPages();
 
+		builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+		string AuthConnectionString = builder.Configuration.GetConnectionString("AuthConnectionString") ?? throw new InvalidOperationException("Connection string 'AuthConnectionString' not found.");
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
-			options.UseSqlite(builder.Configuration.GetConnectionString("AuthConnectionString")));
+			options.UseSqlServer(AuthConnectionString));
 
 		builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>()
