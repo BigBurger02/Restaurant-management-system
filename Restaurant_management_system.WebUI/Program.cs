@@ -71,8 +71,8 @@ builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
 
 // Mail
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
-builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMyEmailSender, SmtpEmailSender>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();

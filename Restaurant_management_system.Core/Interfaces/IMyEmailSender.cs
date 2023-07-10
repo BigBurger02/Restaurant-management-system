@@ -2,8 +2,8 @@
 
 namespace Restaurant_management_system.Core.Interfaces;
 
-public interface IEmailSender
+public interface IMyEmailSender
 {
-    Task<bool> SendAsync(MailData mailData, CancellationToken ct);
+	Task<bool> SendAsync(MailData mailData, CancellationToken ct);
 }
 

@@ -7,6 +7,11 @@ using Serilog;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using IdentityServer.Services;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Authentication.Twitter;
+using System.Security.Claims;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServer;
 
@@ -14,6 +19,8 @@ internal static class HostingExtensions
 {
 	public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
 	{
+		IdentityModelEventSource.ShowPII = true;
+
 		builder.Services.AddRazorPages();
 
 		builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -40,6 +47,8 @@ internal static class HostingExtensions
 
 			options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 			options.User.RequireUniqueEmail = true;
+
+			options.SignIn.RequireConfirmedEmail = true;
 		});
 
 		builder.Services
@@ -64,6 +73,31 @@ internal static class HostingExtensions
 
 				options.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId");
 				options.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+			})
+			.AddMicrosoftAccount(microsoftOptions =>
+			{
+				microsoftOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				microsoftOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientId")!;
+				microsoftOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Microsoft:ClientSecret")!;
+			})
+			.AddGitHub(githubOptions =>
+			{
+				githubOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				githubOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Github:ClientId")!;
+				githubOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Github:ClientSecret")!;
+
+				githubOptions.Scope.Add("user:email");
+			})
+			.AddTwitter(twitterOptions =>
+			{
+				twitterOptions.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+				twitterOptions.ConsumerKey = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientId")!;
+				twitterOptions.ConsumerSecret = builder.Configuration.GetValue<string>("Authentication:Twitter:ClientSecret")!;
+
+				twitterOptions.RetrieveUserDetails = true;
 			});
 
 		return builder.Build();
@@ -73,10 +107,11 @@ internal static class HostingExtensions
 	{
 		app.UseSerilogRequestLogging();
 
-		if (app.Environment.IsDevelopment())
-		{
-			app.UseDeveloperExceptionPage();
-		}
+		//if (app.Environment.IsDevelopment())
+		//{
+		//	app.UseDeveloperExceptionPage();
+		//}
+		app.UseDeveloperExceptionPage();
 
 		app.UseStaticFiles();
 		app.UseRouting();
