@@ -8,7 +8,7 @@ namespace WebClient.Pages;
 [Authorize]
 public class SigninModel : PageModel
 {
-	public IActionResult OnGet(ClaimsPrincipal principal)
+	public IActionResult OnGet()
 	{
 		return RedirectToAction("Index", "Home");
 	}

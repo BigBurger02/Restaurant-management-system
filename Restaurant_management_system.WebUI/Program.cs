@@ -61,11 +61,10 @@ builder.Configuration.AddAzureKeyVault(
 	new ClientSecretCredential(tenantID, clientID, clientSecret),
 	new AzureKeyVaultConfigurationOptions());
 
-builder.Services.AddControllersWithViews();
-
 // DB
-if (builder.Environment.IsDevelopment())
-	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//if (builder.Environment.IsDevelopment())
+//	builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
@@ -203,6 +202,8 @@ builder.Services.AddCors(options =>
 		.AllowAnyMethod()
 		.AllowAnyHeader());
 });
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

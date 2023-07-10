@@ -19,7 +19,6 @@ public class HomeController : Controller
 	[AllowAnonymous]
 	public IActionResult Index()
 	{
-		ViewData["roles"] = User.IsInRole("Admin").ToString() + User.IsInRole("Waiter").ToString();
 		return View();
 	}
 	[Authorize(Roles = "Admin")]
