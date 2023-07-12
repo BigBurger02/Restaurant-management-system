@@ -10,6 +10,7 @@ using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
+using Restaurant_management_system.Core.Interfaces;
 
 namespace Restaurant_management_system.WebUI.Api;
 
@@ -19,10 +20,10 @@ namespace Restaurant_management_system.WebUI.Api;
 public class OrderController : Controller
 {
 	private readonly ILogger<OrderController> _logger;
-	private readonly RestaurantContext _context;
+	private readonly IRestaurantRepository _context;
 	private readonly IStringLocalizer<OrderController> _localizer;
 
-	public OrderController(ILogger<OrderController> logger, RestaurantContext context, IStringLocalizer<OrderController> localizer)
+	public OrderController(ILogger<OrderController> logger, IRestaurantRepository context, IStringLocalizer<OrderController> localizer)
 	{
 		_logger = logger;
 		_context = context;
@@ -52,18 +53,14 @@ public class OrderController : Controller
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
 
-		var table = _context.Table
-			.Find(tableID);
+		var table = _context.FindTableByID(tableID);
 		if (table == null)
 		{
 			_logger.LogInformation(LogEvents.NotFoundInDB, "Item {item} not found in Table table. User:{user} LogEvent:{logevent}", tableID, User.Identity!.Name, LogEvents.NotFoundInDB);
 			return NotFound($"Table {tableID} not found");
 		}
 
-		var newOrder = new OrderInTableEntity() { TableID = tableID, SelfOrdered = true };
-		_context.OrderInTable.Add(newOrder);
-		_context.SaveChanges();
-		_context.Entry(newOrder).GetDatabaseValues();
+		var newOrder = _context.CreateOrder(tableID);
 
 		if (newOrder.ID == 0)
 			return StatusCode(500, "Server error");
@@ -94,16 +91,8 @@ public class OrderController : Controller
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
 
-		var order = _context.OrderInTable
-			.Find(orderID);
-		if (order == null)
-		{
-			_logger.LogInformation(LogEvents.NotFoundInDB, "Item {item} not found in OrderInTable table. User:{user} LogEvent:{logevent}", orderID, User.Identity!.Name, LogEvents.NotFoundInDB);
-			return NotFound($"Order {orderID} not found");
-		}
-
-		order.Open = false;
-		_context.SaveChanges();
+		if (!_context.CloseOrderByID(orderID))
+			return BadRequest();
 
 		_logger.LogInformation(LogEvents.SetDataInDB, "Item {item} changed in OrderInTable table. User:{user} LogEvent:{logevent}", orderID, User.Identity!.Name, LogEvents.SetDataInDB);
 

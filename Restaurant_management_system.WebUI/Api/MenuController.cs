@@ -10,6 +10,7 @@ using Restaurant_management_system.Core.DishesAggregate;
 using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
+using Restaurant_management_system.Core.Interfaces;
 
 namespace Restaurant_management_system.WebUI.Api;
 
@@ -19,10 +20,10 @@ namespace Restaurant_management_system.WebUI.Api;
 public class MenuController : Controller
 {
 	private readonly ILogger<MenuController> _logger;
-	private readonly RestaurantContext _context;
+	private readonly IRestaurantRepository _context;
 	private readonly IStringLocalizer<MenuController> _localizer;
 
-	public MenuController(ILogger<MenuController> logger, RestaurantContext context, IStringLocalizer<MenuController> localizer)
+	public MenuController(ILogger<MenuController> logger, IRestaurantRepository context, IStringLocalizer<MenuController> localizer)
 	{
 		_logger = logger;
 		_context = context;
@@ -49,51 +50,10 @@ public class MenuController : Controller
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
 
-		var dishes = _context.DishInMenu
-			.AsNoTracking()
-			.Select(d => new DishItemDTO
-			{
-				ID = d.ID,
-				Name = d.Name,
-				Price = d.Price
-			})
-			.ToList();
-
-		if (dishes.Count == 0)
-			return NoContent();
-
-		// Ingredients:
-		foreach (var oneMenuEntity in dishes)
-		{
-			var ingredientsID = _context.IngredientForDishInMenu
-				.AsNoTracking()
-				.Where(i => i.DishInMenuID == oneMenuEntity.ID)
-				.ToList();
-
-			if (oneMenuEntity.Ingredients != null)
-				foreach (var oneMenuInredientsEntity in ingredientsID)
-				{
-					var ingredient = _context.Ingredient
-						.AsNoTracking()
-						.FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
-					if (ingredient == null)
-						continue;
-
-					oneMenuEntity.Ingredients.Add(ingredient.Name);
-				}
-		}
+		var dishes = _context.GetAllDishesFromMenu();
+		if (dishes == null)
+			return StatusCode(500, "Dish list is empty");
 
 		return Ok(dishes);
 	}
 }
-
-//// <remarks>
-//// Sample request:
-//// 
-////     GET api/menu
-////     {
-////       "firstName": "Mike",
-////       "lastName": "Andrew",
-////       "emailId": "Mike.Andrew@gmail.com"
-////     }
-//// </ remarks >

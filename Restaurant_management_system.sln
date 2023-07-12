@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{69BD6539-BC43-4096-A525-CBAF405AB9EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI.UnitTests", "Tests\WebUI.UnitTests\WebUI.UnitTests.csproj", "{FCB7143D-FA73-4C0D-847A-4B42B9C34BCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{69BD6539-BC43-4096-A525-CBAF405AB9EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69BD6539-BC43-4096-A525-CBAF405AB9EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69BD6539-BC43-4096-A525-CBAF405AB9EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCB7143D-FA73-4C0D-847A-4B42B9C34BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCB7143D-FA73-4C0D-847A-4B42B9C34BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCB7143D-FA73-4C0D-847A-4B42B9C34BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCB7143D-FA73-4C0D-847A-4B42B9C34BCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

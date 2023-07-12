@@ -19,6 +19,7 @@ using Restaurant_management_system.Core.Interfaces;
 using Restaurant_management_system.Core.Services;
 using Restaurant_management_system.Infrastructure;
 using Restaurant_management_system.Infrastructure.Data;
+using Microsoft.CodeAnalysis.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 string? DataConnectionString = builder.Configuration.GetConnectionString("DataConnectionString") ?? throw new InvalidOperationException("Connection string 'DataConnectionString' not found.");
 builder.Services.AddDbContext<RestaurantContext>(options =>
 	options.UseSqlServer(DataConnectionString));
+builder.Services.AddScoped<IRestaurantRepository, EFRestaurantRepository>();
 
 // Mail
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
@@ -69,18 +71,42 @@ builder.Services.AddTransient<IMyEmailSender, SmtpEmailSender>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
-	c.SwaggerDoc("v1", new OpenApiInfo
+	options.SwaggerDoc("v1", new OpenApiInfo
 	{
 		Title = "Restaurant Management System API",
 		Version = "v1",
 		Description = "An API to manage orders in restaurant"
 	});
-	c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+	options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 	// Sort controllers in /swagger/index.html
 	SwaggerControllerOrder<ControllerBase> swaggerControllerOrder = new SwaggerControllerOrder<ControllerBase>(Assembly.GetEntryAssembly()!);
-	c.OrderActionsBy((apiDesc) => $"{swaggerControllerOrder.SortKey(apiDesc.ActionDescriptor.RouteValues["controller"]!)}");
+	options.OrderActionsBy((apiDesc) => $"{swaggerControllerOrder.SortKey(apiDesc.ActionDescriptor.RouteValues["controller"]!)}");
+	// Auth
+	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	{
+		In = ParameterLocation.Header,
+		Description = "Please enter a valid token",
+		Name = "Authorization",
+		Type = SecuritySchemeType.Http,
+		BearerFormat = "JWT",
+		Scheme = "Bearer"
+	});
+	options.AddSecurityRequirement(new OpenApiSecurityRequirement
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference
+				{
+					Type=ReferenceType.SecurityScheme,
+					Id="Bearer"
+				}
+			},
+			new string[]{}
+		}
+	});
 });
 
 // Auth
