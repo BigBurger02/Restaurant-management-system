@@ -11,3 +11,4 @@ global using Moq;
 global using AutoFixture.AutoMoq;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Logging;
+global using FluentAssertions;

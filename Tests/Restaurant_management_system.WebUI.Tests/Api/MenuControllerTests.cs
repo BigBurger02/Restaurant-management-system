@@ -14,12 +14,11 @@ public class MenuControllerTests
 	{
 		// Arrange
 		var mockRepo = new Mock<IRestaurantRepository>();
+		var data = new DataGenerator();
+		data.GenerateBogusData();
 		mockRepo
 			.Setup(repo => repo.GetAllDishesFromMenu())
-			.Returns(
-				new Fixture()
-				.CreateMany<DishInMenuEntity>(11)
-				.ToList());
+			.Returns(data.DishesInMenu);
 
 		var controller = new MenuController(_mockLogger, mockRepo.Object);
 
@@ -27,12 +26,13 @@ public class MenuControllerTests
 		var result = controller.GetMenu();
 
 		// Assert
-		Assert.IsType<ObjectResult>(result);
-		Assert.NotNull(result.StatusCode);
-		Assert.Equal(200, result.StatusCode.Value);
-		var value = Assert.IsAssignableFrom<List<DishInMenuEntity>>(result.Value);
-		Assert.Equal(mockRepo.Object.GetAllDishesFromMenu().Count(), value.Count());
-		Assert.Equivalent(mockRepo.Object.GetAllDishesFromMenu(), value);
+		result.Should().BeOfType<ObjectResult>();
+		result.StatusCode.Should().NotBeNull();
+		result.StatusCode!.Value.Should().Be(200);
+		result.Value.Should().BeOfType<List<DishInMenuEntity>>().And.NotBeNull();
+		List<DishInMenuEntity> list = (List<DishInMenuEntity>)result.Value!;
+		list.Count().Should().Be(mockRepo.Object.GetAllDishesFromMenu().Count());
+		list.Should().BeEquivalentTo(mockRepo.Object.GetAllDishesFromMenu());
 	}
 
 	[Fact]
@@ -50,9 +50,9 @@ public class MenuControllerTests
 		var result = controller.GetMenu();
 
 		// Assert
-		Assert.IsType<ObjectResult>(result);
-		Assert.NotNull(result.StatusCode);
-		Assert.Equal(200, result.StatusCode.Value);
+		result.Should().BeOfType<ObjectResult>();
+		result.StatusCode.Should().NotBeNull();
+		result.StatusCode!.Value.Should().Be(200);
 	}
 
 	[Fact]
@@ -71,8 +71,8 @@ public class MenuControllerTests
 		var result = controller.GetMenu();
 
 		// Assert
-		Assert.IsType<ObjectResult>(result);
-		Assert.NotNull(result.StatusCode);
-		Assert.Equal(500, result.StatusCode.Value);
+		result.Should().BeOfType<ObjectResult>();
+		result.StatusCode.Should().NotBeNull();
+		result.StatusCode!.Value.Should().Be(500);
 	}
 }
