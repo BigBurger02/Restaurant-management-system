@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using Microsoft.Docs.Samples;
 
-using Restaurant_management_system.WebUI.ApiModels;
-using Restaurant_management_system.Infrastructure.Data;
-using Restaurant_management_system.Core.DishesAggregate;
-using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
+using Restaurant_management_system.Core.Interfaces;
 
 namespace Restaurant_management_system.WebUI.Api;
 
@@ -19,14 +13,12 @@ namespace Restaurant_management_system.WebUI.Api;
 public class MenuController : Controller
 {
 	private readonly ILogger<MenuController> _logger;
-	private readonly RestaurantContext _context;
-	private readonly IStringLocalizer<MenuController> _localizer;
+	private readonly IRestaurantRepository _context;
 
-	public MenuController(ILogger<MenuController> logger, RestaurantContext context, IStringLocalizer<MenuController> localizer)
+	public MenuController(ILogger<MenuController> logger, IRestaurantRepository context)
 	{
 		_logger = logger;
 		_context = context;
-		_localizer = localizer;
 	}
 
 	/// <summary>
@@ -39,61 +31,19 @@ public class MenuController : Controller
 	///     GET api/menu
 	/// </remarks>
 	/// <response code="200">Returns all menu items</response>
-	/// <response code="204">Menu is empty</response>
-	// GET: api/menu
+	/// <response code="500">Menu is empty</response>
 	[HttpGet]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[Produces("application/json")]
-	public ActionResult<List<DishItemDTO>> GetMenu()
+	public ObjectResult GetMenu()
 	{
-		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
+		_logger.LogInformation(LogEvents.VisitMethod, "MenuController/GetMenu visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
 
-		var dishes = _context.DishInMenu
-			.AsNoTracking()
-			.Select(d => new DishItemDTO
-			{
-				ID = d.ID,
-				Name = d.Name,
-				Price = d.Price
-			})
-			.ToList();
+		var dishes = _context.GetAllDishesFromMenu();
+		if (dishes == null)
+			return StatusCode(500, "Menu is empty");
 
-		if (dishes.Count == 0)
-			return NoContent();
-
-		// Ingredients:
-		foreach (var oneMenuEntity in dishes)
-		{
-			var ingredientsID = _context.IngredientForDishInMenu
-				.AsNoTracking()
-				.Where(i => i.DishInMenuID == oneMenuEntity.ID)
-				.ToList();
-
-			if (oneMenuEntity.Ingredients != null)
-				foreach (var oneMenuInredientsEntity in ingredientsID)
-				{
-					var ingredient = _context.Ingredient
-						.AsNoTracking()
-						.FirstOrDefault(i => i.ID == oneMenuInredientsEntity.IngredientID);
-					if (ingredient == null)
-						continue;
-
-					oneMenuEntity.Ingredients.Add(ingredient.Name);
-				}
-		}
-
-		return Ok(dishes);
+		return new ObjectResult(dishes) { StatusCode = 200 };
 	}
 }
-
-//// <remarks>
-//// Sample request:
-//// 
-////     GET api/menu
-////     {
-////       "firstName": "Mike",
-////       "lastName": "Andrew",
-////       "emailId": "Mike.Andrew@gmail.com"
-////     }
-//// </ remarks >

@@ -12,4 +12,10 @@ public class TestController : Controller
 	{
 		return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
 	}
+
+	[HttpOptions]
+	public IActionResult Options()
+	{
+		return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
+	}
 }
