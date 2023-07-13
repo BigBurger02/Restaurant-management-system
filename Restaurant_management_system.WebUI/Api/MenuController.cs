@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using Microsoft.Docs.Samples;
 
-using Restaurant_management_system.WebUI.ApiModels;
-using Restaurant_management_system.Infrastructure.Data;
-using Restaurant_management_system.Core.DishesAggregate;
-using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
 using Restaurant_management_system.Core.Interfaces;
@@ -21,13 +14,11 @@ public class MenuController : Controller
 {
 	private readonly ILogger<MenuController> _logger;
 	private readonly IRestaurantRepository _context;
-	private readonly IStringLocalizer<MenuController> _localizer;
 
-	public MenuController(ILogger<MenuController> logger, IRestaurantRepository context, IStringLocalizer<MenuController> localizer)
+	public MenuController(ILogger<MenuController> logger, IRestaurantRepository context)
 	{
 		_logger = logger;
 		_context = context;
-		_localizer = localizer;
 	}
 
 	/// <summary>
@@ -40,20 +31,19 @@ public class MenuController : Controller
 	///     GET api/menu
 	/// </remarks>
 	/// <response code="200">Returns all menu items</response>
-	/// <response code="204">Menu is empty</response>
-	// GET: api/menu
+	/// <response code="500">Menu is empty</response>
 	[HttpGet]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[Produces("application/json")]
-	public ActionResult<List<DishItemDTO>> GetMenu()
+	public ObjectResult GetMenu()
 	{
-		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
+		_logger.LogInformation(LogEvents.VisitMethod, "MenuController/GetMenu visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
 
 		var dishes = _context.GetAllDishesFromMenu();
 		if (dishes == null)
-			return StatusCode(500, "Dish list is empty");
+			return StatusCode(500, "Menu is empty");
 
-		return Ok(dishes);
+		return new ObjectResult(dishes) { StatusCode = 200 };
 	}
 }

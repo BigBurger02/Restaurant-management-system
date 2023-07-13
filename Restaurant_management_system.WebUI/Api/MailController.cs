@@ -36,12 +36,10 @@ public class MailController : Controller
 	/// <param name="userID"></param>
 	/// <param name="code"></param>
 	/// <response code="200">Email sent</response>
-	/// <response code="500">Server error</response>
-	[HttpGet]
+	[HttpPost]
 	[ProducesResponseType(200)]
-	[ProducesResponseType(500)]
 	[Produces("application/json")]
-	public async Task<IActionResult> SendEmail(string reciever, string userID, string code)
+	public async Task<IActionResult> SendConfirmEmail(string reciever, string userID, string code)
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
 

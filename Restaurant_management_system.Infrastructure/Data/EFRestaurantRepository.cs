@@ -17,11 +17,19 @@ public class EFRestaurantRepository : IRestaurantRepository
 	}
 
 	#region Tables
+	public async Task<List<TableEntity>> TablesToListAsync()
+	{
+		var table = await _context.Table
+			.AsNoTracking()
+			.ToListAsync();
+		return table;
+	}
+
 	public TableEntity FindTableByID(int tableID)
 	{
 		var table = _context.Table
 			.Find(tableID);
-		return table;
+		return table!;
 	}
 	#endregion
 
@@ -30,7 +38,7 @@ public class EFRestaurantRepository : IRestaurantRepository
 	{
 		var order = _context.OrderInTable
 			.Find(orderID);
-		return order;
+		return order!;
 	}
 
 	public OrderInTableEntity CreateOrder(int tableID)
@@ -69,7 +77,7 @@ public class EFRestaurantRepository : IRestaurantRepository
 			.ToList();
 
 		if (!dishes.Any())
-			return null;
+			return null!;
 
 		// Ingredients:
 		foreach (var oneMenuEntity in dishes)
@@ -108,33 +116,41 @@ public class EFRestaurantRepository : IRestaurantRepository
 			.ToList();
 
 		if (!dishes.Any())
-			return null;
+			return null!;
 
 		return dishes;
+	}
+
+	public DishInMenuEntity FindDishInMenuById(int dishId)
+	{
+		var dish = _context.DishInMenu
+			.Find(dishId);
+		return dish!;
 	}
 	#endregion
 
 	#region Dishes In Order
-	public DishInOrderEntity FindDishInOrderByID(int dishID)
+	public DishInOrderEntity FindDishInOrderByIdInMenu(int orderID, int dishIdInMenu)
 	{
 		var dish = _context.DishInOrder
-			.Find(dishID);
+			.Where(d => d.OrderID == orderID && d.DishID == dishIdInMenu)
+			.FirstOrDefault();
 
-		return dish;
+		return dish!;
 	}
 
-	public DishInOrderEntity CreateDishInOrder(int orderID, int dishID)
+	public DishInOrderEntity CreateDishInOrder(int orderID, int dishIdInMenu)
 	{
-		var newDish = new DishInOrderEntity() { OrderID = orderID, DishID = dishID };
+		var newDish = new DishInOrderEntity() { OrderID = orderID, DishID = dishIdInMenu };
 		_context.DishInOrder.Add(newDish);
 		_context.SaveChanges();
 
 		return newDish;
 	}
 
-	public bool RemoveDishFromOrderByID(int dishID)
+	public bool RemoveDishFromOrderByID(int orderID, int dishIdInMenu)
 	{
-		var dish = FindDishInOrderByID(dishID);
+		var dish = FindDishInOrderByIdInMenu(orderID, dishIdInMenu);
 		if (dish == null)
 		{
 			return false;

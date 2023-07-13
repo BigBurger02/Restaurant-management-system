@@ -21,15 +21,20 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="AutoFixture" Version="4.18.0" />
-    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="AutoFixture.Xunit" Version="4.18.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\IdentityServer\IdentityServer.csproj" />
     <ProjectReference Include="..\..\Restaurant_management_system.Core\Restaurant_management_system.Core.csproj" />
     <ProjectReference Include="..\..\Restaurant_management_system.Infrastructure\Restaurant_management_system.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Restaurant_management_system.WebUI\Restaurant_management_system.WebUI.csproj" />
-    <ProjectReference Include="..\..\WebClient\WebClient.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Api\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\" />
   </ItemGroup>
 </Project>

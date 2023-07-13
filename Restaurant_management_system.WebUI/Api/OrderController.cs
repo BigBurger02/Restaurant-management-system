@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using Microsoft.Docs.Samples;
 
-using Restaurant_management_system.WebUI.ApiModels;
-using Restaurant_management_system.Infrastructure.Data;
-using Restaurant_management_system.Core.DishesAggregate;
-using Restaurant_management_system.Core.TablesAggregate;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
 using Restaurant_management_system.Core.Interfaces;
@@ -21,13 +14,11 @@ public class OrderController : Controller
 {
 	private readonly ILogger<OrderController> _logger;
 	private readonly IRestaurantRepository _context;
-	private readonly IStringLocalizer<OrderController> _localizer;
 
-	public OrderController(ILogger<OrderController> logger, IRestaurantRepository context, IStringLocalizer<OrderController> localizer)
+	public OrderController(ILogger<OrderController> logger, IRestaurantRepository context)
 	{
 		_logger = logger;
 		_context = context;
-		_localizer = localizer;
 	}
 
 	/// <summary>
@@ -37,26 +28,25 @@ public class OrderController : Controller
 	/// <remarks>
 	/// Sample request:
 	/// 
-	///     PUT api/order/5
+	///     POST api/order/5
 	/// </remarks>
 	/// <param name="tableID"></param>
 	/// <response code="404">Table not found</response>
 	/// <response code="201">Returns the orderID of created order. Order connected to given tableID</response>
 	/// <response code="500">Server error</response>
-	// PUT: api/order/5
-	[HttpPut("{tableID}")]
+	[HttpPost("{tableID}")]
 	[ProducesResponseType(404)]
 	[ProducesResponseType(201)]
 	[ProducesResponseType(500)]
 	[Produces("application/json")]
-	public ActionResult<int> CreateOrder(int tableID)
+	public ObjectResult CreateOrder(int tableID)
 	{
-		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
+		_logger.LogInformation(LogEvents.VisitMethod, "OrderController/CreateOrder visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
 
 		var table = _context.FindTableByID(tableID);
 		if (table == null)
 		{
-			_logger.LogInformation(LogEvents.NotFoundInDB, "Item {item} not found in Table table. User:{user} LogEvent:{logevent}", tableID, User.Identity!.Name, LogEvents.NotFoundInDB);
+			_logger.LogInformation(LogEvents.NotFoundInDB, "Item {item} not found in Table table. LogEvent:{logevent}", tableID, LogEvents.NotFoundInDB);
 			return NotFound($"Table {tableID} not found");
 		}
 
@@ -65,7 +55,7 @@ public class OrderController : Controller
 		if (newOrder.ID == 0)
 			return StatusCode(500, "Server error");
 
-		_logger.LogInformation(LogEvents.CreateInDB, "Item {item} created in OrderInTable table. User:{user} LogEvent:{logevent}", newOrder.ID, User.Identity!.Name, LogEvents.CreateInDB);
+		_logger.LogInformation(LogEvents.CreateInDB, "Item {item} created in OrderInTable table. LogEvent:{logevent}", newOrder.ID, LogEvents.CreateInDB);
 
 		return Created("", newOrder.ID);
 	}
@@ -81,20 +71,19 @@ public class OrderController : Controller
 	/// </remarks>
 	/// <param name="orderID"></param>
 	/// <response code="204">Order closed successfuly</response>
-	/// <response code="404">Order not found</response>
-	// PATCH: api/order/4
+	/// <response code="400">Error</response>
 	[HttpPatch("{orderID}")]
 	[ProducesResponseType(204)]
-	[ProducesResponseType(404)]
+	[ProducesResponseType(400)]
 	[Produces("application/json")]
 	public ActionResult CloseOrder(int orderID)
 	{
-		_logger.LogInformation(LogEvents.VisitMethod, "{route} visited at {time} by {user}. LogEvent:{logevent}", ControllerContext.ToCtxString(), DateTime.UtcNow.ToString(), User.Identity!.Name, LogEvents.VisitMethod);
+		_logger.LogInformation(LogEvents.VisitMethod, "OrderController/CloseOrder visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
 
 		if (!_context.CloseOrderByID(orderID))
 			return BadRequest();
 
-		_logger.LogInformation(LogEvents.SetDataInDB, "Item {item} changed in OrderInTable table. User:{user} LogEvent:{logevent}", orderID, User.Identity!.Name, LogEvents.SetDataInDB);
+		_logger.LogInformation(LogEvents.SetDataInDB, "Item {item} changed in OrderInTable table. LogEvent:{logevent}", orderID, LogEvents.SetDataInDB);
 
 		return NoContent();
 	}

@@ -8,14 +8,16 @@ public interface IRestaurantRepository
 {
 	List<DishInMenuEntity> GetAllDishesFromMenuWithIngredients();
 	List<DishInMenuEntity> GetAllDishesFromMenu();
+	DishInMenuEntity FindDishInMenuById(int dishId);
 
+	Task<List<TableEntity>> TablesToListAsync();
 	TableEntity FindTableByID(int tableID);
 
 	OrderInTableEntity FindOrderByID(int orderID);
 	OrderInTableEntity CreateOrder(int tableID);
 	bool CloseOrderByID(int orderID);
 
-	DishInOrderEntity FindDishInOrderByID(int dishID);
-	DishInOrderEntity CreateDishInOrder(int orderID, int dishID);
-	bool RemoveDishFromOrderByID(int dishID);
+	DishInOrderEntity FindDishInOrderByIdInMenu(int orderID, int dishIdInMenu);
+	DishInOrderEntity CreateDishInOrder(int orderID, int dishIdInMenu);
+	bool RemoveDishFromOrderByID(int orderID, int dishID);
 }
