@@ -1,0 +1,55 @@
+﻿@model List<MenuDTO>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer ViewLocalizer
+@{
+    ViewData["Title"] = ViewLocalizer["ViewName"];
+}
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <a asp-action="GetOrder" style="text-decoration: none;">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    @ViewLocalizer["Cart"]
+                    <div class="text-white-50 small">@ViewLocalizer["Order"] @ViewData["orderID"]</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-2 mb-4">
+        <a asp-action="ResetOrderIDCookie" style="text-decoration: none;">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body">
+                    @ViewLocalizer["Reset"]
+                    <div class="text-white-50 small">&nbsp;</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">@ViewLocalizer["Name"]</th>
+                <th scope="col">@ViewLocalizer["Price"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.name</th>
+                    <td>@item.price</td>
+                    <td>
+                        <a asp-action="AddToCart" asp-route-orderID="@ViewData["orderID"]" asp-route-dishID="@item.id" class="btn btn-success btn-circle btn-sm">
+                            <i class="fas fa-cart-arrow-down"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

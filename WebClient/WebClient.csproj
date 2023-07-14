@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.8" />
     <PackageReference Include="IdentityModel" Version="6.1.0" />
+    <PackageReference Include="Json.Net" Version="1.0.33" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\" />
@@ -23,6 +24,7 @@
     <None Remove="Resources\Views\Shared\" />
     <None Remove="Resources\Pages\" />
     <None Remove="Resources\Pages\Account\" />
+    <None Remove="Resources\Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -34,6 +36,7 @@
     <Folder Include="Resources\Views\Shared\" />
     <Folder Include="Resources\Pages\" />
     <Folder Include="Resources\Pages\Account\" />
+    <Folder Include="Resources\Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
@@ -79,6 +82,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AccessDenied.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Views\Shared\_Layout.en.Designer.cs">
@@ -107,6 +122,15 @@
     </Compile>
     <Compile Update="Resources\Pages\Account\AccessDenied.uk.Designer.cs">
       <DependentUpon>AccessDenied.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.en.Designer.cs">
+      <DependentUpon>GetAllMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.de.Designer.cs">
+      <DependentUpon>GetAllMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.uk.Designer.cs">
+      <DependentUpon>GetAllMenu.uk.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
