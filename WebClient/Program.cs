@@ -1,5 +1,9 @@
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +49,26 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.AccessDeniedPath = "/AccessDenied";
 });
 
+// Localization
+builder.Services.AddLocalization(options =>
+	options.ResourcesPath = "Resources");
+builder.Services.AddMvc()
+	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+	.AddDataAnnotationsLocalization();
+var supportedCultures = new[]
+{
+	new CultureInfo("en"),
+	new CultureInfo("de"),
+	new CultureInfo("uk")
+};
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	options.DefaultRequestCulture = new RequestCulture("uk");
+	options.SetDefaultCulture("uk");
+	options.SupportedCultures = supportedCultures;
+	options.SupportedUICultures = supportedCultures;
+});
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
@@ -63,6 +87,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
 app.MapControllerRoute(
 	name: "default",
