@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using WebClient.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 
 namespace WebClient.Controllers;
 
@@ -31,5 +32,16 @@ public class HomeController : Controller
 	public IActionResult Error()
 	{
 		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+	}
+
+	[AllowAnonymous]
+	public IActionResult SetCulture(string culture, string returnUrl)
+	{
+		Response.Cookies.Append(
+			CookieRequestCultureProvider.DefaultCookieName,
+			CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+			new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(30) }
+		);
+		return LocalRedirect(returnUrl);
 	}
 }

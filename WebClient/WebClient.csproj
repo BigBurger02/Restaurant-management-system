@@ -12,17 +12,125 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.8" />
     <PackageReference Include="IdentityModel" Version="6.1.0" />
+    <PackageReference Include="Json.Net" Version="1.0.33" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Pages\" />
     <None Remove="Views\Menu\" />
     <None Remove="Views\aa\" />
     <None Remove="Pages\Account\" />
+    <None Remove="Resources\" />
+    <None Remove="Resources\Views\" />
+    <None Remove="Resources\Views\Shared\" />
+    <None Remove="Resources\Pages\" />
+    <None Remove="Resources\Pages\Account\" />
+    <None Remove="Resources\Views\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="Views\Menu\" />
     <Folder Include="Views\aa\" />
     <Folder Include="Pages\Account\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Views\" />
+    <Folder Include="Resources\Views\Shared\" />
+    <Folder Include="Resources\Pages\" />
+    <Folder Include="Resources\Pages\Account\" />
+    <Folder Include="Resources\Views\Menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Shared\_Layout.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Layout.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_Layout.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Layout.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_Layout.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_Layout.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_LoginPartial.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\Account\AccessDenied.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccessDenied.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\Account\AccessDenied.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccessDenied.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\Account\AccessDenied.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccessDenied.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.de.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Menu\GetAllMenu.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GetAllMenu.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Views\Shared\_Layout.en.Designer.cs">
+      <DependentUpon>_Layout.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_Layout.uk.Designer.cs">
+      <DependentUpon>_Layout.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_Layout.de.Designer.cs">
+      <DependentUpon>_Layout.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.en.Designer.cs">
+      <DependentUpon>_LoginPartial.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.de.Designer.cs">
+      <DependentUpon>_LoginPartial.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_LoginPartial.uk.Designer.cs">
+      <DependentUpon>_LoginPartial.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages\Account\AccessDenied.en.Designer.cs">
+      <DependentUpon>AccessDenied.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages\Account\AccessDenied.de.Designer.cs">
+      <DependentUpon>AccessDenied.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages\Account\AccessDenied.uk.Designer.cs">
+      <DependentUpon>AccessDenied.uk.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.en.Designer.cs">
+      <DependentUpon>GetAllMenu.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.de.Designer.cs">
+      <DependentUpon>GetAllMenu.de.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Menu\GetAllMenu.uk.Designer.cs">
+      <DependentUpon>GetAllMenu.uk.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

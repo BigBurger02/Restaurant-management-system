@@ -7,7 +7,7 @@ using Restaurant_management_system.Core.Interfaces;
 
 namespace Restaurant_management_system.WebUI.Api;
 
-[Authorize]
+[AllowAnonymous]
 [Route("api/[controller]")]
 [SwaggerControllerOrder(1)]
 public class MenuController : Controller
