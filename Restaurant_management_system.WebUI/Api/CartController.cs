@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Restaurant_management_system.Core.Services.Attributes;
 using Restaurant_management_system.Core.Services.Logger;
 using Restaurant_management_system.Core.Interfaces;
+using Restaurant_management_system.WebUI.ViewModels;
 
 namespace Restaurant_management_system.WebUI.Api;
 
@@ -19,6 +20,39 @@ public class CartController : Controller
 	{
 		_logger = logger;
 		_context = context;
+	}
+
+	/// <summary>
+	/// Get all dishes from order
+	/// </summary>
+	/// <returns></returns>
+	/// <remarks>
+	/// Sample request:
+	/// 
+	///     GET api/Cart/4
+	/// </remarks>
+	/// <response code="200">Returns all cart items or returns nothing if order is empty</response>
+	/// <response code="404">Order not found</response>
+	[HttpGet("{orderID}")]
+	[ProducesResponseType(200)]
+	[ProducesResponseType(404)]
+	[Produces("application/json")]
+	public ObjectResult GetCart(int orderID)
+	{
+		_logger.LogInformation(LogEvents.VisitMethod, "CartController/GetCart visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
+
+		var order = _context.FindOrderByID(orderID);
+		if (order == null)
+		{
+			_logger.LogInformation(LogEvents.NotFoundInDB, "Item {item} not found in OrderInTable table. LogEvent:{logevent}", orderID, LogEvents.NotFoundInDB);
+			return NotFound($"Order {orderID} not found");
+		}
+
+		var cart = _context.GetAllDishesFromOrder(orderID);
+		if (cart == null)
+			return new ObjectResult(null) { StatusCode = 200 };
+
+		return new ObjectResult(cart) { StatusCode = 200 };
 	}
 
 	/// <summary>

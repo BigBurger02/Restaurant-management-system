@@ -14,6 +14,7 @@ public interface IRestaurantRepository
 	TableEntity FindTableByID(int tableID);
 
 	OrderInTableEntity FindOrderByID(int orderID);
+	List<DishesDTO> GetAllDishesFromOrder(int orderID);
 	OrderInTableEntity CreateOrder(int tableID);
 	bool CloseOrderByID(int orderID);
 

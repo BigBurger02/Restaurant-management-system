@@ -5,6 +5,7 @@ using Restaurant_management_system.Core.TablesAggregate;
 using Microsoft.EntityFrameworkCore;
 using MailKit.Search;
 
+
 namespace Restaurant_management_system.Infrastructure.Data;
 
 public class EFRestaurantRepository : IRestaurantRepository
@@ -137,6 +138,29 @@ public class EFRestaurantRepository : IRestaurantRepository
 			.FirstOrDefault();
 
 		return dish!;
+	}
+
+	public List<DishesDTO> GetAllDishesFromOrder(int orderID)
+	{
+		var dishes = _context.DishInOrder
+			.AsNoTracking()
+			.Where(o => o.OrderID == orderID)
+			.Select(p => new DishesDTO
+			{
+				ID = p.DishID,
+				Name = "name!",
+				Price = 123
+				//Name = _context.DishInMenu
+				//	.Find(p.DishID)!.Name,
+				//Price = _context.DishInMenu
+				//	.Find(p.DishID)!.Price
+			})
+			.ToList();
+
+		if (!dishes.Any())
+			return null!;
+
+		return dishes;
 	}
 
 	public DishInOrderEntity CreateDishInOrder(int orderID, int dishIdInMenu)

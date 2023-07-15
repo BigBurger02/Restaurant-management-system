@@ -39,7 +39,7 @@ public class MenuController : Controller
 				Name = item.Name,
 				Price = item.Price
 			})
-			.ToList();
+		.ToList();
 
 		// Ingredients:
 		foreach (var oneMenuEntity in menu)

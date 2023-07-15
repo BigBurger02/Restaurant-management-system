@@ -34,13 +34,13 @@ public class MenuController : Controller
 	/// <response code="500">Menu is empty</response>
 	[HttpGet]
 	[ProducesResponseType(200)]
-	[ProducesResponseType(204)]
+	[ProducesResponseType(500)]
 	[Produces("application/json")]
 	public ObjectResult GetMenu()
 	{
 		_logger.LogInformation(LogEvents.VisitMethod, "MenuController/GetMenu visited at {time}. LogEvent:{logevent}", DateTime.UtcNow.ToString(), LogEvents.VisitMethod);
 
-		var dishes = _context.GetAllDishesFromMenu();
+		var dishes = _context.GetAllDishesFromMenuWithIngredients();
 		if (dishes == null)
 			return StatusCode(500, "Menu is empty");
 
