@@ -34,15 +34,15 @@ public class DataGenerator
 		return new Faker<DishInMenuEntity>()
 			.RuleFor(v => v.ID, f => f.IndexFaker)
 			.RuleFor(v => v.Name, f => f.Lorem.Word())
-			.RuleFor(v => v.Price, f => int.Parse(f.Commerce.Price(decimals: 0)))
-			.RuleFor(v => v.Ingredients, c =>
-			{
-				var rand = new Random();
-				var ingredients = new List<IngredientEntity>();
-				var amount = Ingredients.Count() > 6 ? 6 : Ingredients.Count();
-				for (int i = 0; i < rand.Next(2, amount); i++)
-					ingredients.Add(c.PickRandom(Ingredients));
-				return ingredients;
-			});
+			.RuleFor(v => v.Price, f => int.Parse(f.Commerce.Price(decimals: 0)));
+		//.RuleFor(v => v.Ingredients, c =>
+		//{
+		//	var rand = new Random();
+		//	var ingredients = new List<IngredientEntity>();
+		//	var amount = Ingredients.Count() > 6 ? 6 : Ingredients.Count();
+		//	for (int i = 0; i < rand.Next(2, amount); i++)
+		//		ingredients.Add(c.PickRandom(Ingredients));
+		//	return ingredients;
+		//});
 	}
 }

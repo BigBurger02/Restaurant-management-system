@@ -27,4 +27,7 @@
 	<data name="Price" xml:space="preserve">
 		<value>Preis</value>
 	</data>
+	<data name="OrderStatus" xml:space="preserve">
+		<value>Bestellstatus</value>
+	</data>
 </root>

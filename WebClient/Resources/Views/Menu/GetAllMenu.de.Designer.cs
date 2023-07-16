@@ -85,6 +85,15 @@ namespace WebClient.Resources.Views.Menu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bestellstatus.
+        /// </summary>
+        internal static string OrderStatus {
+            get {
+                return ResourceManager.GetString("OrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preis.
         /// </summary>
         internal static string Price {

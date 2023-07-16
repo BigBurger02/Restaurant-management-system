@@ -67,6 +67,15 @@ namespace WebClient.Resources.Views.Menu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Irrevocably!.
+        /// </summary>
+        internal static string Irrevocably {
+            get {
+                return ResourceManager.GetString("Irrevocably", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
@@ -85,11 +94,29 @@ namespace WebClient.Resources.Views.Menu {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order Status.
+        /// </summary>
+        internal static string OrderStatus {
+            get {
+                return ResourceManager.GetString("OrderStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         internal static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         

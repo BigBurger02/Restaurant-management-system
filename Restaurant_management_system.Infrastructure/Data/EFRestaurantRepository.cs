@@ -5,6 +5,7 @@ using Restaurant_management_system.Core.TablesAggregate;
 using Microsoft.EntityFrameworkCore;
 using MailKit.Search;
 
+
 namespace Restaurant_management_system.Infrastructure.Data;
 
 public class EFRestaurantRepository : IRestaurantRepository
@@ -64,11 +65,11 @@ public class EFRestaurantRepository : IRestaurantRepository
 	#endregion
 
 	#region Dishes In Menu
-	public List<DishInMenuEntity> GetAllDishesFromMenuWithIngredients()
+	public List<DishWithIngredientsListDTO> GetAllDishesFromMenuWithIngredients()
 	{
 		var dishes = _context.DishInMenu
 			.AsNoTracking()
-			.Select(d => new DishInMenuEntity
+			.Select(d => new DishWithIngredientsListDTO
 			{
 				ID = d.ID,
 				Name = d.Name,
@@ -137,6 +138,47 @@ public class EFRestaurantRepository : IRestaurantRepository
 			.FirstOrDefault();
 
 		return dish!;
+	}
+
+	public List<DishesDTO> GetAllDishesFromOrder(int orderID)
+	{
+		//var dishes = _context.DishInOrder
+		//	.AsNoTracking()
+		//	.Where(o => o.OrderID == orderID)
+		//	.Select(p => new DishesDTO
+		//	{
+		//		ID = p.DishID,
+		//		Name = _context.DishInMenu
+		//			.Find(p.DishID)!.Name,
+		//		Price = _context.DishInMenu
+		//			.Find(p.DishID)!.Price
+		//	})
+		//	.ToList();
+		var dishes = _context.DishInOrder
+			.AsNoTracking()
+			.Where(o => o.OrderID == orderID)
+			.ToList();
+
+		if (!dishes.Any())
+			return null!;
+
+		var result = new List<DishesDTO>();
+		foreach (var item in dishes)
+		{
+			var dishInMenu = _context.DishInMenu
+					.Find(item.DishID);
+			if (dishInMenu == null)
+				continue;
+
+			result.Add(new DishesDTO()
+			{
+				ID = dishInMenu.ID,
+				Name = dishInMenu.Name,
+				Price = dishInMenu.Price
+			});
+		}
+
+		return result;
 	}
 
 	public DishInOrderEntity CreateDishInOrder(int orderID, int dishIdInMenu)
