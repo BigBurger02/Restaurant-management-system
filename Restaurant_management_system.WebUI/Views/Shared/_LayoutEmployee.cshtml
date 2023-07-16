@@ -47,29 +47,29 @@
             <hr class="sidebar-divider" />
 
             <!-- Nav Item - Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseMenu"
-                   aria-expanded="true" aria-controls="collapseMenu">
-                    <i class="fas fa-fw fa-pizza-slice"></i>
-                    <span>@ViewLocalizer["Menu"]</span>
-                </a>
-                <div id="collapseMenu" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" asp-controller="Customer" asp-action="Menu">@ViewLocalizer["Menu"]</a>
+            @*<li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseMenu"
+                       aria-expanded="true" aria-controls="collapseMenu">
+                        <i class="fas fa-fw fa-pizza-slice"></i>
+                        <span>@ViewLocalizer["Menu"]</span>
+                    </a>
+                    <div id="collapseMenu" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-controller="Customer" asp-action="Menu">@ViewLocalizer["Menu"]</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-            <hr class="sidebar-divider">
+                <hr class="sidebar-divider">*@
 
             <!-- Nav Item - Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="false" aria-controls="collapseTwo">
+                   aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-utensils"></i>
                     <span>@ViewLocalizer["Hall"]</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" asp-controller="Tables" asp-action="Tables">@ViewLocalizer["Tables"]</a>
                         <a class="collapse-item" asp-controller="Menu" asp-action="DishesInMenu">@ViewLocalizer["Menu"]</a>

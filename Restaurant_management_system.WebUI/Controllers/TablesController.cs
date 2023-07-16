@@ -141,6 +141,7 @@ public class TablesController : Controller
 	}
 
 	//[Authorize(Roles = "Admin, Waiter")]
+	[HttpGet]
 	public IActionResult ResetTable(int? tableID)
 	{
 		var table = _context.Table

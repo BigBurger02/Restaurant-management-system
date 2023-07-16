@@ -105,7 +105,43 @@ public class MenuController : Controller
 			return StatusCode(500, "Response from add to cart endopoint: 500");
 	}
 
+	public async Task<IActionResult> AddOneDish(int dishID)
+	{
+		var orderID = ReadOrderIDCookie();
+		if (orderID == 0)
+		{
+			orderID = await CreateOrder();
+			if (orderID == 0)
+				return StatusCode(500, "Error: after creating order orderID = 0");
+		}
 
+		var accessToken = await HttpContext.GetTokenAsync("access_token");
+		var client = new HttpClient();
+		client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+		var result = await client.PostAsync(ApiUri + "api/cart/" + orderID + "/" + dishID, null);
+		if (result.IsSuccessStatusCode)
+			return RedirectToAction("GetCart");
+		else
+			return StatusCode(500, "Response from add to cart endopoint: 500");
+	}
+
+	public async Task<IActionResult> RemoveOneDish(int dishID)
+	{
+		var orderID = ReadOrderIDCookie();
+		if (orderID == 0)
+		{
+			return StatusCode(500, "Error: order is empty");
+		}
+
+		var accessToken = await HttpContext.GetTokenAsync("access_token");
+		var client = new HttpClient();
+		client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+		var result = await client.DeleteAsync(ApiUri + "api/cart/" + orderID + "/" + dishID);
+		if (result.IsSuccessStatusCode)
+			return RedirectToAction("GetCart");
+		else
+			return StatusCode(500, "Response from remove from cart endopoint: 500");
+	}
 
 	private int ReadOrderIDCookie()
 	{

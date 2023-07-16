@@ -27,4 +27,13 @@
 	<data name="Price" xml:space="preserve">
 		<value>Price</value>
 	</data>
+	<data name="OrderStatus" xml:space="preserve">
+		<value>Order Status</value>
+	</data>
+	<data name="Reset" xml:space="preserve">
+		<value>Reset</value>
+	</data>
+	<data name="Irrevocably" xml:space="preserve">
+		<value>Irrevocably!</value>
+	</data>
 </root>

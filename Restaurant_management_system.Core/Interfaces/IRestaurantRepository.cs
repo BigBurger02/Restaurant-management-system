@@ -6,7 +6,7 @@ namespace Restaurant_management_system.Core.Interfaces;
 
 public interface IRestaurantRepository
 {
-	List<DishInMenuEntity> GetAllDishesFromMenuWithIngredients();
+	List<DishWithIngredientsListDTO> GetAllDishesFromMenuWithIngredients();
 	List<DishInMenuEntity> GetAllDishesFromMenu();
 	DishInMenuEntity FindDishInMenuById(int dishId);
 

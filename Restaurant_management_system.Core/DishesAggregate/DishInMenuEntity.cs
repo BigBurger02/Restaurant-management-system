@@ -8,12 +8,9 @@ public class DishInMenuEntity
 	public string Name { get; set; }
 	public int Price { get; set; }
 
-	public List<IngredientEntity> Ingredients { get; set; }
-
 	public DishInMenuEntity()
 	{
 		Name = string.Empty;
 		Price = 0;
-		Ingredients = new List<IngredientEntity>();
 	}
 }
