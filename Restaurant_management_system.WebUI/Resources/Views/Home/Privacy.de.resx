@@ -15,16 +15,4 @@
 	<data name="PrivacyPolicy" xml:space="preserve">
 		<value>Datenschutz-Bestimmungen</value>
 	</data>
-	<data name="PetProject" xml:space="preserve">
-		<value>Es ist mein Lieblingsprojekt.</value>
-	</data>
-	<data name="NotCommercial" xml:space="preserve">
-		<value>Ich werde es nicht für kommerzielle Zwecke nutzen.</value>
-	</data>
-	<data name="BootStrap" xml:space="preserve">
-		<value>Ich habe Bootstrap verwendet.</value>
-	</data>
-	<data name="FontAwesome" xml:space="preserve">
-		<value>Ich habe kostenlose Font Awesome-Symbole verwendet.</value>
-	</data>
 </root>

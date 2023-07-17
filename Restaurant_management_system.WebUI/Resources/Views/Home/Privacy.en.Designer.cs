@@ -58,42 +58,6 @@ namespace Restaurant_management_system.WebUI.Resources.Views.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I used Bootstrap..
-        /// </summary>
-        internal static string BootStrap {
-            get {
-                return ResourceManager.GetString("BootStrap", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I used Font Awesome free icons..
-        /// </summary>
-        internal static string FontAwesome {
-            get {
-                return ResourceManager.GetString("FontAwesome", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I will not use it for commercial purposes..
-        /// </summary>
-        internal static string NotCommercial {
-            get {
-                return ResourceManager.GetString("NotCommercial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to It is my pet project..
-        /// </summary>
-        internal static string PetProject {
-            get {
-                return ResourceManager.GetString("PetProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Privacy Policy.
         /// </summary>
         internal static string PrivacyPolicy {
