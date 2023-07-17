@@ -1,5 +1,59 @@
-# Restaurant-management-system
-This pet project will be a centralized management system of all processes in the restaurant. Users could have access levels (admin, chef, head chef, waiter, analyst, etc.). According to the access level user will have permission to see some information and edit this information. The idea of this system is that all users will interact with the same data but with different representations: the waiter adds order to a specific table, chef sees the only list of dishes he may cook.
+# Restaurant management system
+This is an application for a restaurant or a chain of restaurants (at the moment, the functionality allows you to use it only within one restaurant). It is designed to simplify the work of both the client and the restaurant staff. Employees can create orders and change their status. Visitors can also place an order by adding dishes to the cart.
+
+## Application struct
+The application consists of 3 parts:
+### Duende Identity Server (Proj: IdentityServer)
+The Identity Server takes care of all the user and client authentication work by issuing an AccessToken and an IdentityToken.
+The Client has a ClientID and a ClientSecret that it must provide to the IdentityServer and receive an AccessToken. With this token, he can access API endpoints.
+Users can also use Identity Server for authentication. The Identity Server has information about the user roles and, based on it, Client allows or does not allow the User to functionality.
+### API (Proj: Restaurant_management_system.WebUI)
+Initially, all the functionality of the WebUI Project was using controllers, but later I decided to use only the API. Now the API only provides endpoints for visitors that the Client project uses. Later I will transfer everything to the API, but for now, the functionality for restaurant staff is available in the API project without any authentication. The project has been wroten using Clean Architecture.
+### Client (Proj: WebClient)
+The project through which interaction with the system should take place (for visitors and staff).
+
+## Azure
+The projects Identity Server and Restaurant management system are deployed to Azure. The Client project running on localhost can access them.
+The application uses two databases. One for the Identity Server, which stores all user data. And one for storing dishes, orders, etc.
+Both databases have been deployed on Azure.
+
+## Implemented technologies and features:
+- Clean architecture (Core, Infrastructure, WebUI) for WebUI project
+- BD: Entity Configuration, DTOs, DataBase Normalization, Azure
+- Bootstrap layout
+- Auth
+    - Deunde IdentityServer
+    - OIDC, OAuth
+    - Use access_token to grant access to API
+    - SSO: Google, Microsoft, Github, Twitter
+    - Role-based authorization
+- Azure
+    - AzureSqlServer
+    - KeyVault
+    - Logs:
+        - Realtime Console Logger
+        - File logger
+        - Blob logger
+        - Application Insights logger
+    - CI/CD deploy in GitHub Actions
+- WebAPI: swagger, token authentication
+- Email sender (Brevo)
+- Validation
+- Localization (Ukrainian, English, Deutsch)
+- CORS Policy
+- Logger
+- Unit Tests: AutoFixture, Moq, Bogus, FluentAssertions
+- Custom cookies
+
+## Feature plan:
+- Hangfire
+- Polly
+- Cache
+- SignalR
+- Pay system
+- Ajax requests
+- Pagination, sorting (for menu and ingredients list)
+- The ability to use in a chain of restaurants
 
 ## DataBase struct:
 
@@ -34,58 +88,6 @@ This pet project will be a centralized management system of all processes in the
     - OrderCost
     - IsPaid (bool)
 
-## Pages list and filling:
-
-- Home
-- Tables
-    - There may be a list of tables with info:
-        - is occupied
-        - amount of guests
-        - order
-        - order cost
-        - is paid
-    - There may be a list of reservations:
-        - date, time
-        - amount of guests + amount of tables
-        - meeting reason (ordinary, birthday, corporate, wedding, party)
-- Dishes
-    - There may be a list of dishes the cook needs to cook:
-        - time of ordering
-        - priority
-        - assigned (if the user is the chef, he can see all dishes and assign them to other cooks)
-        - ingredients
-- Menu
-    - There may be a list of all dishes. It will be used for auto calculation of order cost. It also will help the waiter to suggest dishes to the guest
-- Supply of products
-    - If there is a deficit of any product in the storage, the chef can order it from the supplier
-    - The chef can change the normal amount of products in the storage
-- Analytics
-    - There may be all statistics about guests, their orders, cooking food details (time to cook, cook, etc.)
-- Cooks
-    - There may be a list of all cooks. The chef can assign a dish to cooks, so he should be able to change names or add another cook
-- About
-
-## Roles and page permissions:
-
-- Admin
-    - Tables
-    - Dishes
-    - Menu
-    - Supply of products
-    - Analytics (readonly)
-    - Cooks
-- Waiter
-    - Tables
-    - Menu
-    - Dishes (readonly)
-- Chef
-    - Dishes
-    - Menu
-    - Supply of products
-    - Cooks
-- Cook
-    - Dishes
-
 ## Use cases:
 
 - Serve a guest:
@@ -97,9 +99,12 @@ This pet project will be a centralized management system of all processes in the
 - Cook a dish:
     - Actor: Chef, cook
     - Flow 1: Cook can see a list of dishes he may cook. He can see the time of ordering and priority. When the dish is done, he can point to it as Cooked.
-- Manage dish list:
+- Manage dish list (not implemented):
     - Actor: Chef
     - Flow 1: The chef can assign a dish to any cook or himself.
 - Edit menu:
     - Actor: Chef
     - Flow 1: The chef can edit any dish, add or delete.
+- Make an order:
+    - Actor: Customer
+    - Flow 1: The customer choise dishes from menu, adding it to the cart. He can pay for the order from the application.
